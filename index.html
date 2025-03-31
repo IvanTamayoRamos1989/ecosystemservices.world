@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcosystemServices.world | Earth Control Interface</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="scanline"></div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>ECOSYSTEM<span class="highlight">SERVICES</span>.WORLD</h1>
+                <div class="subtitle">EARTH CONTROL INTERFACE v2.0</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">CONTROL ROOM</a></li>
+                    <li><a href="#">DATA FEEDS</a></li>
+                    <li><a href="#archive">ARCHIVE</a></li>
+                    <li><a href="#manifesto">MANIFESTO</a></li>
+                    <li><a href="#founder">FOUNDER</a></li>
+                </ul>
+            </nav>
+            <div class="system-status">
+                <div class="status-indicator online"></div>
+                <span>SYSTEM ONLINE</span>
+                <div class="timestamp" id="current-time">--:--:-- UTC</div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>EARTH SYSTEM <span class="highlight">MONITORING</span></h2>
+                    <p>Real-time visualization of planetary ecosystem services and environmental metrics</p>
+                    <div class="cta-buttons">
+                        <a href="#dashboard" class="button primary">ACCESS DASHBOARD</a>
+                        <a href="#navigation-index" class="button secondary">NAVIGATION INDEX</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="globe-container">
+                        <div class="globe-placeholder">
+                            <!-- 3D globe visualization would go here -->
+                            <div class="globe-overlay"></div>
+                            <div class="pulse-rings">
+                                <div class="ring"></div>
+                                <div class="ring"></div>
+                                <div class="ring"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Enhanced Dashboard Section - Will be populated by dashboard_integration.js -->
+            <section class="dashboard main-content" id="dashboard">
+                <div class="dashboard-header">
+                    <h3>GLOBAL ECOSYSTEM METRICS</h3>
+                    <div class="dashboard-controls">
+                        <button class="refresh-btn">REFRESH DATA</button>
+                        <div class="view-selector">
+                            <button class="active">GRID</button>
+                            <button>LIST</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <!-- Widgets will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <section class="news-feed">
+                <div class="section-header">
+                    <h3>LATEST ECOSYSTEM UPDATES</h3>
+                    <a href="#" class="view-all">VIEW ALL</a>
+                </div>
+                <div class="news-grid">
+                    <div class="news-item">
+                        <div class="news-date">MAR 31, 2025</div>
+                        <h4>New Study Shows Accelerated Polar Ice Melt</h4>
+                        <p>Research indicates Arctic ice cap shrinking 12% faster than previous models predicted</p>
+                        <a href="#" class="read-more">READ MORE</a>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">MAR 30, 2025</div>
+                        <h4>Global Carbon Market Reaches Record Trading Volume</h4>
+                        <p>Carbon credit transactions hit $15.8B in Q1 2025, signaling growing corporate climate action</p>
+                        <a href="#" class="read-more">READ MORE</a>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">MAR 28, 2025</div>
+                        <h4>Breakthrough in Coral Reef Restoration Technology</h4>
+                        <p>New bioengineered coral strains show 300% higher survival rate in warming oceans</p>
+                        <a href="#" class="read-more">READ MORE</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="archive-preview" id="archive">
+                <div class="section-header">
+                    <h3>PROJECT ARCHIVE</h3>
+                    <a href="#" class="view-all">EXPLORE ARCHIVE</a>
+                </div>
+                <div class="archive-timeline">
+                    <div class="timeline-marker current">
+                        <div class="date">MAR 31, 2025</div>
+                        <div class="event">Development Phase Begins</div>
+                    </div>
+                    <div class="timeline-marker">
+                        <div class="date">MAR 26, 2025</div>
+                        <div class="event">Conception Phase</div>
+                    </div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="archive-preview-content">
+                    <div class="session-card">
+                        <div class="session-header">
+                            <h4>Session #1: Conception</h4>
+                            <div class="session-meta">
+                                <span class="date">MAR 26, 2025</span>
+                                <span class="duration">47 MINUTES</span>
+                            </div>
+                        </div>
+                        <div class="session-excerpt">
+                            <p>"Imagine that it's written today. So it's something like counterculture, science-based, displayed in an artsy or high-design topic. I believe ecosystem services, AI, and sustainability is going to get into, let's say, pop culture..."</p>
+                        </div>
+                        <a href="#" class="view-session">VIEW FULL SESSION</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>ECOSYSTEM<span class="highlight">SERVICES</span>.WORLD</h2>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>EXPLORE</h4>
+                        <ul>
+                            <li><a href="#">Control Room</a></li>
+                            <li><a href="#">Data Feeds</a></li>
+                            <li><a href="#archive">Archive</a></li>
+                            <li><a href="#manifesto">Manifesto</a></li>
+                            <li><a href="#founder">Founder</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h4>ECOSYSTEM SERVICES</h4>
+                        <ul>
+                            <li><a href="#">Provisioning</a></li>
+                            <li><a href="#">Regulating</a></li>
+                            <li><a href="#">Cultural</a></li>
+                            <li><a href="#">Supporting</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h4>CONNECT</h4>
+                        <ul>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Social Media</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    © 2025 ECOSYSTEMSERVICES.WORLD | FOUNDED BY IVAN TAMAYO RAMOS | A HUMAN-AI COLLABORATION
+                </div>
+                <div class="system-info">
+                    <span>EARTH CONTROL INTERFACE v2.0</span>
+                    <span class="system-status">SYSTEM ONLINE</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toISOString().substr(11, 8) + ' UTC';
+            setTimeout(updateTime, 1000);
+        }
+        updateTime();
+
+        // Define global CSS variables for widgets
+        document.documentElement.style.setProperty('--primary-color', '#00ff9d');
+        document.documentElement.style.setProperty('--secondary-color', '#ff00a0');
+        document.documentElement.style.setProperty('--accent-color', '#ffcc00');
+        document.documentElement.style.setProperty('--text-color', '#e0e0e0');
+        document.documentElement.style.setProperty('--darker-bg', '#111');
+        document.documentElement.style.setProperty('--header-font', '"Orbitron", sans-serif');
+    </script>
+    
+    <!-- Load all widget scripts -->
+    <script src="dashboard_integration.js"></script>
+    <script src="economic_widget.js"></script>
+    <script src="climate_migration_widget.js"></script>
+    <script src="energy_mix_widget.js"></script>
+    <script src="species_extinction_widget.js"></script>
+    <script src="data_center_widget.js"></script>
+    <script src="material_flow_widget.js"></script>
+    
+    <!-- Load new feature scripts -->
+    <script src="navigation_index.js"></script>
+    <script src="doomsday_clock_widget.js"></script>
+    <script src="global_market_widget.js"></script>
+    <script src="manifesto_widget.js"></script>
+    <script src="founder_widget.js"></script>
+    <script src="widget_initializers.js"></script>
+    <script src="dashboard_update.js"></script>
+</body>
+</html>
