@@ -1,3 +1,5 @@
+import React from 'react';
+
 function QuantumDashboard() {
   return (
     <div className="p-8 text-white text-center">
