@@ -1,2 +1,0 @@
-# ecosystemservices.world
-ESW
