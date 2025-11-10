@@ -1,0 +1,107 @@
+main:
+  params: [input]
+  steps:
+    - init:
+        assign:
+          - default_companies:
+              - name: "TEST-AECOM"
+                url: "https://aecom.com/esg-strategy/"
+          - company_list: ${default(input.companies, default_companies)}
+          - all_results: []
+          - final_message: "Workflow started..."
+
+    # This step loops over the company list
+    - iterate_companies:
+        for:
+          value: company
+          in: ${company_list}
+          steps:
+            - call_scraper:
+                try:
+                  - http_post_scraper:
+                      call: http.post
+                      args:
+                        url: "https://agent-2-scraper-210318146861.us-central1.run.app"
+                        auth:
+                          type: OIDC
+                        body:
+                          name: ${company.name}
+                          url: ${company.url}
+                      result: scrape_response
+                  - set_scraped_text:
+                      assign:
+                        - scraped_text: ${scrape_response.body.scraped_text}
+                        - company_name: ${scrape_response.body.company_name}
+                except:
+                  as: e
+                  steps:
+                    - log_scrape_error:
+                        call: sys.log
+                        args:
+                          text: ${"Failed to scrape " + company.name + " " + default(e.message, "Unknown error")}
+                          severity: ERROR
+                        next: continue
+            
+            # This step calls the analyzer with the scraper's output
+            - call_analyzer:
+                try:
+                  - http_post_analyzer:
+                      call: http.post
+                      args:
+                        url: "https://agent-3-analyzer-210318146861.us-central1.run.app"
+                        auth:
+                          type: OIDC
+                        body:
+                          scraped_text: ${scraped_text}
+                      result: analyze_response
+                  - set_analysis_result:
+                      assign:
+                        - final_analysis: ${analyze_response.body.analysis}
+                except:
+                  as: e
+                  steps:
+                    - log_analyze_error:
+                        call: sys.log
+                        args:
+                          text: ${"Failed to analyze " + company_name + " " + default(e.message, "Unknown error")}
+                          severity: ERROR
+                        next: continue
+            
+            # This step gathers all the results for one company
+            - append_result:
+                assign:
+                  - current_result:
+                      company: ${company_name}
+                      source_url: ${company.url}
+                      analysis: ${final_analysis}
+                  - all_results: ${list.concat(all_results, [current_result])}
+
+    # After the loop finishes, call the saver agent
+    - call_saver:
+        try:
+          - http_post_saver:
+              call: http.post
+              args:
+                url: "https://agent-4-saver-210318146861.us-central1.run.app"
+                auth:
+                  type: OIDC
+                body: ${all_results}
+              result: save_response
+          - set_final_message:
+              assign:
+                - final_message: ${save_response.body.message}
+        except:
+          as: e
+          steps:
+            - log_save_error:
+                call: sys.log
+                args:
+                  text: ${"Failed to save final results: " + default(e.message, "Unknown error")}
+                  severity: ERROR
+            - set_error_message:
+                assign:
+                  - final_message: ${"Failed to save results: " + default(e.message, "Unknown error")}
+
+    # At the end, return the message from the saver
+    - final_step:
+        return: ${final_message}
