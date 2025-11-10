@@ -6,13 +6,10 @@ main:
           - default_companies:
               - name: "TEST-AECOM"
                 url: "https://aecom.com/esg-strategy/"
+          # FIX 1: default() needs to check a specific field, not the entire input object
           - company_list: ${default(input.companies, default_companies)}
           - all_results: []
-          - final_message: "Workflow started..."
-          # Initialize variables to avoid undefined references
-          - scraped_text: ""
-          - company_name: ""
-          - final_analysis: ""
+          - final_message: "Workflow started..." 
 
     # This step loops over the company list
     - iterate_companies:
@@ -20,6 +17,14 @@ main:
           value: company
           in: ${company_list}
           steps:
+            # Initialize all loop variables to null
+            - init_loop_vars:
+                assign:
+                  - scraped_text: null
+                  - company_name: null
+                  - final_analysis: null
+
+            # This step calls the scraper
             - call_scraper:
                 try:
                   - http_post_scraper:
@@ -39,49 +44,65 @@ main:
                 except:
                   as: e
                   steps:
+                    - assign_error_message:
+                        assign:
+                          - error_message: ${default(e.message, "Unknown error")}
+                          - safe_company_name: ${default(company.name, "Unknown company")}
                     - log_scrape_error:
                         call: sys.log
                         args:
-                          text: ${"Failed to scrape " + company.name + ": " + default(e.message, "Unknown error")}
+                          # FIX 2: Use string concatenation with +, not $'' syntax
+                          text: ${"Failed to scrape " + safe_company_name + ": " + error_message}
+                          # FIX 3: Remove quotes from severity
                           severity: ERROR
-                    # FIX 1 & 2: Remove 'next: end_of_loop' - just let the loop continue naturally
-                    # The loop will automatically continue to the next iteration
             
-            # This step calls the analyzer with the scraper's output
-            - call_analyzer:
-                try:
-                  - http_post_analyzer:
-                      call: http.post
-                      args:
-                        url: "https://agent-3-analyzer-210318146861.us-central1.run.app"
-                        auth:
-                          type: OIDC
-                        body:
-                          scraped_text: ${scraped_text}
-                      result: analyze_response
-                  - set_analysis_result:
-                      assign:
-                        - final_analysis: ${analyze_response.body.analysis}
-                except:
-                  as: e
-                  steps:
-                    - log_analyze_error:
-                        call: sys.log
-                        args:
-                          text: ${"Failed to analyze " + company_name + ": " + default(e.message, "Unknown error")}
-                          severity: ERROR
-                    # FIX 1 & 2: Remove 'next: end_of_loop'
-            
-            # This step gathers all the results for one company
-            - append_result:
-                assign:
-                  - current_result:
-                      company: ${company_name}
-                      source_url: ${company.url}
-                      analysis: ${final_analysis}
-                  - all_results: ${list.concat(all_results, [current_result])}
-            
-            # FIX 3: Removed empty 'end_of_loop' step - it's unnecessary
+            # Conditionally run the next steps
+            - check_scrape_success:
+                switch:
+                  - condition: ${scraped_text != null} # Only run if scraper succeeded
+                    steps:
+                      # This step calls the analyzer
+                      - call_analyzer:
+                          try:
+                            - http_post_analyzer:
+                                call: http.post
+                                args:
+                                  url: "https://agent-3-analyzer-210318146861.us-central1.run.app"
+                                  auth:
+                                    type: OIDC
+                                  body:
+                                    scraped_text: ${scraped_text}
+                                result: analyze_response
+                            - set_analysis_result:
+                                assign:
+                                  - final_analysis: ${analyze_response.body.analysis}
+                          except:
+                            as: e
+                            steps:
+                              - assign_analyze_error:
+                                  assign:
+                                    - error_message: ${default(e.message, "Unknown error")}
+                                    - safe_company_name: ${default(company_name, "Unknown company")}
+                              - log_analyze_error:
+                                  call: sys.log
+                                  args:
+                                    # FIX 2: Use string concatenation with +, not $'' syntax
+                                    text: ${"Failed to analyze " + safe_company_name + ": " + error_message}
+                                    # FIX 3: Remove quotes from severity
+                                    severity: ERROR
+                      
+                      # This step gathers all the results for one company
+                      - append_result:
+                          switch:
+                            - condition: ${final_analysis != null}
+                              steps:
+                                - do_append:
+                                    assign:
+                                      - current_result:
+                                          company: ${company_name}
+                                          source_url: ${company.url}
+                                          analysis: ${final_analysis}
+                                      - all_results: ${list.concat(all_results, [current_result])}
 
     # After the loop finishes, call the saver agent
     - call_saver:
@@ -89,9 +110,7 @@ main:
           - http_post_saver:
               call: http.post
               args:
-                # --- ⚠️ REMINDER ⚠️ ---
-                # You still need to paste your agent-4-saver URL here
-                url: "https://YOUR-AGENT-4-SAVER-URL.a.run.app"
+                url: "https://agent-4-saver-210318146861.us-central1.run.app"
                 auth:
                   type: OIDC
                 body: ${all_results}
@@ -102,14 +121,20 @@ main:
         except:
           as: e
           steps:
+            - assign_save_error:
+                assign:
+                  - error_message: ${default(e.message, "Unknown error")}
             - log_save_error:
                 call: sys.log
                 args:
-                  text: ${"Failed to save final results: " + default(e.message, "Unknown error")}
+                  # FIX 2: Use string concatenation with +, not $'' syntax
+                  text: ${"Failed to save final results: " + error_message}
+                  # FIX 3: Remove quotes from severity
                   severity: ERROR
-            - set_error_message:
+            - set_final_message:
                 assign:
-                  - final_message: ${"Failed to save results: " + default(e.message, "Unknown error")}
+                  # FIX 2: Use string concatenation with +, not $'' syntax
+                  - final_message: ${"Failed to save results: " + error_message}
 
     # At the end, return the message from the saver
     - final_step:
