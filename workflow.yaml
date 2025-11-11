@@ -44,7 +44,7 @@ main:
                         args:
                           text: "A scrape error occurred."
                           severity: ERROR
-            
+
             - process_scrape_result:
                 switch:
                   - condition: ${scrape_response != null}
@@ -53,7 +53,7 @@ main:
                           assign:
                             - scraped_text: ${default(map.get(scrape_response.body, "scraped_text"), null)}
                             - company_name: ${default(map.get(scrape_response.body, "company_name"), company.name)}
-            
+
             - check_and_call_analyzer:
                 switch:
                   - condition: ${scraped_text != null}
@@ -78,7 +78,7 @@ main:
                                   args:
                                     text: "An analysis error occurred."
                                     severity: ERROR
-                      
+
                       - process_analysis_result:
                           switch:
                             - condition: ${analyze_response != null}
@@ -86,7 +86,7 @@ main:
                                 - set_analysis_result:
                                     assign:
                                       - final_analysis: ${default(map.get(analyze_response.body, "analysis"), null)}
-                      
+
                       - append_result:
                           assign:
                             - current_result:
