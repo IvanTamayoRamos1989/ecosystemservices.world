@@ -6,9 +6,18 @@ main:
           - default_companies:
               - name: "TEST-Microsoft"
                 url: "https://www.microsoft.com/en-us/corporate-responsibility/esg"
-          - company_list: ${default(input.companies, default_companies)}
+          - company_list: ${default_companies}
           - all_results: []
           - final_message: "Workflow started..."
+          - save_response: null
+
+    - check_input:
+        switch:
+          - condition: ${input != null}
+            steps:
+              - set_company_list_from_input:
+                  assign:
+                    - company_list: ${input}
 
     - iterate_companies:
         for:
