@@ -92,13 +92,14 @@ function Services() {
     <section id="services" className="py-24 md:py-32 bg-white/[0.01]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-accent text-sm tracking-wider uppercase">What We Do</span>
+          <span className="text-accent text-sm tracking-wider uppercase">Capabilities</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
-            End-to-end ecosystem services consulting
+            Integrated advisory across the project lifecycle
           </h2>
           <p className="text-gray-400">
-            From ecological baseline to credit issuance, we integrate science,
-            design, finance, and law into every phase of your project.
+            From ecological baseline to credit issuance, our teams integrate
+            science, design, finance, and legal structuring into every phase
+            of the engagement.
           </p>
         </div>
 

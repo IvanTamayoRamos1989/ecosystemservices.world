@@ -42,7 +42,7 @@ function Navbar({ scrolled }) {
             href="#contact"
             className="text-sm px-5 py-2 border border-accent text-accent rounded hover:bg-accent hover:text-dark transition-all duration-200"
           >
-            Get in Touch
+            Contact
           </a>
         </div>
 
@@ -80,7 +80,7 @@ function Navbar({ scrolled }) {
             onClick={() => setMenuOpen(false)}
             className="block mt-2 text-sm text-center px-5 py-2 border border-accent text-accent rounded hover:bg-accent hover:text-dark transition-all"
           >
-            Get in Touch
+            Contact
           </a>
         </div>
       )}

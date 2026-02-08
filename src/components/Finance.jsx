@@ -31,16 +31,17 @@ function Finance() {
               Finance as a catalyst for regeneration
             </h2>
             <p className="text-gray-400 leading-relaxed mb-4">
-              Sustainable finance is the engine that turns regenerative strategies
-              into reality. We design financial instruments that align capital
-              flows with ecosystem restoration — creating bankable value for
-              investors, developers, and the natural world.
+              Capital mobilization is the mechanism that converts regenerative
+              strategy into executed outcomes. We design and structure financial
+              instruments that align investment flows with verified ecological
+              performance.
             </p>
             <p className="text-gray-400 leading-relaxed">
-              Our team bridges environmental science and capital markets,
-              structuring instruments under EU Taxonomy, ICMA principles, and
-              verified carbon/biodiversity standards. Every model is grounded
-              in ecological integrity and built for investor due diligence.
+              Our financial advisory practice operates at the intersection of
+              environmental science and capital markets — structuring instruments
+              under EU Taxonomy, ICMA principles, and internationally recognized
+              crediting standards. Every model is built for institutional due
+              diligence and regulatory scrutiny.
             </p>
           </div>
 

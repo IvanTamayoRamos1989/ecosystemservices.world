@@ -44,13 +44,14 @@ function Approach() {
     <section id="approach" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-2xl mb-16">
-          <span className="text-accent text-sm tracking-wider uppercase">How We Work</span>
+          <span className="text-accent text-sm tracking-wider uppercase">Methodology</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
-            A rigorous, collaborative approach
+            A structured, evidence-based methodology
           </h2>
           <p className="text-gray-400">
-            Our methodology integrates scientific assessment with financial innovation,
-            ensuring that every project delivers measurable ecological and economic value.
+            Every engagement follows the same rigorous framework — integrating
+            scientific assessment, financial modelling, and legal structuring to
+            deliver measurable outcomes for clients and ecosystems.
           </p>
         </div>
 

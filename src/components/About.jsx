@@ -25,12 +25,11 @@ function About() {
               with developers, governments, financial institutions, and sovereigns.
             </p>
             <p className="text-gray-400 leading-relaxed">
-              Our team integrates ecological science, regenerative design, and
-              financial engineering into a single practice. We work under every
-              major framework — CSRD, EU Taxonomy, TNFD, ISSB, Verra, Gold
-              Standard — and adapt to local ecology, local law, and local capital
-              markets. We don't just assess impact. We design the regeneration,
-              finance it, and prove it.
+              Our practice integrates ecological science, regenerative design,
+              and financial engineering under a single mandate. We operate
+              across every major disclosure and crediting framework — CSRD,
+              EU Taxonomy, TNFD, ISSB, Verra, Gold Standard — adapting to
+              local ecology, local regulation, and local capital markets.
             </p>
           </div>
 

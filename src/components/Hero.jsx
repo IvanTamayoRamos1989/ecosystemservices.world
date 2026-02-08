@@ -28,9 +28,10 @@ function Hero() {
           </h1>
 
           <p className="text-lg text-gray-400 leading-relaxed mb-10 max-w-xl">
-            Science-backed, design-led, financially viable. We help developers and
-            institutions turn large-scale project risks into regenerative outcomes —
-            powered by sustainable finance instruments.
+            We advise developers, financial institutions, and governments on
+            the environmental dimensions of large-scale projects — integrating
+            ecological science, regenerative design, and sustainable finance
+            into a single, rigorous practice.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
@@ -38,13 +39,13 @@ function Hero() {
               href="#services"
               className="inline-flex items-center justify-center px-8 py-3 bg-accent text-dark font-medium rounded hover:bg-accent/90 transition-colors"
             >
-              Explore Our Services
+              Our Services
             </a>
             <a
               href="#approach"
               className="inline-flex items-center justify-center px-8 py-3 border border-white/20 text-white rounded hover:border-accent/50 hover:text-accent transition-colors"
             >
-              Our Approach
+              Our Methodology
             </a>
           </div>
         </div>
