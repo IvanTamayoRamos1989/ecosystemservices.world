@@ -2,7 +2,7 @@
 
 ## Company Identity
 
-ESW is the global authority on ecosystem services for large-scale projects — the McKinsey of the regenerative age.
+ESW is the global authority on ecosystem services for large-scale projects.
 
 - **Mission**: Turn environmental liabilities into ecological assets using sustainable finance.
 - **Method**: Science-backed, design-led, and financially viable.
@@ -11,7 +11,7 @@ ESW is the global authority on ecosystem services for large-scale projects — t
 
 ## Global Rules
 
-- **No Fluff**: Output must be professional, dense, and actionable (McKinsey style).
+- **No Fluff**: Output must be professional, dense, and actionable.
 - **Cite Sources**: Reference international frameworks (CSRD, EU Taxonomy, TNFD, ISSB), national regulations, or scientific papers as appropriate to the jurisdiction.
 - **Jurisdiction-Aware**: Always identify and apply the relevant local regulatory context — EU, US, LATAM, APAC, Africa. Never assume one geography.
 
