@@ -5,31 +5,37 @@ const steps = [
     number: '01',
     title: 'Discover',
     description:
-      'We begin by understanding your project scope, stakeholders, and environmental context through comprehensive baseline assessments.',
+      'Client brief, site context, and stakeholder mapping. We classify the project, identify regulatory triggers (Ley 21/2013, Natura 2000), and define the scope of work.',
   },
   {
     number: '02',
-    title: 'Assess',
+    title: 'Baseline Assessment',
     description:
-      'Our team maps ecosystem dependencies and impacts, quantifies natural capital, and identifies risks and opportunities.',
+      'Desktop study and field surveys: habitat condition, species inventory (Iberian fauna), soil and water analysis. GIS constraint mapping overlaid with Copernicus satellite data.',
   },
   {
     number: '03',
-    title: 'Design',
+    title: 'Strategy Design',
     description:
-      'We co-create regenerative strategies that align ecological outcomes with project objectives, backed by sustainable finance instruments.',
+      'Full mitigation hierarchy: Avoid, Minimize, Restore, Offset. Nature-based Solutions designed for Mediterranean conditions — agrivoltaics, swales, pollinator corridors, native revegetation.',
   },
   {
     number: '04',
-    title: 'Implement',
+    title: 'Financial Structuring',
     description:
-      'We support execution with technical guidance, stakeholder coordination, and integration of monitoring frameworks from day one.',
+      'Quantify carbon and biodiversity credit potential. Model ROI, CAPEX vs. credit revenue, and green bond eligibility. Produce bankability assessments for investors and lenders.',
   },
   {
     number: '05',
-    title: 'Monitor & Report',
+    title: 'Legal & Compliance',
     description:
-      'Continuous tracking of ecological and financial performance ensures accountability, adaptive management, and long-term value creation.',
+      'Permitting roadmap (DIA/AAU), land tenure verification, contract drafting, and CSRD/TNFD compliance checks across Spanish and EU jurisdictions.',
+  },
+  {
+    number: '06',
+    title: 'Implement & Monitor',
+    description:
+      'Technical supervision, stakeholder coordination, and continuous ecological + financial performance tracking. Annual reporting and adaptive management.',
   },
 ]
 

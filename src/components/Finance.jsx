@@ -2,20 +2,20 @@ import React from 'react'
 
 const instruments = [
   {
-    title: 'Green & Sustainability-Linked Bonds',
-    description: 'Structuring debt instruments that tie financial returns to verified environmental outcomes and ecosystem restoration metrics.',
+    title: 'Carbon Credits (Verra / Gold Standard)',
+    description: 'Methodology selection, baseline setting, additionality assessment, and credit forecasting for nature-based removal and avoidance projects.',
   },
   {
     title: 'Biodiversity Credits',
-    description: 'Designing and validating biodiversity credit programs that channel capital toward measurable habitat and species conservation.',
+    description: 'Biodiversity Net Gain unit calculation, credit pricing, and market positioning — aligned with emerging EU biodiversity credit guidance.',
   },
   {
-    title: 'Carbon Instruments',
-    description: 'Developing high-integrity carbon offset and inset strategies connected to nature-based solutions and verified removals.',
+    title: 'Green & Sustainability-Linked Bonds',
+    description: 'Use-of-proceeds frameworks, ICMA Green Bond Principles alignment, and reporting structures for debt instruments tied to ecological outcomes.',
   },
   {
     title: 'Blended Finance',
-    description: 'Combining public, private, and philanthropic capital to de-risk regenerative projects and unlock investment at scale.',
+    description: 'Combining public (EU/national funds), private, and philanthropic capital to de-risk regenerative projects and unlock investment at scale in Iberia.',
   },
 ]
 
@@ -32,14 +32,15 @@ function Finance() {
             </h2>
             <p className="text-gray-400 leading-relaxed mb-4">
               Sustainable finance is the engine that turns regenerative strategies
-              into reality. We design financial instruments and structures that
-              align capital flows with ecosystem restoration — creating value for
-              investors, communities, and the natural world.
+              into reality. We design financial instruments that align capital
+              flows with ecosystem restoration — creating bankable value for
+              investors, developers, and the natural world.
             </p>
             <p className="text-gray-400 leading-relaxed">
-              Our team bridges the gap between environmental science and capital
-              markets, ensuring that financial mechanisms are grounded in ecological
-              integrity and deliver measurable impact.
+              Our team bridges environmental science and capital markets,
+              structuring instruments under EU Taxonomy, ICMA principles, and
+              verified carbon/biodiversity standards. Every model is grounded
+              in ecological integrity and built for investor due diligence.
             </p>
           </div>
 

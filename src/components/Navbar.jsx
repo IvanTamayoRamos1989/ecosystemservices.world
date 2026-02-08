@@ -23,7 +23,7 @@ function Navbar({ scrolled }) {
             <div className="w-3 h-3 rounded-full bg-accent group-hover:scale-110 transition-transform" />
           </div>
           <span className="text-lg font-semibold tracking-wide">
-            <span className="text-accent">EWS</span>
+            <span className="text-accent">ESW</span>
           </span>
         </a>
 

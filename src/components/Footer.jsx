@@ -9,7 +9,7 @@ function Footer() {
             <div className="w-6 h-6 rounded-full border-2 border-accent flex items-center justify-center">
               <div className="w-2 h-2 rounded-full bg-accent" />
             </div>
-            <span className="text-sm font-semibold text-accent">EWS</span>
+            <span className="text-sm font-semibold text-accent">ESW</span>
             <span className="text-sm text-gray-600">Ecosystem Services World</span>
           </div>
 
@@ -21,7 +21,7 @@ function Footer() {
           </div>
 
           <p className="text-xs text-gray-600">
-            &copy; {new Date().getFullYear()} EWS. All rights reserved.
+            &copy; {new Date().getFullYear()} ESW. All rights reserved.
           </p>
         </div>
       </div>

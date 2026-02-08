@@ -1,78 +1,89 @@
 import React from 'react'
 
-const services = [
+const departments = [
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-        <path d="M2 12h20" />
-      </svg>
-    ),
-    title: 'Environmental Impact Assessment',
-    description:
-      'Comprehensive analysis of how large-scale projects affect local and regional ecosystems, from biodiversity to water systems and carbon cycles.',
+    label: 'Technical Core',
+    tagline: 'The Science',
+    services: [
+      {
+        icon: (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+            <path d="M2 12h20" />
+          </svg>
+        ),
+        title: 'Environmental Impact Assessment',
+        description:
+          'Full EIA under Ley 21/2013 and EU directives. Biodiversity baselines, habitat condition scoring, species risk assessment — focused on Mediterranean ecosystems.',
+      },
+      {
+        icon: (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 22c4-4 8-7.5 8-12a8 8 0 1 0-16 0c0 4.5 4 8 8 12z" />
+            <path d="M12 6v6l3 3" />
+          </svg>
+        ),
+        title: 'Regenerative Design & NbS',
+        description:
+          'Nature-based Solutions that go beyond mitigation. Agrivoltaics, pollinator corridors, constructed wetlands, soil restoration — applying the full mitigation hierarchy.',
+      },
+      {
+        icon: (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M3 9h18M9 3v18" />
+          </svg>
+        ),
+        title: 'Spatial Analysis & GIS',
+        description:
+          'Site mapping, constraints overlay, satellite monitoring (NDVI, land use change). Integration with Copernicus data, Spanish Cadastre, and Natura 2000 networks.',
+      },
+    ],
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M12 22c4-4 8-7.5 8-12a8 8 0 1 0-16 0c0 4.5 4 8 8 12z" />
-        <path d="M12 6v6l3 3" />
-      </svg>
-    ),
-    title: 'Regenerative Strategy Design',
-    description:
-      'Developing actionable plans that go beyond mitigation — restoring ecosystems, enhancing biodiversity, and building long-term ecological resilience.',
-  },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M2 20h20" />
-        <path d="M5 20V8l4-4 4 4v12" />
-        <path d="M13 20V12l4-4 4 4v8" />
-        <path d="M8 12h1M8 16h1M16 16h1" />
-      </svg>
-    ),
-    title: 'Ecosystem Valuation',
-    description:
-      'Quantifying the economic value of ecosystem services — provisioning, regulating, cultural, and supporting — to inform decision-making and investment.',
-  },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="2" y="6" width="20" height="14" rx="2" />
-        <path d="M2 10h20" />
-        <path d="M6 14h4M6 17h2" />
-      </svg>
-    ),
-    title: 'Sustainable Finance Structuring',
-    description:
-      'Designing green bonds, biodiversity credits, carbon instruments, and blended finance structures that fund regenerative outcomes.',
-  },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M9 5H2v7l6.3-6.3" />
-        <path d="M15 5h7v7l-6.3-6.3" />
-        <path d="M9 19H2v-7l6.3 6.3" />
-        <path d="M15 19h7v-7l-6.3 6.3" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    ),
-    title: 'Regulatory & Compliance Advisory',
-    description:
-      'Navigating environmental regulations, ESG frameworks, TNFD reporting, and biodiversity compliance across jurisdictions.',
-  },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M3 12l3-3 3 3 4-4 4 4 4-4" />
-        <path d="M3 18l3-3 3 3 4-4 4 4 4-4" />
-      </svg>
-    ),
-    title: 'Monitoring & Reporting',
-    description:
-      'Ongoing measurement of ecosystem health, project impact, and financial returns — ensuring transparency and accountability over time.',
+    label: 'Commercial & Legal',
+    tagline: 'The Deal',
+    services: [
+      {
+        icon: (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <rect x="2" y="6" width="20" height="14" rx="2" />
+            <path d="M2 10h20" />
+            <path d="M6 14h4M6 17h2" />
+          </svg>
+        ),
+        title: 'Sustainable Finance Structuring',
+        description:
+          'Carbon credits (Verra/Gold Standard), biodiversity credits, green bonds, and blended finance. ROI modelling and bankability assessments for investors.',
+      },
+      {
+        icon: (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M9 5H2v7l6.3-6.3" />
+            <path d="M15 5h7v7l-6.3-6.3" />
+            <path d="M9 19H2v-7l6.3 6.3" />
+            <path d="M15 19h7v-7l-6.3 6.3" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        ),
+        title: 'Regulatory & Compliance',
+        description:
+          'CSRD, EU Taxonomy, TNFD disclosure. Spanish environmental authorization (DIA/AAU), renewable energy permitting, and cross-jurisdictional compliance.',
+      },
+      {
+        icon: (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <path d="M14 2v6h6" />
+            <path d="M9 15h6M9 11h6" />
+          </svg>
+        ),
+        title: 'Legal Advisory & Contracts',
+        description:
+          'Spanish land law, tenure verification, service contracts, credit purchase agreements, and liability assessment for large-scale regenerative projects.',
+      },
+    ],
   },
 ]
 
@@ -86,25 +97,37 @@ function Services() {
             End-to-end ecosystem services consulting
           </h2>
           <p className="text-gray-400">
-            From initial assessment to long-term monitoring, we provide the expertise
-            and tools to integrate ecosystem thinking into every phase of your project.
+            From ecological baseline to credit issuance, we integrate science,
+            design, finance, and law into every phase of your project.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <div
-              key={service.title}
-              className="group p-8 rounded-lg border border-white/5 bg-white/[0.02] hover:border-accent/30 transition-all duration-300"
-            >
-              <div className="text-accent mb-4 group-hover:scale-110 transition-transform duration-300 inline-block">
-                {service.icon}
-              </div>
-              <h3 className="text-lg font-semibold mb-3">{service.title}</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">{service.description}</p>
+        {departments.map((dept) => (
+          <div key={dept.label} className="mb-12 last:mb-0">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px flex-1 bg-white/5" />
+              <span className="text-xs tracking-wider uppercase text-gray-500">
+                {dept.label} — <span className="text-accent">{dept.tagline}</span>
+              </span>
+              <div className="h-px flex-1 bg-white/5" />
             </div>
-          ))}
-        </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {dept.services.map((service) => (
+                <div
+                  key={service.title}
+                  className="group p-8 rounded-lg border border-white/5 bg-white/[0.02] hover:border-accent/30 transition-all duration-300"
+                >
+                  <div className="text-accent mb-4 group-hover:scale-110 transition-transform duration-300 inline-block">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg font-semibold mb-3">{service.title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">{service.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   )

@@ -19,18 +19,18 @@ function Hero() {
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/30 bg-accent/5 text-accent text-xs tracking-wider uppercase mb-8">
             <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            Ecosystem Services Consultancy
+            Spain &amp; Southern Europe
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            Regenerating ecosystems through
-            <span className="text-accent"> strategic finance</span>
+            Turning environmental liabilities into
+            <span className="text-accent"> ecological assets</span>
           </h1>
 
           <p className="text-lg text-gray-400 leading-relaxed mb-10 max-w-xl">
-            We help organizations understand the environmental impact of large-scale
-            projects and implement regenerative strategies — powered by sustainable
-            finance tools.
+            Science-backed, design-led, financially viable. We help developers and
+            institutions turn large-scale project risks into regenerative outcomes —
+            powered by sustainable finance instruments.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">

@@ -1,10 +1,10 @@
 import React from 'react'
 
 const stats = [
-  { value: '150+', label: 'Projects Assessed' },
-  { value: '40+', label: 'Countries Reached' },
-  { value: '98%', label: 'Client Retention' },
-  { value: '$2B+', label: 'Sustainable Finance Mobilized' },
+  { value: 'EIA', label: 'Environmental Impact Assessment' },
+  { value: 'NbS', label: 'Nature-based Solutions' },
+  { value: 'TNFD', label: 'Disclosure & Compliance' },
+  { value: 'Credits', label: 'Carbon & Biodiversity' },
 ]
 
 function About() {
@@ -16,19 +16,21 @@ function About() {
           <div>
             <span className="text-accent text-sm tracking-wider uppercase">Who We Are</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-6">
-              Bridging ecology and economy for a regenerative future
+              Where ecology meets economy in the Mediterranean
             </h2>
             <p className="text-gray-400 leading-relaxed mb-4">
-              EWS is a specialized consultancy that sits at the intersection of
-              environmental science and sustainable finance. We partner with
-              developers, governments, and financial institutions to ensure
-              large-scale projects deliver positive environmental outcomes.
+              ESW is a specialized consultancy operating at the intersection of
+              environmental science and sustainable finance across Spain and
+              Southern Europe. We partner with solar developers, infrastructure
+              companies, governments, and impact investors to ensure large-scale
+              projects deliver measurable ecological outcomes.
             </p>
             <p className="text-gray-400 leading-relaxed">
-              Our team combines deep expertise in ecosystem assessment with
-              innovative financial structuring, turning environmental
-              responsibility into tangible value. We don't just measure
-              impact — we design pathways to regeneration.
+              Our team combines deep expertise in Mediterranean ecosystems,
+              EU regulatory frameworks (CSRD, EU Taxonomy, TNFD), and
+              innovative financial structuring — from biodiversity credits to
+              green bonds. We don't just assess impact. We design the
+              regeneration and finance it.
             </p>
           </div>
 
