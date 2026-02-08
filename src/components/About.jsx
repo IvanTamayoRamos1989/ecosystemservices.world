@@ -16,7 +16,7 @@ function About() {
           <div>
             <span className="text-accent text-sm tracking-wider uppercase">Who We Are</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-6">
-              The McKinsey of the regenerative age
+              The global authority on ecosystem services
             </h2>
             <p className="text-gray-400 leading-relaxed mb-4">
               ESW is the global authority on ecosystem services for large-scale
