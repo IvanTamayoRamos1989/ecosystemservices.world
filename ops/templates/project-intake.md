@@ -17,17 +17,17 @@
 |---|---|
 | Project Name | |
 | Project Type | [ ] Solar / [ ] Wind / [ ] Infrastructure / [ ] Agri / [ ] Mining / [ ] Other: ___ |
-| Location (Region/Province) | |
+| Country / Region | |
 | Site Area (ha) | |
 | Project Phase | [ ] Pre-planning / [ ] Permitting / [ ] Construction / [ ] Operational / [ ] Decommissioning |
-| Estimated CAPEX (€) | |
+| Estimated CAPEX | |
 | Target Completion Date | |
 
 ## Environmental Context
 
 | Field | Details |
 |---|---|
-| Protected Areas Nearby | [ ] Natura 2000 / [ ] National Park / [ ] IBA / [ ] None Known |
+| Protected Areas Nearby | [ ] Natura 2000 / [ ] National Park / [ ] IBA / [ ] IUCN Category / [ ] None Known |
 | Known Species of Concern | |
 | Existing EIA? | [ ] Yes / [ ] No / [ ] In Progress |
 | Water Bodies on Site | [ ] Rivers / [ ] Wetlands / [ ] Aquifer / [ ] None Known |
@@ -72,7 +72,7 @@
 | Assigned Project Controller | |
 | Initial Classification | [ ] Standard EIA / [ ] BNG + Credits / [ ] Full Regen Package / [ ] Advisory Only |
 | Priority | [ ] High / [ ] Medium / [ ] Low |
-| Estimated Fee Range (€) | |
+| Estimated Fee Range | |
 
 ---
 

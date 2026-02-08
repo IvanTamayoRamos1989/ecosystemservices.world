@@ -5,19 +5,19 @@ const steps = [
     number: '01',
     title: 'Discover',
     description:
-      'Client brief, site context, and stakeholder mapping. We classify the project, identify regulatory triggers (Ley 21/2013, Natura 2000), and define the scope of work.',
+      'Client brief, site context, and stakeholder mapping. We classify the project, identify the applicable regulatory framework, and define the scope of work.',
   },
   {
     number: '02',
     title: 'Baseline Assessment',
     description:
-      'Desktop study and field surveys: habitat condition, species inventory (Iberian fauna), soil and water analysis. GIS constraint mapping overlaid with Copernicus satellite data.',
+      'Desktop study and field surveys: habitat condition, species inventory, soil and water analysis. GIS constraint mapping overlaid with satellite data — adapted to biome and jurisdiction.',
   },
   {
     number: '03',
     title: 'Strategy Design',
     description:
-      'Full mitigation hierarchy: Avoid, Minimize, Restore, Offset. Nature-based Solutions designed for Mediterranean conditions — agrivoltaics, swales, pollinator corridors, native revegetation.',
+      'Full mitigation hierarchy: Avoid, Minimize, Restore, Offset. Nature-based Solutions engineered for local conditions — agrivoltaics, swales, agroforestry, pollinator corridors, native revegetation.',
   },
   {
     number: '04',
@@ -29,7 +29,7 @@ const steps = [
     number: '05',
     title: 'Legal & Compliance',
     description:
-      'Permitting roadmap (DIA/AAU), land tenure verification, contract drafting, and CSRD/TNFD compliance checks across Spanish and EU jurisdictions.',
+      'Permitting roadmap, land tenure verification, contract drafting, and CSRD/TNFD/ISSB compliance checks — structured for the applicable jurisdiction.',
   },
   {
     number: '06',

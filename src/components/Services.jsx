@@ -15,7 +15,7 @@ const departments = [
         ),
         title: 'Environmental Impact Assessment',
         description:
-          'Full EIA under Ley 21/2013 and EU directives. Biodiversity baselines, habitat condition scoring, species risk assessment — focused on Mediterranean ecosystems.',
+          'Multi-jurisdictional EIA across EU, US, LATAM, APAC, and African regulatory frameworks. Biodiversity baselines, habitat scoring, species risk — adapted to any biome.',
       },
       {
         icon: (
@@ -37,7 +37,7 @@ const departments = [
         ),
         title: 'Spatial Analysis & GIS',
         description:
-          'Site mapping, constraints overlay, satellite monitoring (NDVI, land use change). Integration with Copernicus data, Spanish Cadastre, and Natura 2000 networks.',
+          'Site mapping, constraints overlay, satellite monitoring (NDVI, land use change). Global data integration — Copernicus, Landsat, national cadastres, and protected area networks.',
       },
     ],
   },
@@ -69,7 +69,7 @@ const departments = [
         ),
         title: 'Regulatory & Compliance',
         description:
-          'CSRD, EU Taxonomy, TNFD disclosure. Spanish environmental authorization (DIA/AAU), renewable energy permitting, and cross-jurisdictional compliance.',
+          'CSRD, EU Taxonomy, TNFD, ISSB disclosure. Environmental permitting across jurisdictions — EU, US EPA, national frameworks. Cross-border compliance structuring.',
       },
       {
         icon: (
@@ -81,7 +81,7 @@ const departments = [
         ),
         title: 'Legal Advisory & Contracts',
         description:
-          'Spanish land law, tenure verification, service contracts, credit purchase agreements, and liability assessment for large-scale regenerative projects.',
+          'Multi-jurisdictional environmental law, land tenure verification, service contracts, credit purchase agreements, and liability assessment for large-scale regenerative projects.',
       },
     ],
   },

@@ -8,9 +8,9 @@
 
 [First Name],
 
-I noticed [Company] is developing a [X] MW solar installation in [Region]. Projects of this scale in [Province] typically trigger Article 7 EIA requirements under Ley 21/2013 — and with the new CSRD reporting cycle starting, the disclosure obligations are about to compound.
+I noticed [Company] is developing a [X] MW solar installation in [Region/Country]. Projects of this scale typically trigger EIA requirements under [applicable regulation] — and with CSRD/ISSB reporting cycles tightening, the disclosure obligations are compounding fast.
 
-We specialize in turning that compliance burden into a financial asset. For a recent 100ha project in Extremadura, we structured a biodiversity credit programme that offset 40% of the restoration CAPEX through credit pre-sales.
+We specialize in turning that compliance burden into a financial asset. On a recent 100ha project, we structured a biodiversity credit programme that offset 40% of the restoration CAPEX through credit pre-sales.
 
 Two things we could help with immediately:
 
@@ -42,7 +42,7 @@ At ESW, we've helped clients convert environmental mitigation costs into structu
 - **Certify** them under Verra, Gold Standard, or EU-aligned biodiversity credit schemes
 - **Monetize** through credit sales, green bond eligibility, or sustainability-linked financing
 
-We work exclusively in Spain and Southern Europe, so we know the regulatory landscape intimately — from DIA/AAU permitting to TNFD alignment.
+We operate globally and adapt to local regulatory landscapes — whether EU permitting, US EPA, or emerging market frameworks — while structuring internationally recognized credit and bond instruments.
 
 Worth a conversation?
 
@@ -55,15 +55,15 @@ ecosystemservices.world
 
 ## Template 3: Impact Investor / Fund Manager (Deal Flow Hook)
 
-**Subject**: Screened pipeline — nature-positive projects in Iberia
+**Subject**: Screened pipeline — nature-positive projects globally
 
 **Body**:
 
 [First Name],
 
-We're seeing a pattern: renewable energy developers in Spain are increasingly open to bolt-on biodiversity and carbon credit structures, but lack the technical capacity to design and certify them. That's creating a deal flow gap for investors with Article 9 / impact mandates.
+We're seeing a pattern globally: renewable energy developers are increasingly open to bolt-on biodiversity and carbon credit structures, but lack the technical capacity to design and certify them. That's creating a deal flow gap for investors with Article 9 / impact mandates.
 
-ESW sits at that intersection. We originate, design, and structure nature-positive investment opportunities attached to real infrastructure projects — solar, wind, agri, and land restoration across Iberia.
+ESW sits at that intersection. We originate, design, and structure nature-positive investment opportunities attached to real infrastructure projects — solar, wind, agri, and land restoration across [target geography].
 
 Current pipeline includes:
 
@@ -89,7 +89,7 @@ ecosystemservices.world
 
 Quick follow-up — I appreciate you're busy.
 
-One data point that might be relevant: the European Commission's latest Biodiversity Credit guidance (published [Month/Year]) is creating a pricing floor for verified credits in Southern Europe. Projects that establish baselines now will be positioned to capture early-mover premiums.
+One data point that might be relevant: the latest international guidance on biodiversity credits (published [Month/Year]) is creating pricing floors for verified credits across key markets. Projects that establish baselines now will be positioned to capture early-mover premiums.
 
 Happy to send our 2-page briefing note on this if it's useful — no call required.
 
@@ -100,14 +100,14 @@ Best,
 
 ## LinkedIn Connection Request (Short)
 
-> [First Name] — I lead ESW, a consultancy that helps energy/infrastructure developers in Spain turn environmental compliance into biodiversity and carbon credits. Saw your work on [Project/Company] and thought there could be a natural fit. Open to connecting?
+> [First Name] — I lead ESW, a global consultancy that helps energy/infrastructure developers turn environmental compliance into biodiversity and carbon credits. Saw your work on [Project/Company] and thought there could be a natural fit. Open to connecting?
 
 ---
 
 ## Usage Notes
 
 - **Personalize**: Always reference a specific project, region, or regulation. Generic outreach gets ignored.
-- **Timing**: Send Tuesday-Thursday, 9-11am CET.
+- **Timing**: Send Tuesday-Thursday, 9-11am in the target's timezone.
 - **Follow-up cadence**: Day 0 → Day 4 → Day 10 → Archive.
 - **Qualify before sending**: Confirm the target has an active project >10ha with environmental exposure.
 - **Track everything**: Log in CRM with source, template used, and response.

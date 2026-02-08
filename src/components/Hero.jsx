@@ -19,7 +19,7 @@ function Hero() {
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/30 bg-accent/5 text-accent text-xs tracking-wider uppercase mb-8">
             <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            Spain &amp; Southern Europe
+            Global Ecosystem Services Consultancy
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">

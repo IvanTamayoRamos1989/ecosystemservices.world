@@ -15,7 +15,7 @@ const instruments = [
   },
   {
     title: 'Blended Finance',
-    description: 'Combining public (EU/national funds), private, and philanthropic capital to de-risk regenerative projects and unlock investment at scale in Iberia.',
+    description: 'Combining public, private, and philanthropic capital — DFIs, sovereign funds, impact investors — to de-risk regenerative projects and unlock investment at scale globally.',
   },
 ]
 

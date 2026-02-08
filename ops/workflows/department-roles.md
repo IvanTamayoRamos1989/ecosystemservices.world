@@ -46,12 +46,12 @@
 |---|---|
 | Desktop Studies | Existing data review, species databases, protected area registers |
 | Field Surveys | Habitat assessment, species inventory, soil/water sampling |
-| EIA Authoring | Environmental Impact Assessment reports per Spanish/EU law |
+| EIA Authoring | Environmental Impact Assessment reports per applicable national/international law |
 | TNFD Reporting | Nature-related risk and opportunity disclosure |
 | Biodiversity Metrics | BNG calculations, habitat condition scoring |
 | Peer Review | Reviews Regen-Architect designs for ecological soundness |
 
-**Key References**: IUCN Red List, Natura 2000 database, Spanish EIA regulations (Ley 21/2013), TNFD framework, CSRD.
+**Key References**: IUCN Red List, national/regional protected area databases, applicable EIA legislation, TNFD framework, CSRD, ISSB.
 
 ---
 
@@ -85,7 +85,7 @@
 | Spatial Deliverables | Maps, GIS layers, spatial datasets for all departments |
 | Data Integration | Combine field data with remote sensing for comprehensive site picture |
 
-**Key Tools**: QGIS, Google Earth Engine, Copernicus data, Spanish Cadastre (Catastro).
+**Key Tools**: QGIS, Google Earth Engine, Copernicus data, Landsat, national cadastres and land registries.
 
 ---
 
@@ -114,14 +114,14 @@
 
 | Responsibility | Description |
 |---|---|
-| Land Law | Tenure verification, easements, right of access (Spanish Civil Code) |
-| Permitting | Renewable energy permits, environmental authorization (AAU/DIA) |
+| Land Law | Tenure verification, easements, right of access — multi-jurisdictional |
+| Permitting | Renewable energy permits, environmental authorization — applicable national frameworks |
 | Contracts | Scope of Work, service agreements, credit purchase agreements |
 | Liability | Risk exposure assessment, insurance requirements |
-| EU Compliance | CSRD, EU Taxonomy alignment, TNFD disclosure obligations |
+| Regulatory Compliance | CSRD, EU Taxonomy, TNFD, ISSB, and national disclosure obligations |
 | Due Diligence | Anti-corruption, sanctions screening, beneficial ownership |
 
-**Key References**: Ley 21/2013 (EIA), Ley 7/2021 (Climate Change), RD 413/2014 (Renewables), CSRD Directive.
+**Key References**: Applicable national EIA legislation, CSRD Directive, ISSB Standards, Paris Agreement frameworks, national renewable energy regulations.
 
 ---
 
@@ -139,7 +139,7 @@
 | Outreach | Cold emails, LinkedIn messages, conference networking |
 | Pipeline Management | CRM updates, conversion tracking, weekly lead lists |
 
-**Key Targets**: Solar/wind developers, agribusiness, infrastructure companies, municipal governments, impact investors.
+**Key Targets**: Solar/wind developers, agribusiness, infrastructure companies, sovereign governments, multilateral agencies, DFIs, impact investors.
 
 ---
 

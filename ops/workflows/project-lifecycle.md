@@ -26,7 +26,7 @@
 | 1.1 | Desktop study: existing EIA, protected area maps, species records | Eco-Scientist | Desktop Review Report |
 | 1.2 | Spatial analysis: site mapping, land use, constraints overlay | GIS Analyst | Constraint Maps (GIS layers) |
 | 1.3 | Field survey (if required): habitat assessment, species inventory | Eco-Scientist | Field Survey Report |
-| 1.4 | Regulatory scan: applicable EU/Spanish regulations, permits needed | Legal Compliance | Regulatory Memo |
+| 1.4 | Regulatory scan: applicable national/international regulations, permits needed | Legal Compliance | Regulatory Memo |
 | 1.5 | Compile baseline package | Eco-Scientist | Ecological Baseline Report |
 
 **Gate**: Baseline approved by Project Controller. Risks identified and classified.

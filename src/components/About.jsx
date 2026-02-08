@@ -16,21 +16,21 @@ function About() {
           <div>
             <span className="text-accent text-sm tracking-wider uppercase">Who We Are</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-6">
-              Where ecology meets economy in the Mediterranean
+              The McKinsey of the regenerative age
             </h2>
             <p className="text-gray-400 leading-relaxed mb-4">
-              ESW is a specialized consultancy operating at the intersection of
-              environmental science and sustainable finance across Spain and
-              Southern Europe. We partner with solar developers, infrastructure
-              companies, governments, and impact investors to ensure large-scale
-              projects deliver measurable ecological outcomes.
+              ESW is the global authority on ecosystem services for large-scale
+              projects. We operate across jurisdictions and biomes — from EU markets
+              to emerging economies, tropical forests to arid landscapes — partnering
+              with developers, governments, financial institutions, and sovereigns.
             </p>
             <p className="text-gray-400 leading-relaxed">
-              Our team combines deep expertise in Mediterranean ecosystems,
-              EU regulatory frameworks (CSRD, EU Taxonomy, TNFD), and
-              innovative financial structuring — from biodiversity credits to
-              green bonds. We don't just assess impact. We design the
-              regeneration and finance it.
+              Our team integrates ecological science, regenerative design, and
+              financial engineering into a single practice. We work under every
+              major framework — CSRD, EU Taxonomy, TNFD, ISSB, Verra, Gold
+              Standard — and adapt to local ecology, local law, and local capital
+              markets. We don't just assess impact. We design the regeneration,
+              finance it, and prove it.
             </p>
           </div>
 
