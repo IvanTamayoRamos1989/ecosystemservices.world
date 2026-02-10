@@ -1,4 +1,5 @@
 import React from 'react'
+import useReveal from '../hooks/useReveal'
 
 const departments = [
   {
@@ -88,9 +89,11 @@ const departments = [
 ]
 
 function Services() {
+  const [ref, visible] = useReveal()
+
   return (
     <section id="services" className="py-24 md:py-32 bg-white/[0.01]">
-      <div className="max-w-7xl mx-auto px-6">
+      <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-accent text-sm tracking-wider uppercase">Capabilities</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">

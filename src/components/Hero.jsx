@@ -1,5 +1,6 @@
-import React, { Suspense } from 'react'
-import EarthScene from './EarthScene'
+import React, { Suspense, lazy } from 'react'
+
+const EarthScene = lazy(() => import('./EarthScene'))
 
 function Hero() {
   return (

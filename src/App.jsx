@@ -5,8 +5,11 @@ import About from './components/About'
 import Services from './components/Services'
 import Approach from './components/Approach'
 import Finance from './components/Finance'
+import CaseStudies from './components/CaseStudies'
 import Contact from './components/Contact'
+import PrivacyPolicy from './components/PrivacyPolicy'
 import Footer from './components/Footer'
+import CookieConsent from './components/CookieConsent'
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
@@ -25,8 +28,11 @@ function App() {
       <Services />
       <Approach />
       <Finance />
+      <CaseStudies />
       <Contact />
+      <PrivacyPolicy />
       <Footer />
+      <CookieConsent />
     </div>
   )
 }

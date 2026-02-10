@@ -1,4 +1,5 @@
 import React from 'react'
+import useReveal from '../hooks/useReveal'
 
 const stats = [
   { value: 'EIA', label: 'Environmental Impact Assessment' },
@@ -8,9 +9,11 @@ const stats = [
 ]
 
 function About() {
+  const [ref, visible] = useReveal()
+
   return (
     <section id="about" className="py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6">
+      <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="grid md:grid-cols-2 gap-16 items-center">
           {/* Text */}
           <div>
