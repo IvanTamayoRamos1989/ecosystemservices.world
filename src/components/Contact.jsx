@@ -20,7 +20,7 @@ function Contact() {
     setStatus('sending')
 
     try {
-      const res = await fetch('https://formspree.io/f/xpwzgkvl', {
+      const res = await fetch('https://formspree.io/f/xaqdnrpr', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
