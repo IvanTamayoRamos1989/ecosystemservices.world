@@ -1,4 +1,5 @@
 import React from 'react'
+import useReveal from '../hooks/useReveal'
 
 const steps = [
   {
@@ -40,9 +41,11 @@ const steps = [
 ]
 
 function Approach() {
+  const [ref, visible] = useReveal()
+
   return (
     <section id="approach" className="py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6">
+      <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="max-w-2xl mb-16">
           <span className="text-accent text-sm tracking-wider uppercase">Methodology</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
