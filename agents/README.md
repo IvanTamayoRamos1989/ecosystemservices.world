@@ -41,6 +41,7 @@ Read agents/eco-scientist.md, then apply that role to analyze [site data].
 | `workflows/new-project.md` | Full project intake and phase execution |
 | `workflows/board-meeting.md` | Cross-agent simulation for a given project |
 | `workflows/lead-generation.md` | Target identification and outreach |
+| `workflows/intel-update.md` | Quarterly sector intelligence for website |
 
 ## Design Principles
 

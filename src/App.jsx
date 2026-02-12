@@ -6,6 +6,7 @@ import Services from './components/Services'
 import Approach from './components/Approach'
 import Finance from './components/Finance'
 import CaseStudies from './components/CaseStudies'
+import Intel from './components/Intel'
 import Contact from './components/Contact'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import Footer from './components/Footer'
@@ -29,6 +30,7 @@ function App() {
       <Approach />
       <Finance />
       <CaseStudies />
+      <Intel />
       <Contact />
       <PrivacyPolicy />
       <Footer />
