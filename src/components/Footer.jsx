@@ -17,6 +17,7 @@ function Footer() {
             <a href="#about" className="hover:text-accent transition-colors">About</a>
             <a href="#services" className="hover:text-accent transition-colors">Services</a>
             <a href="#approach" className="hover:text-accent transition-colors">Approach</a>
+            <a href="#intel" className="hover:text-accent transition-colors">Intel</a>
             <a href="#contact" className="hover:text-accent transition-colors">Contact</a>
             <a href="#privacy" className="hover:text-accent transition-colors">Privacy</a>
           </div>
