@@ -28,6 +28,21 @@ HANDOFF → [Agent Role]: [Specific request with required inputs]
 
 When you receive a handoff, acknowledge the source and integrate their findings by reference.
 
+## MCP Tool Integration
+
+ESW agents may have access to external tools via the Model Context Protocol (MCP). When available, these tools provide live data:
+
+| MCP Server | Tools | Primary Users |
+|---|---|---|
+| Google Maps | Geocoding, elevation, place search, distances | GIS Analyst, Regen-Architect |
+| Google Earth Engine | NDVI, land cover, time-series, elevation | GIS Analyst, Eco-Scientist |
+| Gemini | Cross-model analysis, alternative perspectives | All agents |
+
+**Rules for MCP tool use:**
+1. Always state the tool used and the data date in your output.
+2. MCP data supplements but never replaces published scientific data, regulatory sources, or field verification.
+3. If an MCP tool is unavailable or returns an error, proceed with desktop analysis and note the limitation.
+
 ## Project Context
 
 When working on a specific project, the following variables should be established at the outset:

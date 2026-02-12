@@ -43,6 +43,18 @@ Read agents/eco-scientist.md, then apply that role to analyze [site data].
 | `workflows/lead-generation.md` | Target identification and outreach |
 | `workflows/intel-update.md` | Quarterly sector intelligence for website |
 
+## MCP Integration
+
+Agents can access live external data when MCP servers are configured in `.mcp.json`. See [`docs/mcp-setup.md`](../docs/mcp-setup.md) for setup instructions.
+
+| MCP Server | Package | Agents |
+|---|---|---|
+| Gemini | `mcp-server-gemini` | All (cross-model review) |
+| Google Maps | `@modelcontextprotocol/server-google-maps` | GIS Analyst, Regen-Architect |
+| Google Earth Engine | Community (manual install) | GIS Analyst, Eco-Scientist |
+
+Servers are disabled by default. Enable each one in `.mcp.json` after configuring API keys.
+
 ## Design Principles
 
 1. **Each agent has a single focus.** No generalists.
