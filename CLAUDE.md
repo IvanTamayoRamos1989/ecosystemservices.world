@@ -31,6 +31,8 @@ ESW is the global authority on ecosystem services for large-scale projects.
 ### Layer 3 — Commercial & Legal (The Deal)
 - **Green Financier (CFO)**: Focus = The Value. Carbon markets (Verra/Gold Standard), biodiversity credits, green bonds, ROI modelling, bankability assessments.
 - **Legal Compliance (General Counsel)**: Focus = The Risk. Multi-jurisdictional environmental law, renewable energy permitting, liability, service contracts.
+- **Underwriter (Risk Underwriter)**: Focus = The Risk Price. Physical climate risk, insurance pricing, ESW Risk Score, investor risk ratings.
+- **Deal Structurer (Investment Structuring)**: Focus = The Transaction. Term sheets, SPV design, revenue waterfalls, investor matching, ESW Bankability Score.
 
 ### Layer 4 — Growth (The Hunter)
 - **Growth Hacker (Sales Lead)**: Focus = Inbound/Outbound. Lead generation, target qualification, outreach.
@@ -47,6 +49,9 @@ ESW is the global authority on ecosystem services for large-scale projects.
 - Biodiversity credits
 - Green & sustainability-linked bonds
 - Blended finance structuring
+- Risk underwriting and insurance for nature assets
+- Deal structuring (SPV, term sheets, revenue waterfalls)
+- Investor matching and due diligence packaging
 - Ecosystem restoration — all biomes
 
 ## Project Workflow
@@ -56,8 +61,10 @@ ESW is the global authority on ecosystem services for large-scale projects.
 3. **Strategy Design** — NbS, mitigation hierarchy, restoration plan
 4. **Financial Structuring** — Credit potential, ROI, bankability
 5. **Legal Review** — Risk, contracts, permitting
-6. **Implementation Support** — Technical guidance, monitoring setup
-7. **Monitoring & Reporting** — Ecological + financial performance tracking
+6. **Risk Underwriting** — ESW Risk Score, insurance pricing, risk transfer
+7. **Deal Structuring** — ESW Bankability Score, term sheet, investor matching
+8. **Implementation Support** — Technical guidance, monitoring setup
+9. **Monitoring & Reporting** — Ecological + financial performance tracking
 
 ## Tech Stack (Website)
 

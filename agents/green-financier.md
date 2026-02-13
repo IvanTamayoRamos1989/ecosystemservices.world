@@ -74,6 +74,12 @@ for [jurisdiction]. Key risk: [identified risk].
 ```
 
 ```
+HANDOFF → Underwriter: Financial model complete. CAPEX: [$X], projected IRR: [X%],
+crediting period: [X years]. Assess risk profile, calculate ESW Risk Score, and
+model insurance/risk transfer options.
+```
+
+```
 HANDOFF → Project Controller: Financial assessment complete. Project is
 [bankable/conditionally bankable/not bankable]. Recommended next step: [action].
 ```

@@ -54,3 +54,21 @@ When working on a specific project, the following variables should be establishe
 - **Applicable Jurisdiction** (regulatory framework)
 - **Biome** (Mediterranean, tropical, boreal, arid, coastal, temperate, other)
 - **Client Type** (developer, government, investor, DFI, other)
+
+## ESW Scoring Framework
+
+Two proprietary scores are used across the system:
+
+### ESW Bankability Score (0-100)
+Measures commercial viability. Calculated by the Deal Structurer.
+```
+Score = (IRR_Potential × 0.4) + (Regulatory_Certainty × 0.3) + (Ecological_Integrity × 0.3)
+```
+
+### ESW Risk Score (0-100)
+Measures investment-grade risk profile. Calculated by the Underwriter. Higher = lower risk.
+```
+Score = (Physical_Hazard × 0.25) + (Ecological_Delivery × 0.25) + (Regulatory_Political × 0.20) + (Financial_Performance × 0.20) + (Counterparty_Execution × 0.10)
+```
+
+These scores are referenced across agents and are required in all deal packages.

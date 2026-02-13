@@ -30,6 +30,8 @@ Read agents/eco-scientist.md, then apply that role to analyze [site data].
 | `gis-analyst.md` | Spatial Data | 2 — Technical | The Location |
 | `green-financier.md` | CFO | 3 — Commercial | The Value |
 | `legal-compliance.md` | General Counsel | 3 — Legal | The Risk |
+| `underwriter.md` | Risk Underwriter | 3 — Commercial | The Risk Price |
+| `deal-structurer.md` | Investment Structuring | 3 — Commercial | The Transaction |
 | `growth-hacker.md` | Sales Lead | 4 — Growth | The Pipeline |
 | `brand-voice.md` | Marketing | 4 — Growth | The Reputation |
 | `agent-architect.md` | HR / System | 0 — Meta | The System |
@@ -42,6 +44,8 @@ Read agents/eco-scientist.md, then apply that role to analyze [site data].
 | `workflows/board-meeting.md` | Cross-agent simulation for a given project |
 | `workflows/lead-generation.md` | Target identification and outreach |
 | `workflows/intel-update.md` | Quarterly sector intelligence for website |
+| `workflows/bankability-assessment.md` | Risk underwriting → deal packaging → investor matching |
+| `workflows/deal-matching.md` | Project-to-investor matching and outreach |
 
 ## MCP Integration
 
