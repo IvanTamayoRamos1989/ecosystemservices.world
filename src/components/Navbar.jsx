@@ -5,8 +5,8 @@ const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Approach', href: '#approach' },
   { label: 'Finance', href: '#finance' },
+  { label: 'Global', href: '#global' },
   { label: 'Intel', href: '#intel' },
-  { label: 'Contact', href: '#contact' },
 ]
 
 function Navbar({ scrolled }) {
