@@ -142,6 +142,115 @@ The planting strategy is structured to meet all four indicators under **IUCN NbS
 
 **IUCN NbS Second Edition (2025) Note**: Terminology updated from "biodiversity net gain" to "positive biodiversity outcome" — aligned with the Kunming-Montreal Global Biodiversity Framework. Our monitoring framework uses this updated terminology and metrics structure.
 
+### 2.4 GEE Remote Sensing Analysis — Priority Index for Street-Level Intervention
+
+**Objective**: Identify the specific streets and blocks within Centro Histórico where parking-to-green-infrastructure conversion delivers the highest multi-criteria impact — combining thermal stress, vegetation deficit, and air quality data into a single actionable spatial index.
+
+**Platform**: Google Earth Engine (JavaScript API)
+**Script**: `ops/projects/gis/culiacan-green-corridor-suitability.js`
+**Analysis Date**: February 2026
+**ROI**: 4 km buffer centered on Álvaro Obregón × Ángel Flores intersection ([-107.3939, 24.7994])
+
+#### 2.4.1 Input Layers
+
+| Layer | Sensor | Collection | Temporal Filter | Scenes Processed | Native Resolution |
+|---|---|---|---|---|---|
+| **L1 — Land Surface Temperature (LST)** | Landsat 8 + 9 | C2 Level 2 (ST_B10) | Jun–Sep 2024–2025 (summer peak) | 30 | 30 m |
+| **L2 — Vegetation Deficit (1 − NDVI)** | Sentinel-2 MSI | SR Harmonized (B8, B4) | Full year 2024–2025, <20% cloud | 174 | 10 m |
+| **L3 — Tropospheric NO₂** | Sentinel-5P TROPOMI | OFFL L3 | Full year 2024–2025 | 10,195 | ~1,113 m |
+| **L4 — Built Area Mask** | Dynamic World V1 | Mode composite (class 6) | 2024–2025 | — | 10 m |
+
+**Cloud masking**: Landsat via QA_PIXEL (bits 3–4); Sentinel-2 via SCL band (classes 3, 8, 9, 10, 11 excluded).
+
+#### 2.4.2 Key Findings — Land Surface Temperature
+
+| Statistic | Value |
+|---|---|
+| **P2 (coolest 2%)** | 41.8 °C |
+| **Peak of distribution** | 46.5–47.0 °C |
+| **P98 (hottest 2%)** | 51.7 °C |
+| **Maximum recorded** | 58.0 °C |
+
+The LST histogram confirms extreme thermal stress across the entire Centro Histórico during summer months. The distribution is right-skewed with a peak at **46.5–47°C** — well above the 41°C threshold where heat-related morbidity spikes (WHO). Over 95% of built-up pixels exceed 42°C, validating the 50% weight assigned to heat in the Priority Index. The hottest surfaces (>55°C) correspond to exposed parking lots, dark-roofed commercial buildings, and unshaded arterial roads — precisely the intervention targets.
+
+#### 2.4.3 Key Findings — Vegetation Deficit (NDVI)
+
+| Statistic | Value |
+|---|---|
+| **Dominant NDVI range** | 0.00–0.10 (peak at 0.03) |
+| **P2 Deficit (most vegetated)** | 0.30 (VEG_DEFICIT) |
+| **P98 Deficit (least vegetated)** | 0.98 (VEG_DEFICIT) |
+
+The NDVI distribution shows a massive spike at **0.03–0.06** — effectively bare mineral surface or asphalt. This confirms the baseline assessment that Centro Histórico has **near-zero functional canopy cover**. The 79,000-pixel peak at NDVI ≈ 0.03 represents the vast majority of the urban core. The long right tail (NDVI 0.3–0.9) corresponds to the Río Tamazula/Humaya riparian corridors and scattered park fragments — which are correctly excluded by the Dynamic World built-area mask.
+
+#### 2.4.4 Key Findings — Tropospheric NO₂
+
+| Statistic | Value |
+|---|---|
+| **P2 concentration** | 4.09 × 10⁻⁵ mol/m² |
+| **P98 concentration** | 4.90 × 10⁻⁵ mol/m² |
+| **Spatial variance** | Low (~20% range across ROI) |
+
+TROPOMI NO₂ at ~1.1 km resolution provides a **corridor-scale directional signal** rather than street-level differentiation. The narrow variance is consistent with Culiacán's dispersed congestion pattern (172,000 vehicles distributed across a grid, rather than concentrated on highway corridors). NO₂ contributes directional weighting to the composite index — higher values align with the east-west arterials (Álvaro Obregón, Ángel Flores) where traffic volumes are highest.
+
+#### 2.4.5 Priority Index — Composite Results
+
+**Formula**: `Priority_Index = (0.50 × LST_norm) + (0.30 × VEG_DEFICIT_norm) + (0.20 × NO₂_norm)`
+
+**Normalization**: P2–P98 percentile-based min-max scaling per layer, clamped to [0, 1]. Bilinear resampling for cross-resolution compositing. Built-area mask applied as final step.
+
+| Statistic | Value |
+|---|---|
+| **Mean** | 0.342 |
+| **Std Dev** | 0.062 |
+| **P25** | 0.317 |
+| **Median (P50)** | 0.362 |
+| **P75** | 0.386 |
+| **P90 (Critical Threshold)** | 0.399 |
+| **P95** | 0.407 |
+
+**Interpretation**: The narrow index range (0.11–0.41) reflects the fact that the entire built-up Centro Histórico is a high-priority intervention zone — all pixels are hot, vegetation-deficient, and traffic-impacted. The Priority Index discriminates **relative urgency within an already-critical zone**. The top 10% (≥0.399) identifies the convergence of maximum heat, minimum vegetation, and highest NO₂ — these are the optimal first-phase corridor alignments.
+
+#### 2.4.6 Satellite Analysis — Priority Index Maps
+
+**Figure 2.4a — Priority Index: Full ROI (4 km buffer)**
+
+![Priority Index — Full ROI](gis/assets/culiacan-priority-index-full-roi.png)
+
+*Google Earth Engine composite showing the Priority Index overlaid on satellite imagery of Culiacán's Centro Histórico and surrounding area. The 4 km ROI boundary (green) encompasses the full intervention zone. Red/magenta zones indicate highest intervention urgency (Priority Index ≥0.35); dark blue zones indicate lower relative priority. The Río Tamazula (south) and Río Humaya (west) riparian corridors are excluded by the Dynamic World built-area mask, confirming correct spatial filtering. The highest-priority cluster concentrates in the dense commercial core between the two river confluences — the exact zone receiving 172,000 vehicles daily.*
+
+**Figure 2.4b — Priority Index: Centro Histórico Detail (Street-Level)**
+
+![Priority Index — Centro Histórico Detail](gis/assets/culiacan-priority-index-centro-detail.png)
+
+*Zoomed view of the Centro Histórico urban grid. At this scale, individual street blocks and parking surfaces are distinguishable. The brightest red zones (Priority Index ≥0.40, top 10%) align with the major east-west arterials (Álvaro Obregón, Ángel Flores, Aquiles Serdán) and the commercial blocks between them — where surface parking lots create the largest contiguous heat islands. These streets are the primary candidates for Phase 1 green corridor conversion. The scattered dark pixels within the red zone correspond to the few existing trees and small plazas — confirming their cooling effect is real but spatially insufficient.*
+
+> **Note**: Save the two GEE screenshots to `ops/projects/gis/assets/` as:
+> - `culiacan-priority-index-full-roi.png`
+> - `culiacan-priority-index-centro-detail.png`
+
+#### 2.4.7 Recommended Phase 1 Corridor Alignments (from GIS Analysis)
+
+Based on the Priority Index critical zones (top 10%), the following street corridors emerge as highest-priority candidates for parking-to-green conversion:
+
+| Priority | Corridor | Orientation | Key Indicator | Rationale |
+|---|---|---|---|---|
+| **1** | **Álvaro Obregón** (Malecón → Mercado Garmendia) | E–W | LST ≥50°C, NDVI <0.05 | Central commercial spine; highest pedestrian traffic + maximum heat exposure. Connects river to market — ecological connectivity potential. |
+| **2** | **Ángel Flores** (Palacio Municipal → Catedral → Mercado) | E–W | LST ≥48°C, NO₂ peak zone | Institutional and commercial corridor; 62/64 transit routes intersect. Integration with Hub modal transfer nodes (§5.3). |
+| **3** | **Juárez / Rosales** (N–S connectors) | N–S | VEG_DEFICIT ≥0.95, LST ≥47°C | North-south links between E-W arterials; currently dominated by surface parking. Conversion creates grid connectivity for corridor network. |
+| **4** | **Aquiles Serdán** (western approach) | E–W | Critical zone cluster, high NO₂ | Western entry corridor into Centro; high vehicle idling. Candidate for first automated parking hub placement. |
+
+These alignments should be cross-referenced with IMPLAN's 172,000-vehicle traffic flow data and the municipal parking lot inventory during Step 03 (Spatial Screening) to confirm feasibility and sequencing.
+
+#### 2.4.8 Data Exports for Post-Processing
+
+| Export | Format | Resolution | Purpose |
+|---|---|---|---|
+| `Culiacan_Priority_Index_30m` | GeoTIFF | 30 m | QGIS/ArcGIS overlay with municipal cadastre, utility maps, road network |
+| `Culiacan_Critical_Zones_Vector` | Shapefile | 30 m (vectorized) | Street-level overlay; intersection with IMPLAN mobility data; CAD/BIM integration for corridor design |
+
+Exports available via GEE Tasks panel → Google Drive folder `ESW_Culiacan_GreenCorridors`.
+
 ---
 
 ## SECTION 3: FINANCIAL STRUCTURING — "THE HOW"
@@ -490,6 +599,13 @@ Year 3+ (Months 24–60)
 - Canopy LAI cooling effect (PNAS 2019): https://www.pnas.org/doi/10.1073/pnas.1817561116
 - T. rosea transpiration data: https://www.sciencedirect.com/science/article/abs/pii/S0048969719357596
 - Medellín green corridors (2°C UHI reduction): https://c40cff.org/projects/expanding-urban-green-space-in-parques-del-rio-norte
+
+### Remote Sensing / GEE Data Sources
+- Landsat 8/9 Collection 2 Level 2 (Surface Temperature): https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C02_T1_L2
+- Sentinel-2 MSI SR Harmonized: https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED
+- Sentinel-5P TROPOMI NO₂: https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S5P_OFFL_L3_NO2
+- Dynamic World V1 (land use classification): https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1
+- ESW GEE analysis script: `ops/projects/gis/culiacan-green-corridor-suitability.js`
 
 ### Comparable C40 CFF Projects
 - Medellín Parques del Río Norte (COP 1,995B net benefit): https://c40cff.org/projects/expanding-urban-green-space-in-parques-del-rio-norte
