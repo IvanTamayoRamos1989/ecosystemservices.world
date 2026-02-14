@@ -172,9 +172,13 @@ var no2Mean = no2.mean().clip(roi).rename('NO2');
 
 print('L3 — NO2: Scene count (TROPOMI, 2024-2025):', no2.size());
 
+// NOTE: TROPOMI NO2 over Culiacán has very narrow variance (P2–P98: ~4.1e-5 to ~4.9e-5).
+// At ~1.1km native resolution over a 4km radius, there are only ~20 unique pixels.
+// NO2 provides corridor-scale directional signal, not street-level differentiation.
+// Vis range tightened to actual data range for maximum contrast.
 var no2Vis = {
-  min: 0.00003,
-  max: 0.00012,
+  min: 0.000038,
+  max: 0.000052,
   palette: ['0d0887', '5b02a3', '9a179b', 'cb4678', 'eb7852', 'fbb32f', 'f0f921']
 };
 
@@ -259,17 +263,15 @@ print('Veg Deficit:', defP2, '–', defP98);
 print('NO2 (mol/m²):', no2P2, '–', no2P98);
 
 // --- 5b. Resample to common resolution ---
-// LST is 30m (Landsat), NDVI is 10m (Sentinel-2), NO2 is ~1113m (TROPOMI)
-// Resample all to 10m (Sentinel-2 native) using bilinear interpolation
-// then apply the built mask at 10m resolution
+// LST is 30m (Landsat), NDVI is 10m (Sentinel-2), NO2 is ~1113m (TROPOMI).
+// IMPORTANT: Do NOT use .reproject() — it forces pixel-level computation at the
+// specified scale across the entire ROI, causing tile timeouts and memory errors.
+// Instead, use .resample('bilinear') which tells GEE to interpolate smoothly
+// when the display/analysis requests a finer scale than the native resolution.
+// GEE's lazy evaluation handles multi-scale compositing correctly at render time.
 
-var lstResampled = lstNorm
-  .resample('bilinear')
-  .reproject({crs: 'EPSG:4326', scale: 10});
-
-var no2Resampled = no2Norm
-  .resample('bilinear')
-  .reproject({crs: 'EPSG:4326', scale: 10});
+var lstSmooth = lstNorm.resample('bilinear');
+var no2Smooth = no2Norm.resample('bilinear');
 
 // --- 5c. Weighted composite ---
 var weights = {
@@ -278,18 +280,22 @@ var weights = {
   no2: 0.20     // Traffic/congestion proxy for modal shift priority
 };
 
-var priorityIndex = lstResampled.multiply(weights.lst)
+var priorityIndex = lstSmooth.multiply(weights.lst)
   .add(defNorm.multiply(weights.deficit))
-  .add(no2Resampled.multiply(weights.no2))
+  .add(no2Smooth.multiply(weights.no2))
   .rename('Priority_Index');
 
 // Apply built-area mask — only analyze impervious surfaces
 var priorityMasked = priorityIndex.updateMask(builtMask);
 
 // --- 5d. Visualization ---
+// Data range from first run: P25=0.31, Median=0.36, P75=0.39, P95=0.41.
+// The narrow range is expected: within a fully built-up zone, all pixels are
+// similarly hot and vegetation-deficient. Vis params stretch the actual data
+// range to maximize contrast for identifying relative priority gradients.
 var priorityVis = {
-  min: 0.2,
-  max: 0.9,
+  min: 0.10,
+  max: 0.42,
   palette: [
     '1a1a2e',  // Low priority: dark blue-gray
     '16213e',
@@ -354,7 +360,7 @@ print(ndviHistogram);
 var priorityHistogram = ui.Chart.image.histogram({
   image: priorityMasked,
   region: roi,
-  scale: 10,
+  scale: 30,
   maxPixels: 1e9,
   maxBuckets: 50
 }).setOptions({
@@ -377,7 +383,7 @@ var priorityStats = priorityMasked.reduceRegion({
     .combine(ee.Reducer.stdDev(), '', true)
     .combine(ee.Reducer.percentile([25, 50, 75, 90, 95]), '', true),
   geometry: roi,
-  scale: 10,
+  scale: 30,
   maxPixels: 1e9,
   bestEffort: true
 });
@@ -392,16 +398,12 @@ print(priorityStats);
 // Identify pixels in the top 10% of the Priority Index as "critical intervention zones"
 // These represent the hottest, most vegetation-deficient, highest-traffic impervious
 // surfaces — the optimal locations for parking-to-green-corridor conversion.
+//
+// NOTE: Reuse priorityStats from Section 7 — a standalone ee.Reducer.percentile()
+// in reduceRegion() produces inconsistent key names in GEE's server-side dictionary.
+// The combined reducer in Section 7 reliably produces 'Priority_Index_p90'.
 
-var p90 = priorityMasked.reduceRegion({
-  reducer: ee.Reducer.percentile([90]),
-  geometry: roi,
-  scale: 10,
-  maxPixels: 1e9,
-  bestEffort: true
-});
-
-var threshold90 = ee.Number(p90.get('Priority_Index_p90'));
+var threshold90 = ee.Number(priorityStats.get('Priority_Index_p90'));
 print('Critical Zone Threshold (P90):', threshold90);
 
 var criticalZones = priorityMasked.gte(threshold90).selfMask();
@@ -421,10 +423,10 @@ Map.addLayer(criticalZones, {palette: ['ff0000'], opacity: 0.7},
 
 Export.image.toDrive({
   image: priorityMasked,
-  description: 'Culiacan_Priority_Index_10m',
+  description: 'Culiacan_Priority_Index_30m',
   folder: 'ESW_Culiacan_GreenCorridors',
   region: roi,
-  scale: 10,
+  scale: 30,       // Landsat-native resolution; avoids compute timeout
   crs: 'EPSG:4326',
   maxPixels: 1e10,
   fileFormat: 'GeoTIFF'
@@ -433,7 +435,7 @@ Export.image.toDrive({
 // Export critical zones as vector (for overlay on street maps)
 var criticalVector = criticalZones.reduceToVectors({
   geometry: roi,
-  scale: 10,
+  scale: 30,
   maxPixels: 1e10,
   geometryType: 'polygon',
   eightConnected: true,
@@ -466,12 +468,17 @@ legend.add(ui.Label({
 }));
 
 legend.add(ui.Label({
-  value: 'Weights: LST 50% | Veg Deficit 30% | NO₂ 20%',
-  style: {fontSize: '11px', color: '#aaaaaa', margin: '0 0 8px 0'}
+  value: 'LST 50% | Veg Deficit 30% | NO₂ 20%',
+  style: {fontSize: '11px', color: '#aaaaaa', margin: '0 0 4px 0'}
+}));
+
+legend.add(ui.Label({
+  value: 'Range: 0.10 – 0.42 (built areas)',
+  style: {fontSize: '10px', color: '#777777', margin: '0 0 8px 0'}
 }));
 
 var legendColors = ['1a1a2e', '0f3460', '533483', 'e94560', 'ff1744', 'ff0000'];
-var legendLabels = ['Low', '', 'Medium', '', 'High', 'Critical'];
+var legendLabels = ['Low (≤0.15)', '', 'Medium (0.25)', '', 'High (0.35)', 'Critical (≥0.40)'];
 
 for (var i = 0; i < legendColors.length; i++) {
   var row = ui.Panel({
