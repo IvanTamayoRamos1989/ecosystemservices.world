@@ -2,12 +2,25 @@ import React, { Suspense, lazy } from 'react'
 
 const EarthScene = lazy(() => import('./EarthScene'))
 
+function LoadingFallback() {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="relative">
+        <div className="w-32 h-32 rounded-full border border-accent/20 animate-spin" style={{ animationDuration: '3s' }} />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-4 h-4 rounded-full bg-accent/40 animate-pulse" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* 3D Earth background */}
       <div className="absolute inset-0 opacity-60">
-        <Suspense fallback={null}>
+        <Suspense fallback={<LoadingFallback />}>
           <EarthScene />
         </Suspense>
       </div>
@@ -53,7 +66,7 @@ function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 animate-scroll-bounce">
         <span className="text-xs tracking-widest uppercase">Scroll</span>
         <div className="w-px h-8 bg-gradient-to-b from-gray-500 to-transparent" />
       </div>
