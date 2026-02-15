@@ -33,6 +33,8 @@ Read agents/eco-scientist.md, then apply that role to analyze [site data].
 | `growth-hacker.md` | Sales Lead | 4 — Growth | The Pipeline |
 | `brand-voice.md` | Marketing | 4 — Growth | The Reputation |
 | `agent-architect.md` | HR / System | 0 — Meta | The System |
+| `talent-scout.md` | Human Resource Identifier | 1 — Operations | The Human Requirement |
+| `procurement-manager.md` | Vendor Management | 3 — Commercial | The Vendor |
 
 ## Workflow Registry
 
@@ -42,6 +44,7 @@ Read agents/eco-scientist.md, then apply that role to analyze [site data].
 | `workflows/board-meeting.md` | Cross-agent simulation for a given project |
 | `workflows/lead-generation.md` | Target identification and outreach |
 | `workflows/intel-update.md` | Quarterly sector intelligence for website |
+| `workflows/human-handoff.md` | Human expert procurement and deliverable sign-off |
 
 ## MCP Integration
 
