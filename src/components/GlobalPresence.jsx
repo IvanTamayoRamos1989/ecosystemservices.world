@@ -48,18 +48,18 @@ function GlobalPresence() {
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left: Header */}
           <div>
-            <span className="text-accent text-sm tracking-wider uppercase">
+            <span className="text-dark text-sm tracking-wider uppercase">
               Global Presence
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-6">
               Operational across jurisdictions and biomes
             </h2>
-            <p className="text-gray-400 leading-relaxed mb-4">
+            <p className="text-slate leading-relaxed mb-4">
               ESW adapts to local ecology, local regulation, and local capital markets.
               Our practice spans temperate, tropical, arid, and coastal biomes across
               five continents — with deep regulatory expertise in each jurisdiction.
             </p>
-            <p className="text-gray-400 leading-relaxed">
+            <p className="text-slate leading-relaxed">
               Founded in Europe with deep roots in the EU regulatory framework,
               we extend our advisory practice to emerging and frontier markets where
               ecosystem services opportunities are rapidly scaling.
@@ -71,30 +71,30 @@ function GlobalPresence() {
             {regions.map((region) => (
               <div
                 key={region.name}
-                className="group p-5 rounded-lg border border-white/5 bg-white/[0.02] hover:border-accent/20 transition-all duration-300"
+                className="group p-5 rounded-sm border border-gray-200 bg-white hover:border-accent transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold group-hover:text-accent transition-colors duration-300">
+                  <h3 className="font-semibold group-hover:text-dark transition-colors duration-300">
                     {region.name}
                   </h3>
                   <span
-                    className={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border ${
+                    className={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-sm border ${
                       region.status === 'Active'
-                        ? 'border-accent/30 text-accent'
-                        : 'border-white/10 text-gray-500'
+                        ? 'border-dark text-dark'
+                        : 'border-accent text-accent'
                     }`}
                   >
                     {region.status}
                   </span>
                 </div>
-                <p className="text-sm text-gray-400 leading-relaxed mb-3">
+                <p className="text-sm text-slate leading-relaxed mb-3">
                   {region.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {region.markets.map((market) => (
                     <span
                       key={market}
-                      className="text-[10px] tracking-wider uppercase px-2 py-1 rounded border border-white/10 text-gray-500"
+                      className="text-[10px] tracking-wider uppercase px-2 py-1 rounded-sm border border-gray-200 text-slate"
                     >
                       {market}
                     </span>

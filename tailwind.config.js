@@ -3,12 +3,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        accent: '#00ff9d',
-        dark: '#0a0a0a',
+        accent: '#B45309',
+        dark: '#0F172A',
+        charcoal: '#111827',
+        slate: '#475569',
+        cultured: '#F9FAFB',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', '"Times New Roman"', 'serif'],
         mono: ['Roboto Mono', 'monospace'],
+      },
+      borderRadius: {
+        DEFAULT: '2px',
       },
     },
   },

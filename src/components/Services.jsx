@@ -92,14 +92,14 @@ function Services() {
   const [ref, visible] = useReveal()
 
   return (
-    <section id="services" className="py-24 md:py-32 bg-white/[0.01]">
+    <section id="services" className="py-24 md:py-32 bg-cultured">
       <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-accent text-sm tracking-wider uppercase">Capabilities</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
+          <span className="text-dark text-sm tracking-wider uppercase">Capabilities</span>
+          <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             Integrated advisory across the project lifecycle
           </h2>
-          <p className="text-gray-400">
+          <p className="text-slate">
             From ecological baseline to credit issuance, our teams integrate
             science, design, finance, and legal structuring into every phase
             of the engagement.
@@ -109,24 +109,26 @@ function Services() {
         {departments.map((dept) => (
           <div key={dept.label} className="mb-12 last:mb-0">
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-px flex-1 bg-white/5" />
-              <span className="text-xs tracking-wider uppercase text-gray-500">
-                {dept.label} — <span className="text-accent">{dept.tagline}</span>
+              <div className="h-px flex-1 bg-gray-200" />
+              <span className="text-xs tracking-wider uppercase text-slate">
+                {dept.label} — <span className="text-dark">{dept.tagline}</span>
               </span>
-              <div className="h-px flex-1 bg-white/5" />
+              <div className="h-px flex-1 bg-gray-200" />
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="divide-y divide-gray-200">
               {dept.services.map((service) => (
                 <div
                   key={service.title}
-                  className="group p-8 rounded-lg border border-white/5 bg-white/[0.02] hover:border-accent/30 transition-all duration-300"
+                  className="group py-6 flex gap-6 items-start"
                 >
-                  <div className="text-accent mb-4 group-hover:scale-110 transition-transform duration-300 inline-block">
+                  <div className="text-dark flex-shrink-0 mt-1">
                     {service.icon}
                   </div>
-                  <h3 className="text-lg font-semibold mb-3">{service.title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{service.description}</p>
+                  <div>
+                    <h3 className="text-lg font-semibold text-charcoal mb-2 font-serif">{service.title}</h3>
+                    <p className="text-sm text-slate leading-relaxed">{service.description}</p>
+                  </div>
                 </div>
               ))}
             </div>

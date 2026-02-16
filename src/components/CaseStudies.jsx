@@ -61,11 +61,11 @@ function CaseStudies() {
     <section id="case-studies" className="py-24 md:py-32">
       <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-accent text-sm tracking-wider uppercase">Case Studies</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
+          <span className="text-dark text-sm tracking-wider uppercase">Case Studies</span>
+          <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             Representative engagements
           </h2>
-          <p className="text-gray-400">
+          <p className="text-slate">
             Selected project profiles demonstrating ESW&apos;s integrated approach across
             sectors, geographies, and regulatory frameworks.
           </p>
@@ -75,28 +75,28 @@ function CaseStudies() {
           {studies.map((study) => (
             <div
               key={study.title}
-              className={`group p-8 rounded-lg border bg-white/[0.02] hover:border-accent/30 transition-all duration-300 flex flex-col ${
+              className={`group p-8 rounded-sm border bg-white hover:border-dark transition-all duration-300 flex flex-col ${
                 study.featured
-                  ? 'border-accent/20 md:col-span-2'
-                  : 'border-white/5'
+                  ? 'border-accent md:col-span-2'
+                  : 'border-gray-200'
               }`}
             >
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xs tracking-wider uppercase text-accent">{study.sector}</span>
-                <span className="text-gray-600 text-xs">|</span>
-                <span className="text-xs text-gray-500">{study.region}</span>
+                <span className="text-xs tracking-wider uppercase text-dark">{study.sector}</span>
+                <span className="text-slate text-xs">|</span>
+                <span className="text-xs text-slate">{study.region}</span>
                 {study.featured && (
-                  <span className="ml-auto text-[10px] tracking-wider uppercase px-2 py-0.5 rounded-full border border-accent/30 text-accent">
+                  <span className="ml-auto text-[10px] tracking-wider uppercase px-2 py-0.5 rounded-sm border border-dark text-dark">
                     Featured
                   </span>
                 )}
               </div>
 
-              <h3 className="text-lg font-semibold mb-3 group-hover:text-accent transition-colors duration-300">
+              <h3 className="text-lg font-semibold mb-3 group-hover:text-dark transition-colors duration-300">
                 {study.title}
               </h3>
 
-              <p className="text-sm text-gray-400 leading-relaxed mb-6">
+              <p className="text-sm text-slate leading-relaxed mb-6">
                 {study.scope}
               </p>
 
@@ -104,12 +104,12 @@ function CaseStudies() {
                 <div className="mb-6">
                   <button
                     onClick={() => setExpanded(expanded === study.title ? null : study.title)}
-                    className="text-xs text-accent hover:text-accent/80 transition-colors tracking-wider uppercase"
+                    className="text-xs text-dark hover:text-dark/80 transition-colors tracking-wider uppercase"
                   >
                     {expanded === study.title ? '— Collapse details' : '+ View project details'}
                   </button>
                   {expanded === study.title && (
-                    <div className="mt-4 p-6 rounded border border-white/5 bg-white/[0.01] space-y-4">
+                    <div className="mt-4 p-6 rounded-sm border border-gray-200 bg-cultured space-y-4">
                       <div>
                         <h4 className="text-sm font-semibold text-accent mb-2">Blended Finance Structure</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -121,23 +121,23 @@ function CaseStudies() {
                           ].map((item) => (
                             <div key={item.layer} className="text-center">
                               <div className="text-accent font-semibold text-sm">{item.amount}</div>
-                              <div className="text-[10px] text-gray-600 uppercase tracking-wider mt-1">{item.layer}</div>
+                              <div className="text-[10px] text-slate uppercase tracking-wider mt-1">{item.layer}</div>
                             </div>
                           ))}
                         </div>
                       </div>
                       <div>
                         <h4 className="text-sm font-semibold text-accent mb-2">Native Species Palette</h4>
-                        <p className="text-xs text-gray-400">
-                          <span className="text-gray-300">Tabebuia rosea</span> (Amapa) —
-                          <span className="text-gray-300"> Guazuma ulmifolia</span> (Guásima) —
-                          <span className="text-gray-300"> Prosopis</span> spp. (Mezquite).
+                        <p className="text-xs text-slate">
+                          <span className="text-charcoal">Tabebuia rosea</span> (Amapa) —
+                          <span className="text-charcoal"> Guazuma ulmifolia</span> (Guásima) —
+                          <span className="text-charcoal"> Prosopis</span> spp. (Mezquite).
                           Selected per IUCN NbS Criterion 3 for canopy shade, transpirational cooling, and non-aggressive root systems.
                         </p>
                       </div>
                       <div>
                         <h4 className="text-sm font-semibold text-accent mb-2">Regulatory Alignment</h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-slate">
                           PECCSIN (Sinaloa State Climate Plan) · Ley Estatal de Cambio Climático ·
                           NOM-060-SEMARNAT-1994 · IUCN Global Standard for NbS ·
                           IDB ESPF (10 Performance Standards) · Principios de Bonos Verdes MX (ICMA-aligned)
@@ -152,7 +152,7 @@ function CaseStudies() {
                 {study.metrics.map((m) => (
                   <div key={m.label} className="text-center">
                     <div className="text-accent font-semibold text-sm">{m.value}</div>
-                    <div className="text-[10px] text-gray-600 uppercase tracking-wider mt-1">{m.label}</div>
+                    <div className="text-[10px] text-slate uppercase tracking-wider mt-1">{m.label}</div>
                   </div>
                 ))}
               </div>
@@ -161,7 +161,7 @@ function CaseStudies() {
                 {study.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[10px] tracking-wider uppercase px-2 py-1 rounded border border-white/10 text-gray-500"
+                    className="text-[10px] tracking-wider uppercase px-2 py-1 rounded-sm border border-gray-200 text-slate"
                   >
                     {tag}
                   </span>

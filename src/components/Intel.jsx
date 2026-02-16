@@ -82,7 +82,7 @@ function Intel() {
       : articles.filter((a) => a.category === activeCategory)
 
   return (
-    <section id="intel" className="py-24 md:py-32 bg-white/[0.01]">
+    <section id="intel" className="py-24 md:py-32 bg-cultured">
       <div
         ref={ref}
         className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${
@@ -90,11 +90,11 @@ function Intel() {
         }`}
       >
         <div className="max-w-2xl mb-12">
-          <span className="text-accent text-sm tracking-wider uppercase">Intel</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
+          <span className="text-dark text-sm tracking-wider uppercase">Intel</span>
+          <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             Sector intelligence
           </h2>
-          <p className="text-gray-400">
+          <p className="text-slate">
             Regulatory developments, market movements, and policy shifts shaping the
             ecosystem services landscape. Curated by ESW&apos;s research team.
           </p>
@@ -106,10 +106,10 @@ function Intel() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`text-xs tracking-wider uppercase px-4 py-2 rounded-full border transition-all duration-200 ${
+              className={`text-xs tracking-wider uppercase px-4 py-2 rounded-sm border transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'border-accent text-accent bg-accent/10'
-                  : 'border-white/10 text-gray-500 hover:border-white/20 hover:text-gray-300'
+                  ? 'border-dark text-white bg-dark'
+                  : 'border-gray-200 text-slate hover:border-gray-300 hover:text-charcoal'
               }`}
             >
               {cat}
@@ -122,23 +122,23 @@ function Intel() {
           {filtered.map((article) => (
             <article
               key={article.title}
-              className={`group p-8 rounded-lg border bg-white/[0.02] hover:border-accent/30 transition-all duration-300 flex flex-col ${
-                article.highlight ? 'border-accent/20' : 'border-white/5'
+              className={`group p-8 rounded-sm border bg-white hover:border-dark transition-all duration-300 flex flex-col ${
+                article.highlight ? 'border-accent' : 'border-gray-200'
               }`}
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-xs tracking-wider uppercase text-accent">
+                <span className="text-xs tracking-wider uppercase text-dark">
                   {article.category}
                 </span>
-                <span className="text-gray-700">|</span>
-                <span className="text-xs text-gray-600">{article.date}</span>
+                <span className="text-gray-400">|</span>
+                <span className="text-xs text-slate">{article.date}</span>
               </div>
 
-              <h3 className="text-lg font-semibold mb-3 group-hover:text-accent transition-colors duration-300 leading-snug">
+              <h3 className="text-lg font-semibold mb-3 group-hover:text-dark transition-colors duration-300 leading-snug">
                 {article.title}
               </h3>
 
-              <p className="text-sm text-gray-400 leading-relaxed mb-6 flex-1">
+              <p className="text-sm text-slate leading-relaxed mb-6 flex-1">
                 {article.summary}
               </p>
 
@@ -146,7 +146,7 @@ function Intel() {
                 {article.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[10px] tracking-wider uppercase px-2 py-1 rounded border border-white/10 text-gray-500"
+                    className="text-[10px] tracking-wider uppercase px-2 py-1 rounded-sm border border-gray-200 text-slate"
                   >
                     {tag}
                   </span>

@@ -1,63 +1,36 @@
-import React, { Suspense, lazy } from 'react'
-
-const EarthScene = lazy(() => import('./EarthScene'))
-
-function LoadingFallback() {
-  return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="relative">
-        <div className="w-32 h-32 rounded-full border border-accent/20 animate-spin" style={{ animationDuration: '3s' }} />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-4 h-4 rounded-full bg-accent/40 animate-pulse" />
-        </div>
-      </div>
-    </div>
-  )
-}
+import React from 'react'
 
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* 3D Earth background */}
-      <div className="absolute inset-0 opacity-60">
-        <Suspense fallback={<LoadingFallback />}>
-          <EarthScene />
-        </Suspense>
-      </div>
-
-      {/* Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent" />
-
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/30 bg-accent/5 text-accent text-xs tracking-wider uppercase mb-8">
-            <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+    <section className="min-h-screen flex items-center">
+      <div className="max-w-7xl mx-auto px-6 py-32">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-gray-300 bg-gray-50 text-slate text-xs tracking-wider uppercase mb-8">
             Global Ecosystem Services Consultancy
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-charcoal leading-tight mb-6">
             Turning environmental liabilities into
-            <span className="text-accent"> ecological assets</span>
+            <span className="text-dark"> ecological assets</span>
           </h1>
 
-          <p className="text-lg text-gray-400 leading-relaxed mb-10 max-w-xl">
+          <p className="text-lg text-slate leading-relaxed mb-10 max-w-2xl mx-auto">
             We advise developers, financial institutions, and governments on
             the environmental dimensions of large-scale projects — integrating
             ecological science, regenerative design, and sustainable finance
             into a single, rigorous practice.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="#services"
-              className="inline-flex items-center justify-center px-8 py-3 bg-accent text-dark font-medium rounded hover:bg-accent/90 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 bg-dark text-white font-medium rounded-sm hover:bg-charcoal transition-colors"
             >
               Our Services
             </a>
             <a
               href="#approach"
-              className="inline-flex items-center justify-center px-8 py-3 border border-white/20 text-white rounded hover:border-accent/50 hover:text-accent transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-slate rounded-sm hover:border-dark hover:text-dark transition-colors"
             >
               Our Methodology
             </a>
@@ -66,9 +39,9 @@ function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 animate-scroll-bounce">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400 animate-scroll-bounce">
         <span className="text-xs tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-gray-500 to-transparent" />
+        <div className="w-px h-8 bg-gradient-to-b from-gray-300 to-transparent" />
       </div>
     </section>
   )

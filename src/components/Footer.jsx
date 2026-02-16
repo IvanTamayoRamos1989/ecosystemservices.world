@@ -21,19 +21,16 @@ const footerLinks = {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/5">
+    <footer className="border-t border-gray-200 bg-cultured">
       <div className="max-w-7xl mx-auto px-6">
         {/* Main footer */}
         <div className="py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-full border-2 border-accent flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-accent" />
-              </div>
-              <span className="text-lg font-semibold text-accent">ESW</span>
+              <span className="font-serif font-bold text-xl text-charcoal tracking-tight">ESW</span>
             </div>
-            <p className="text-sm text-gray-500 leading-relaxed mb-6">
+            <p className="text-sm text-slate leading-relaxed mb-6">
               The global authority on ecosystem services. Science-backed,
               design-led, financially viable.
             </p>
@@ -43,7 +40,7 @@ function Footer() {
                 href="https://www.linkedin.com/company/ecosystemservicesworld"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-accent transition-colors"
+                className="text-slate hover:text-dark transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -52,7 +49,7 @@ function Footer() {
               </a>
               <a
                 href="mailto:info@ecosystemservices.world"
-                className="text-gray-600 hover:text-accent transition-colors"
+                className="text-slate hover:text-dark transition-colors"
                 aria-label="Email"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -66,7 +63,7 @@ function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-xs tracking-wider uppercase text-gray-400 mb-4">
+              <h4 className="text-xs tracking-wider uppercase text-slate mb-4">
                 {title}
               </h4>
               <ul className="space-y-3">
@@ -74,7 +71,7 @@ function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-sm text-gray-500 hover:text-accent transition-colors"
+                      className="text-sm text-slate hover:text-dark transition-colors"
                     >
                       {link.label}
                     </a>
@@ -86,11 +83,11 @@ function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/5 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-600">
+        <div className="border-t border-gray-200 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate">
             &copy; {new Date().getFullYear()} Ecosystem Services World. All rights reserved.
           </p>
-          <p className="text-xs text-gray-700">
+          <p className="text-xs text-gray-400">
             Built for science. Designed for capital markets.
           </p>
         </div>

@@ -54,10 +54,10 @@ const MOCK_ASSIGNMENTS = [
 
 // ── Status colour mapping ────────────────────────────────────────────
 const STATUS_COLORS = {
-  Assigned: 'text-yellow-400 bg-yellow-400/10',
-  'In Progress': 'text-blue-400 bg-blue-400/10',
-  Submitted: 'text-purple-400 bg-purple-400/10',
-  Accepted: 'text-accent bg-accent/10',
+  Assigned: 'text-amber-600 bg-amber-50',
+  'In Progress': 'text-blue-700 bg-blue-50',
+  Submitted: 'text-purple-700 bg-purple-50',
+  Accepted: 'text-emerald-700 bg-emerald-50',
 }
 
 function VendorPortal() {
@@ -81,7 +81,7 @@ function VendorPortal() {
   }
 
   return (
-    <section id="vendor-portal" className="py-24 md:py-32 bg-white/[0.01]">
+    <section id="vendor-portal" className="py-24 md:py-32 bg-cultured">
       <div
         ref={ref}
         className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${
@@ -90,9 +90,9 @@ function VendorPortal() {
       >
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-accent text-sm tracking-wider uppercase">Vendor Portal</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">Expert Assignments</h2>
-          <p className="text-gray-400">
+          <span className="text-dark text-sm tracking-wider uppercase">Vendor Portal</span>
+          <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">Expert Assignments</h2>
+          <p className="text-slate">
             Review your active assignments, upload signed deliverables, and track acceptance status.
           </p>
         </div>
@@ -103,10 +103,10 @@ function VendorPortal() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2 rounded text-sm font-medium transition-colors ${
+              className={`px-6 py-2 rounded-sm text-sm font-medium transition-colors ${
                 activeTab === tab
-                  ? 'bg-accent text-dark'
-                  : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                  ? 'bg-dark text-white'
+                  : 'bg-gray-100 text-slate hover:bg-gray-200'
               }`}
             >
               {tab === 'active'
@@ -117,17 +117,17 @@ function VendorPortal() {
         </div>
 
         {/* Pipeline Overview */}
-        <div className="mb-10 p-6 rounded-lg border border-white/5 bg-white/[0.02]">
-          <h3 className="text-sm text-gray-500 uppercase tracking-wider mb-4">Pipeline Overview</h3>
+        <div className="mb-10 p-6 rounded-sm border border-gray-200 bg-white">
+          <h3 className="text-sm text-slate uppercase tracking-wider mb-4">Pipeline Overview</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {PIPELINE_STAGES.map((stage) => {
               const count = assignments.filter((a) => a.status === stage).length
               return (
                 <div key={stage} className="text-center">
-                  <div className="text-2xl font-bold text-white">{count}</div>
+                  <div className="text-2xl font-bold text-charcoal">{count}</div>
                   <div
                     className={`text-xs mt-1 ${
-                      stage === 'Accepted' ? 'text-accent' : 'text-gray-500'
+                      stage === 'Accepted' ? 'text-dark' : 'text-slate'
                     }`}
                   >
                     {stage}
@@ -143,17 +143,17 @@ function VendorPortal() {
           {displayed.map((assignment) => (
             <div
               key={assignment.id}
-              className="group p-8 rounded-lg border border-white/5 bg-white/[0.02] hover:border-accent/30 transition-all duration-300"
+              className="group p-8 rounded-sm border border-gray-200 bg-white hover:border-dark transition-all duration-300"
             >
               {/* Card Header */}
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <span className="text-xs text-gray-500 font-mono">{assignment.id}</span>
+                  <span className="text-xs text-slate font-mono">{assignment.id}</span>
                   <h3 className="text-lg font-semibold mt-1">{assignment.projectName}</h3>
                 </div>
                 <span
-                  className={`text-xs px-3 py-1 rounded-full font-medium ${
-                    STATUS_COLORS[assignment.status] || 'text-gray-400 bg-white/5'
+                  className={`text-xs px-3 py-1 rounded-sm font-medium ${
+                    STATUS_COLORS[assignment.status] || 'text-slate bg-gray-100'
                   }`}
                 >
                   {assignment.status}
@@ -163,26 +163,26 @@ function VendorPortal() {
               {/* Card Details */}
               <div className="space-y-2 mb-6">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Role</span>
-                  <span className="text-white">{assignment.role}</span>
+                  <span className="text-slate">Role</span>
+                  <span className="text-charcoal">{assignment.role}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Deliverable</span>
-                  <span className="text-white text-right max-w-[60%]">
+                  <span className="text-slate">Deliverable</span>
+                  <span className="text-charcoal text-right max-w-[60%]">
                     {assignment.deliverable}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Jurisdiction</span>
-                  <span className="text-white">{assignment.jurisdiction}</span>
+                  <span className="text-slate">Jurisdiction</span>
+                  <span className="text-charcoal">{assignment.jurisdiction}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Legal Basis</span>
-                  <span className="text-white font-mono text-xs">{assignment.legalBasis}</span>
+                  <span className="text-slate">Legal Basis</span>
+                  <span className="text-charcoal font-mono text-xs">{assignment.legalBasis}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Deadline</span>
-                  <span className="text-white">{assignment.deadline}</span>
+                  <span className="text-slate">Deadline</span>
+                  <span className="text-charcoal">{assignment.deadline}</span>
                 </div>
               </div>
 
@@ -195,7 +195,7 @@ function VendorPortal() {
                     <div
                       key={stage}
                       className={`h-1.5 flex-1 rounded-full transition-colors ${
-                        isComplete ? 'bg-accent' : 'bg-white/10'
+                        isComplete ? 'bg-dark' : 'bg-gray-200'
                       }`}
                     />
                   )
@@ -204,15 +204,15 @@ function VendorPortal() {
 
               {/* Upload Area */}
               {(assignment.status === 'Assigned' || assignment.status === 'In Progress') && (
-                <div className="border border-dashed border-white/10 rounded-lg p-4 text-center hover:border-accent/30 transition-colors">
+                <div className="border border-dashed border-gray-300 rounded-sm p-4 text-center hover:border-dark transition-colors">
                   {uploadStatus[assignment.id] === 'uploading' ? (
-                    <p className="text-sm text-gray-400">Uploading...</p>
+                    <p className="text-sm text-slate">Uploading...</p>
                   ) : uploadStatus[assignment.id] === 'uploaded' ? (
-                    <p className="text-sm text-accent">Deliverable submitted</p>
+                    <p className="text-sm text-dark">Deliverable submitted</p>
                   ) : (
                     <button
                       onClick={() => handleUpload(assignment.id)}
-                      className="text-sm text-gray-400 hover:text-accent transition-colors"
+                      className="text-sm text-slate hover:text-dark transition-colors"
                     >
                       Upload signed deliverable (PDF)
                     </button>
@@ -222,7 +222,7 @@ function VendorPortal() {
 
               {/* Uploaded File Display */}
               {assignment.uploadedFile && (
-                <div className="flex items-center gap-2 mt-4 text-sm text-gray-400">
+                <div className="flex items-center gap-2 mt-4 text-sm text-slate">
                   <svg
                     width="16"
                     height="16"
@@ -243,7 +243,7 @@ function VendorPortal() {
 
         {/* Empty State */}
         {displayed.length === 0 && (
-          <div className="text-center py-16 text-gray-500">
+          <div className="text-center py-16 text-slate">
             <p>No {activeTab} assignments.</p>
           </div>
         )}

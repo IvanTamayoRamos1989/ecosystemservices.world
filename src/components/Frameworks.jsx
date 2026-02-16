@@ -58,7 +58,7 @@ function Frameworks() {
   const [ref, visible] = useReveal(0.15)
 
   return (
-    <section className="py-20 md:py-28 bg-white/[0.01]">
+    <section className="py-20 md:py-28 bg-cultured">
       <div
         ref={ref}
         className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${
@@ -66,13 +66,13 @@ function Frameworks() {
         }`}
       >
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-accent text-sm tracking-wider uppercase">
+          <span className="text-dark text-sm tracking-wider uppercase">
             Standards & Frameworks
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             Operating across every major framework
           </h2>
-          <p className="text-gray-400">
+          <p className="text-slate">
             We structure work under the disclosure, crediting, and regulatory standards
             that govern international ecosystem services markets.
           </p>
@@ -82,14 +82,14 @@ function Frameworks() {
           {frameworks.map((fw, i) => (
             <div
               key={fw.name}
-              className="group relative p-5 rounded-lg border border-white/5 bg-white/[0.02] hover:border-accent/30 transition-all duration-300 text-center"
+              className="group relative p-5 rounded-sm border border-gray-200 bg-white hover:border-dark transition-all duration-300 text-center"
             >
-              <div className="text-accent font-semibold text-sm mb-1">{fw.name}</div>
-              <div className="text-[10px] text-gray-600 uppercase tracking-wider">
+              <div className="text-dark font-semibold text-sm mb-1">{fw.name}</div>
+              <div className="text-[10px] text-slate uppercase tracking-wider">
                 {fw.category}
               </div>
               {/* Tooltip on hover */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-dark border border-accent/20 rounded text-xs text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-dark border border-gray-300 rounded-sm text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
                 {fw.full}
               </div>
             </div>

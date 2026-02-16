@@ -26,7 +26,7 @@ function App() {
   }, [])
 
   return (
-    <div className="bg-dark text-white min-h-screen">
+    <div className="bg-white text-charcoal min-h-screen">
       <Navbar scrolled={scrolled} />
       <Hero />
       <About />
