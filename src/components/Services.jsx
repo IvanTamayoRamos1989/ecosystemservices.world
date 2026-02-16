@@ -95,7 +95,7 @@ function Services() {
     <section id="services" className="py-24 md:py-32 bg-cultured">
       <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-dark text-sm tracking-wider uppercase">Capabilities</span>
+          <span className="text-navy text-sm tracking-wider uppercase">Capabilities</span>
           <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             Integrated advisory across the project lifecycle
           </h2>
@@ -111,7 +111,7 @@ function Services() {
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px flex-1 bg-gray-200" />
               <span className="text-xs tracking-wider uppercase text-slate">
-                {dept.label} — <span className="text-dark">{dept.tagline}</span>
+                {dept.label} — <span className="text-navy">{dept.tagline}</span>
               </span>
               <div className="h-px flex-1 bg-gray-200" />
             </div>
@@ -122,11 +122,11 @@ function Services() {
                   key={service.title}
                   className="group py-6 flex gap-6 items-start"
                 >
-                  <div className="text-dark flex-shrink-0 mt-1">
+                  <div className="text-navy flex-shrink-0 mt-1">
                     {service.icon}
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-charcoal mb-2 font-serif">{service.title}</h3>
+                    <h3 className="text-lg font-semibold text-sovereign-ink mb-2 font-serif">{service.title}</h3>
                     <p className="text-sm text-slate leading-relaxed">{service.description}</p>
                   </div>
                 </div>

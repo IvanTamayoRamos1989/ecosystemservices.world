@@ -90,7 +90,7 @@ function Intel() {
         }`}
       >
         <div className="max-w-2xl mb-12">
-          <span className="text-dark text-sm tracking-wider uppercase">Intel</span>
+          <span className="text-navy text-sm tracking-wider uppercase">Intel</span>
           <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             Sector intelligence
           </h2>
@@ -108,7 +108,7 @@ function Intel() {
               onClick={() => setActiveCategory(cat)}
               className={`text-xs tracking-wider uppercase px-4 py-2 rounded-sm border transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'border-dark text-white bg-dark'
+                  ? 'border-navy text-white bg-navy'
                   : 'border-gray-200 text-slate hover:border-gray-300 hover:text-charcoal'
               }`}
             >
@@ -122,19 +122,19 @@ function Intel() {
           {filtered.map((article) => (
             <article
               key={article.title}
-              className={`group p-8 rounded-sm border bg-white hover:border-dark transition-all duration-300 flex flex-col ${
-                article.highlight ? 'border-accent' : 'border-gray-200'
+              className={`group p-8 rounded-sm border bg-white hover:border-navy transition-all duration-300 flex flex-col ${
+                article.highlight ? 'border-navy' : 'border-gray-200'
               }`}
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-xs tracking-wider uppercase text-dark">
+                <span className="text-xs tracking-wider uppercase text-navy">
                   {article.category}
                 </span>
                 <span className="text-gray-400">|</span>
                 <span className="text-xs text-slate">{article.date}</span>
               </div>
 
-              <h3 className="text-lg font-semibold mb-3 group-hover:text-dark transition-colors duration-300 leading-snug">
+              <h3 className="text-lg font-semibold mb-3 group-hover:text-navy transition-colors duration-300 leading-snug">
                 {article.title}
               </h3>
 

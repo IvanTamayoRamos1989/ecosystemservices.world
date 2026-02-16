@@ -47,7 +47,7 @@ function Approach() {
     <section id="approach" className="py-24 md:py-32">
       <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="max-w-2xl mb-16">
-          <span className="text-dark text-sm tracking-wider uppercase">Methodology</span>
+          <span className="text-navy text-sm tracking-wider uppercase">Methodology</span>
           <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             A structured, evidence-based methodology
           </h2>
@@ -67,14 +67,14 @@ function Approach() {
               <div key={step.number} className="flex gap-6 sm:gap-8 group">
                 {/* Step number */}
                 <div className="relative flex-shrink-0">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-300 bg-white flex items-center justify-center text-dark text-sm font-mono group-hover:border-dark group-hover:bg-gray-50 transition-all duration-300">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-300 bg-white flex items-center justify-center text-navy text-sm font-mono group-hover:border-navy group-hover:bg-gray-50 transition-all duration-300">
                     {step.number}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="pb-8">
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-dark transition-colors duration-300">
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-navy transition-colors duration-300">
                     {step.title}
                   </h3>
                   <p className="text-slate leading-relaxed max-w-xl">

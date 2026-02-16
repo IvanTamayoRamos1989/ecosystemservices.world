@@ -7,6 +7,8 @@ const studies = [
     title: 'Green Corridors & Strategic Mobility Hubs',
     region: 'Culiacán, Sinaloa, Mexico',
     scope: 'C40 CFF bankable project: street reclamation, automated parking hubs, native tree corridors, blended finance structuring (IDB + municipal green bond)',
+    image: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=800&q=80&auto=format',
+    imageAlt: 'Aerial view of urban highway interchange',
     metrics: [
       { label: 'Project volume', value: '$35–50M' },
       { label: 'Corridors', value: '15–25 km' },
@@ -20,6 +22,8 @@ const studies = [
     title: 'Solar Farm Biodiversity Integration',
     region: 'Southern Europe',
     scope: 'Agrivoltaic design, EIA, biodiversity credit structuring',
+    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80&auto=format',
+    imageAlt: 'Solar farm infrastructure aerial view',
     metrics: [
       { label: 'Hectares assessed', value: '2,400' },
       { label: 'BNG uplift', value: '+34%' },
@@ -32,6 +36,8 @@ const studies = [
     title: 'Coastal Resilience Programme',
     region: 'West Africa',
     scope: 'Mangrove restoration, carbon credit feasibility, TNFD reporting',
+    image: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?w=800&q=80&auto=format',
+    imageAlt: 'Coastal infrastructure and bridge',
     metrics: [
       { label: 'Coastline covered', value: '38 km' },
       { label: 'Carbon offset potential', value: '120k tCO2e/yr' },
@@ -44,6 +50,8 @@ const studies = [
     title: 'Urban Development Ecological Assessment',
     region: 'Central Europe',
     scope: 'Multi-jurisdictional EIA, mitigation hierarchy, EU Taxonomy alignment',
+    image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80&auto=format',
+    imageAlt: 'Urban skyline and development',
     metrics: [
       { label: 'Site area', value: '180 ha' },
       { label: 'Species assessed', value: '340+' },
@@ -61,7 +69,7 @@ function CaseStudies() {
     <section id="case-studies" className="py-24 md:py-32">
       <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-dark text-sm tracking-wider uppercase">Case Studies</span>
+          <span className="text-navy text-sm tracking-wider uppercase">Case Studies</span>
           <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             Representative engagements
           </h2>
@@ -75,24 +83,42 @@ function CaseStudies() {
           {studies.map((study) => (
             <div
               key={study.title}
-              className={`group p-8 rounded-sm border bg-white hover:border-dark transition-all duration-300 flex flex-col ${
+              className={`group rounded-sm border bg-white hover:border-navy transition-all duration-300 flex flex-col overflow-hidden ${
                 study.featured
-                  ? 'border-accent md:col-span-2'
+                  ? 'border-navy md:col-span-2'
                   : 'border-gray-200'
               }`}
             >
+              {/* Infrastructure Image */}
+              {study.image && (
+                <div className={`relative overflow-hidden ${study.featured ? 'h-48 md:h-64' : 'h-40'}`}>
+                  <img
+                    src={study.image}
+                    alt={study.imageAlt}
+                    loading="lazy"
+                    className="w-full h-full object-cover grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-navy/20 group-hover:bg-navy/10 transition-colors duration-300" />
+                  <div className="absolute bottom-3 left-4">
+                    <span className="text-[10px] tracking-wider uppercase px-2 py-1 bg-white/90 text-navy font-medium">
+                      {study.region}
+                    </span>
+                  </div>
+                </div>
+              )}
+              <div className="p-8 flex flex-col flex-1">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xs tracking-wider uppercase text-dark">{study.sector}</span>
+                <span className="text-xs tracking-wider uppercase text-navy">{study.sector}</span>
                 <span className="text-slate text-xs">|</span>
                 <span className="text-xs text-slate">{study.region}</span>
                 {study.featured && (
-                  <span className="ml-auto text-[10px] tracking-wider uppercase px-2 py-0.5 rounded-sm border border-dark text-dark">
+                  <span className="ml-auto text-[10px] tracking-wider uppercase px-2 py-0.5 rounded-sm border border-navy text-navy">
                     Featured
                   </span>
                 )}
               </div>
 
-              <h3 className="text-lg font-semibold mb-3 group-hover:text-dark transition-colors duration-300">
+              <h3 className="text-lg font-semibold mb-3 group-hover:text-navy transition-colors duration-300">
                 {study.title}
               </h3>
 
@@ -104,14 +130,14 @@ function CaseStudies() {
                 <div className="mb-6">
                   <button
                     onClick={() => setExpanded(expanded === study.title ? null : study.title)}
-                    className="text-xs text-dark hover:text-dark/80 transition-colors tracking-wider uppercase"
+                    className="text-xs text-navy hover:text-navy/80 transition-colors tracking-wider uppercase"
                   >
                     {expanded === study.title ? '— Collapse details' : '+ View project details'}
                   </button>
                   {expanded === study.title && (
                     <div className="mt-4 p-6 rounded-sm border border-gray-200 bg-cultured space-y-4">
                       <div>
-                        <h4 className="text-sm font-semibold text-accent mb-2">Blended Finance Structure</h4>
+                        <h4 className="text-sm font-semibold text-navy mb-2">Blended Finance Structure</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                           {[
                             { layer: 'C40 CFF TA', amount: '~$1M' },
@@ -120,14 +146,14 @@ function CaseStudies() {
                             { layer: 'Municipal', amount: '$2–5M' },
                           ].map((item) => (
                             <div key={item.layer} className="text-center">
-                              <div className="text-accent font-semibold text-sm">{item.amount}</div>
+                              <div className="text-navy font-semibold text-sm">{item.amount}</div>
                               <div className="text-[10px] text-slate uppercase tracking-wider mt-1">{item.layer}</div>
                             </div>
                           ))}
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-accent mb-2">Native Species Palette</h4>
+                        <h4 className="text-sm font-semibold text-navy mb-2">Native Species Palette</h4>
                         <p className="text-xs text-slate">
                           <span className="text-charcoal">Tabebuia rosea</span> (Amapa) —
                           <span className="text-charcoal"> Guazuma ulmifolia</span> (Guásima) —
@@ -136,7 +162,7 @@ function CaseStudies() {
                         </p>
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-accent mb-2">Regulatory Alignment</h4>
+                        <h4 className="text-sm font-semibold text-navy mb-2">Regulatory Alignment</h4>
                         <p className="text-xs text-slate">
                           PECCSIN (Sinaloa State Climate Plan) · Ley Estatal de Cambio Climático ·
                           NOM-060-SEMARNAT-1994 · IUCN Global Standard for NbS ·
@@ -151,7 +177,7 @@ function CaseStudies() {
               <div className={`grid gap-3 mb-6 mt-auto ${study.featured ? 'grid-cols-3 md:grid-cols-3' : 'grid-cols-3'}`}>
                 {study.metrics.map((m) => (
                   <div key={m.label} className="text-center">
-                    <div className="text-accent font-semibold text-sm">{m.value}</div>
+                    <div className="text-navy font-semibold text-sm">{m.value}</div>
                     <div className="text-[10px] text-slate uppercase tracking-wider mt-1">{m.label}</div>
                   </div>
                 ))}
@@ -166,6 +192,7 @@ function CaseStudies() {
                     {tag}
                   </span>
                 ))}
+              </div>
               </div>
             </div>
           ))}
