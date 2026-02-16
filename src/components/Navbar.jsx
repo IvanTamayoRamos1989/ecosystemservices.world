@@ -1,76 +1,125 @@
 import React, { useState } from 'react'
 
 const navLinks = [
-  { label: 'About', href: '#about' },
+  { label: 'Platform', href: '#dashboard' },
   { label: 'Services', href: '#services' },
-  { label: 'Approach', href: '#approach' },
+  { label: 'Methodology', href: '#approach' },
   { label: 'Finance', href: '#finance' },
   { label: 'Global', href: '#global' },
   { label: 'Intel', href: '#intel' },
+]
+
+const tickerData = [
+  { label: 'CARBON (VCU)', value: '$14.20', delta: '+0.35' },
+  { label: 'BNG UNITS', value: '£42,100', delta: '+1.2%' },
+  { label: 'EU ETS', value: '€68.40', delta: '-0.8%' },
+  { label: 'AUM HECTARES', value: '85,200', delta: '+3.1%' },
+  { label: 'GREEN BONDS', value: '$200M+', delta: '' },
+  { label: 'CSRD READINESS', value: '94%', delta: '+2pp' },
 ]
 
 function Navbar({ scrolled }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3 group">
-          <span className="font-serif font-bold text-xl text-charcoal tracking-tight">ESW</span>
-        </a>
-
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-xs tracking-widest uppercase text-slate hover:text-dark transition-colors duration-200"
-            >
-              {link.label}
-            </a>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white">
+      {/* Ticker Bar */}
+      <div className="bg-navy text-white overflow-hidden">
+        <div className="flex animate-ticker whitespace-nowrap">
+          {[...tickerData, ...tickerData].map((item, i) => (
+            <div key={i} className="inline-flex items-center gap-2 px-6 py-1.5">
+              <span className="text-ticker text-sovereign-steel">{item.label}</span>
+              <span className="text-ticker font-mono font-medium text-white">{item.value}</span>
+              {item.delta && (
+                <span className={`text-ticker font-mono ${
+                  item.delta.startsWith('-') ? 'text-red-400' : 'text-emerald-400'
+                }`}>
+                  {item.delta}
+                </span>
+              )}
+              <span className="text-navy-600 mx-2">|</span>
+            </div>
           ))}
-          <a
-            href="#contact"
-            className="text-xs tracking-widest uppercase px-5 py-2 border border-dark text-dark rounded-sm hover:bg-dark hover:text-white transition-all duration-200"
-          >
-            Contact
-          </a>
         </div>
+      </div>
 
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-slate hover:text-dark transition-colors"
-          aria-label="Toggle menu"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            {menuOpen ? (
-              <path d="M6 6l12 12M6 18L18 6" />
-            ) : (
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+      {/* Main Navigation */}
+      <div className="border-b border-sovereign-silver">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <a href="#" className="flex items-center gap-3 group">
+            <div className="flex items-baseline gap-1">
+              <span className="font-serif text-2xl font-bold text-navy tracking-tight">ESW</span>
+              <span className="hidden sm:inline text-label uppercase text-slate tracking-widest ml-2">Ecosystem Services World</span>
+            </div>
+          </a>
+
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-label uppercase text-slate hover:text-navy transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="w-px h-5 bg-sovereign-silver" />
+            <a
+              href="#roi-calculator"
+              className="text-label uppercase text-navy font-semibold hover:underline transition-all duration-200"
+            >
+              ROI Calculator
+            </a>
+            <a
+              href="#contact"
+              className="text-label uppercase px-5 py-2 bg-navy text-white hover:bg-navy-800 transition-all duration-200"
+            >
+              Contact
+            </a>
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="lg:hidden text-slate hover:text-navy transition-colors"
+            aria-label="Toggle menu"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              {menuOpen ? (
+                <path d="M6 6l12 12M6 18L18 6" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 px-6 pb-6">
+        <div className="lg:hidden bg-white border-b border-sovereign-silver px-6 pb-6">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="block py-3 text-xs tracking-widest uppercase text-slate hover:text-dark transition-colors"
+              className="block py-3 text-label uppercase text-slate hover:text-navy transition-colors border-b border-sovereign-silver"
             >
               {link.label}
             </a>
           ))}
           <a
+            href="#roi-calculator"
+            onClick={() => setMenuOpen(false)}
+            className="block py-3 text-label uppercase text-navy font-semibold"
+          >
+            ROI Calculator
+          </a>
+          <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="block mt-2 text-xs tracking-widest uppercase text-center px-5 py-2 border border-dark text-dark rounded-sm hover:bg-dark hover:text-white transition-all"
+            className="block mt-4 text-label uppercase text-center px-5 py-3 bg-navy text-white"
           >
             Contact
           </a>
