@@ -41,6 +41,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         serif: ['"EB Garamond"', '"Times New Roman"', 'Georgia', 'serif'],
+        gothic: ['"UnifrakturMaguntia"', 'cursive'],
         mono: ['"JetBrains Mono"', '"Roboto Mono"', 'monospace'],
       },
       borderRadius: {

@@ -66,7 +66,7 @@ function Frameworks() {
         }`}
       >
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-dark text-sm tracking-wider uppercase">
+          <span className="text-navy text-sm tracking-wider uppercase">
             Standards & Frameworks
           </span>
           <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
@@ -82,14 +82,14 @@ function Frameworks() {
           {frameworks.map((fw, i) => (
             <div
               key={fw.name}
-              className="group relative p-5 rounded-sm border border-gray-200 bg-white hover:border-dark transition-all duration-300 text-center"
+              className="group relative p-5 rounded-sm border border-gray-200 bg-white hover:border-navy transition-all duration-300 text-center"
             >
-              <div className="text-dark font-semibold text-sm mb-1">{fw.name}</div>
+              <div className="text-navy font-semibold text-sm mb-1">{fw.name}</div>
               <div className="text-[10px] text-slate uppercase tracking-wider">
                 {fw.category}
               </div>
               {/* Tooltip on hover */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-dark border border-gray-300 rounded-sm text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-navy border border-gray-300 rounded-sm text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
                 {fw.full}
               </div>
             </div>

@@ -26,7 +26,7 @@ function CookieConsent() {
         <p className="text-sm text-slate flex-1">
           This site uses cookies to improve your experience and analyze site traffic.
           See our{' '}
-          <a href="#privacy" className="text-dark hover:underline">
+          <a href="#privacy" className="text-navy hover:underline">
             Privacy Policy
           </a>{' '}
           for details.
@@ -34,13 +34,13 @@ function CookieConsent() {
         <div className="flex gap-3 flex-shrink-0">
           <button
             onClick={decline}
-            className="text-sm px-4 py-2 text-slate hover:text-charcoal transition-colors"
+            className="text-sm px-4 py-2 text-slate hover:text-sovereign-ink transition-colors"
           >
             Decline
           </button>
           <button
             onClick={accept}
-            className="text-sm px-5 py-2 bg-dark text-white font-medium rounded-sm hover:bg-charcoal transition-colors"
+            className="text-sm px-5 py-2 bg-navy text-white font-medium rounded-sm hover:bg-navy-800 transition-colors"
           >
             Accept
           </button>

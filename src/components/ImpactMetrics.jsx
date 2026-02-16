@@ -39,10 +39,10 @@ function MetricCard({ metric, visible, delay }) {
 
   return (
     <div
-      className="text-center p-8 rounded-sm border border-gray-200 bg-white hover:border-accent transition-all duration-500"
+      className="text-center p-8 rounded-sm border border-gray-200 bg-white hover:border-navy transition-all duration-500"
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="text-4xl md:text-5xl font-bold text-dark mb-2 font-mono tabular-nums">
+      <div className="text-4xl md:text-5xl font-bold text-navy mb-2 font-mono tabular-nums">
         {metric.prefix}{count}{metric.suffix}
       </div>
       <div className="text-sm text-slate tracking-wider uppercase">{metric.label}</div>
@@ -62,7 +62,7 @@ function ImpactMetrics() {
         }`}
       >
         <div className="text-center mb-12">
-          <span className="text-dark text-sm tracking-wider uppercase">Impact</span>
+          <span className="text-navy text-sm tracking-wider uppercase">Impact</span>
           <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3">
             Measurable outcomes, global reach
           </h2>

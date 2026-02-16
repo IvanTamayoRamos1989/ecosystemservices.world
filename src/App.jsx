@@ -17,6 +17,7 @@ import VendorPortal from './components/VendorPortal'
 import Contact from './components/Contact'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import Footer from './components/Footer'
+import ImageBreak from './components/ImageBreak'
 import CookieConsent from './components/CookieConsent'
 
 function App() {
@@ -32,14 +33,18 @@ function App() {
     <div className="bg-white text-charcoal min-h-screen">
       <Navbar scrolled={scrolled} />
       <Hero />
+      <ImageBreak imageKey="highway" caption="Infrastructure at Scale" />
       <ClientDashboard />
       <About />
       <ImpactMetrics />
+      <ImageBreak imageKey="bridge" caption="Urban Systems" />
       <Services />
       <Frameworks />
       <Approach />
+      <ImageBreak imageKey="viaduct" caption="Structural Engineering" />
       <Finance />
       <GlobalPresence />
+      <ImageBreak imageKey="industrial" caption="Industrial Ecology" />
       <CaseStudies />
       <Testimonials />
       <Intel />

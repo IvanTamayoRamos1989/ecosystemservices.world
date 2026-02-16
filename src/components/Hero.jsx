@@ -9,15 +9,25 @@ const liveMetrics = [
 
 function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-center pt-28">
-      <div className="max-w-7xl mx-auto px-6 w-full">
+    <section className="relative min-h-screen flex flex-col justify-center pt-28">
+      {/* B&W Infrastructure Background */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1920&q=80&auto=format"
+          alt=""
+          className="w-full h-full object-cover grayscale contrast-125 brightness-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white/85" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         {/* Dateline */}
         <div className="flex items-center gap-4 mb-10">
-          <div className="h-px flex-1 bg-sovereign-silver" />
+          <div className="h-px flex-1 bg-sovereign-silver/60" />
           <span className="text-label uppercase text-slate">
             {new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </span>
-          <div className="h-px flex-1 bg-sovereign-silver" />
+          <div className="h-px flex-1 bg-sovereign-silver/60" />
         </div>
 
         {/* Headline Block */}
@@ -73,7 +83,7 @@ function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="mt-auto pb-8 flex flex-col items-center gap-2 text-slate animate-scroll-bounce">
+      <div className="relative z-10 mt-auto pb-8 flex flex-col items-center gap-2 text-slate animate-scroll-bounce">
         <span className="text-label uppercase tracking-widest">Scroll</span>
         <div className="w-px h-8 bg-sovereign-silver" />
       </div>

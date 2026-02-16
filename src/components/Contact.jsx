@@ -46,7 +46,7 @@ function Contact() {
     <section id="contact" className="py-24 md:py-32">
       <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="max-w-3xl mx-auto text-center">
-          <span className="text-dark text-sm tracking-wider uppercase">Contact</span>
+          <span className="text-navy text-sm tracking-wider uppercase">Contact</span>
           <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             Engage with ESW
           </h2>
@@ -59,8 +59,8 @@ function Contact() {
         <div className="max-w-2xl mx-auto">
           {status === 'sent' ? (
             <div className="text-center py-16">
-              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-dark/10 flex items-center justify-center">
-                <svg className="w-8 h-8 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-navy/10 flex items-center justify-center">
+                <svg className="w-8 h-8 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -80,7 +80,7 @@ function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-sm bg-white border border-gray-300 text-charcoal placeholder-gray-400 focus:outline-none focus:border-dark transition-colors"
+                    className="w-full px-4 py-3 rounded-sm bg-white border border-gray-300 text-charcoal placeholder-gray-400 focus:outline-none focus:border-navy transition-colors"
                     placeholder="Full name"
                   />
                 </div>
@@ -91,7 +91,7 @@ function Contact() {
                     name="organization"
                     value={formData.organization}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-sm bg-white border border-gray-300 text-charcoal placeholder-gray-400 focus:outline-none focus:border-dark transition-colors"
+                    className="w-full px-4 py-3 rounded-sm bg-white border border-gray-300 text-charcoal placeholder-gray-400 focus:outline-none focus:border-navy transition-colors"
                     placeholder="Company or institution"
                   />
                 </div>
@@ -105,7 +105,7 @@ function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-sm bg-white border border-gray-300 text-charcoal placeholder-gray-400 focus:outline-none focus:border-dark transition-colors"
+                  className="w-full px-4 py-3 rounded-sm bg-white border border-gray-300 text-charcoal placeholder-gray-400 focus:outline-none focus:border-navy transition-colors"
                   placeholder="Professional email"
                 />
               </div>
@@ -118,7 +118,7 @@ function Contact() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 rounded-sm bg-white border border-gray-300 text-charcoal placeholder-gray-400 focus:outline-none focus:border-dark transition-colors resize-none"
+                  className="w-full px-4 py-3 rounded-sm bg-white border border-gray-300 text-charcoal placeholder-gray-400 focus:outline-none focus:border-navy transition-colors resize-none"
                   placeholder="Brief description of your project, location, and the nature of the engagement you are seeking."
                 />
               </div>
@@ -132,7 +132,7 @@ function Contact() {
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="w-full sm:w-auto px-10 py-3 bg-dark text-white font-medium rounded-sm hover:bg-charcoal transition-colors disabled:opacity-50"
+                className="w-full sm:w-auto px-10 py-3 bg-navy text-white font-medium rounded-sm hover:bg-navy-800 transition-colors disabled:opacity-50"
               >
                 {status === 'sending' ? 'Submitting...' : 'Submit Inquiry'}
               </button>

@@ -48,8 +48,8 @@ function Navbar({ scrolled }) {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 group">
             <div className="flex items-baseline gap-1">
-              <span className="font-serif text-2xl font-bold text-navy tracking-tight">ESW</span>
-              <span className="hidden sm:inline text-label uppercase text-slate tracking-widest ml-2">Ecosystem Services World</span>
+              <span className="font-gothic text-3xl text-navy leading-none">ESW</span>
+              <span className="hidden sm:inline text-label uppercase text-slate tracking-widest ml-3">Ecosystem Services World</span>
             </div>
           </a>
 

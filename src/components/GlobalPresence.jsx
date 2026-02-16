@@ -48,7 +48,7 @@ function GlobalPresence() {
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left: Header */}
           <div>
-            <span className="text-dark text-sm tracking-wider uppercase">
+            <span className="text-navy text-sm tracking-wider uppercase">
               Global Presence
             </span>
             <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-6">
@@ -71,17 +71,17 @@ function GlobalPresence() {
             {regions.map((region) => (
               <div
                 key={region.name}
-                className="group p-5 rounded-sm border border-gray-200 bg-white hover:border-accent transition-all duration-300"
+                className="group p-5 rounded-sm border border-gray-200 bg-white hover:border-navy transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold group-hover:text-dark transition-colors duration-300">
+                  <h3 className="font-semibold group-hover:text-navy transition-colors duration-300">
                     {region.name}
                   </h3>
                   <span
                     className={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-sm border ${
                       region.status === 'Active'
-                        ? 'border-dark text-dark'
-                        : 'border-accent text-accent'
+                        ? 'border-navy text-navy'
+                        : 'border-navy text-navy'
                     }`}
                   >
                     {region.status}
