@@ -332,6 +332,122 @@ class LiabilityGuard:
             )
 
 
+# ── Airlock ──────────────────────────────────────────────────────────
+
+class Airlock:
+    """The Airlock: no deliverable leaves the platform without a Verification
+    object linked to it. This class wraps LiabilityGuard with a hard gate
+    that blocks any export, publish, or release action.
+
+    Usage
+    -----
+    >>> airlock = Airlock()
+    >>> airlock.register("PRJ-001", "HR-001", ...)
+    >>> airlock.attempt_release("PRJ-001", "ecological_baseline_report")
+    AirlockResult(released=False, blocked_by=[...])
+    """
+
+    def __init__(self, guard: LiabilityGuard | None = None) -> None:
+        self._guard = guard or LiabilityGuard()
+        self._deliverable_map: dict[str, list[str]] = {}  # deliverable_id → [requirement_ids]
+
+    @property
+    def guard(self) -> LiabilityGuard:
+        return self._guard
+
+    def register(
+        self,
+        project_id: str,
+        requirement_id: str,
+        deliverable_id: str,
+        role_title: str,
+        jurisdiction: str,
+        legal_basis: str,
+        priority: str = "critical",
+    ) -> StampRequirement:
+        """Register a stamp requirement and link it to a deliverable."""
+        req = self._guard.register_requirement(
+            requirement_id=requirement_id,
+            project_id=project_id,
+            role_title=role_title,
+            jurisdiction=jurisdiction,
+            deliverable_id=deliverable_id,
+            legal_basis=legal_basis,
+            priority=priority,
+        )
+        if deliverable_id not in self._deliverable_map:
+            self._deliverable_map[deliverable_id] = []
+        self._deliverable_map[deliverable_id].append(requirement_id)
+        return req
+
+    def attempt_release(self, project_id: str, deliverable_id: str) -> dict:
+        """Attempt to release a specific deliverable.
+
+        Returns a dict with release status and any blocking requirements.
+        This is the hard gate — if ANY linked verification is not STAMPED,
+        the deliverable is blocked.
+        """
+        linked_req_ids = self._deliverable_map.get(deliverable_id, [])
+
+        if not linked_req_ids:
+            return {
+                "released": False,
+                "deliverable_id": deliverable_id,
+                "reason": "No verification requirements linked to this deliverable. "
+                          "Register at least one stamp requirement before release.",
+                "blocked_by": [],
+            }
+
+        blocking = []
+        for req_id in linked_req_ids:
+            req = self._guard.get_requirement(req_id)
+            if req.status != StampStatus.STAMPED:
+                blocking.append({
+                    "requirement_id": req.requirement_id,
+                    "role_title": req.role_title,
+                    "status": req.status.value,
+                    "jurisdiction": req.jurisdiction,
+                })
+            elif req.expiry_date and req.expiry_date < datetime.utcnow():
+                req.status = StampStatus.EXPIRED
+                req.updated_at = datetime.utcnow()
+                blocking.append({
+                    "requirement_id": req.requirement_id,
+                    "role_title": req.role_title,
+                    "status": "expired",
+                    "jurisdiction": req.jurisdiction,
+                })
+
+        released = len(blocking) == 0
+        return {
+            "released": released,
+            "deliverable_id": deliverable_id,
+            "reason": "Deliverable released. All stamps verified." if released
+                      else f"{len(blocking)} stamp(s) outstanding. Release blocked.",
+            "blocked_by": blocking,
+        }
+
+    def project_clearance(self, project_id: str) -> dict:
+        """Full project release check — all deliverables, all stamps."""
+        guard_result = self._guard.check_release(project_id)
+        return {
+            "project_id": project_id,
+            "cleared": guard_result.can_release,
+            "total_stamps": guard_result.total_requirements,
+            "verified_stamps": guard_result.stamped_count,
+            "blocking": [
+                {
+                    "requirement_id": r.requirement_id,
+                    "role_title": r.role_title,
+                    "deliverable_id": r.deliverable_id,
+                    "status": r.status.value,
+                }
+                for r in guard_result.blocking_requirements
+            ],
+            "summary": guard_result.summary,
+        }
+
+
 # ── CLI usage ─────────────────────────────────────────────────────────
 if __name__ == "__main__":
     # Example: Culiacán Green Corridors project with 2 stamp requirements

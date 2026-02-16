@@ -1,19 +1,22 @@
 import React from 'react'
 
 const footerLinks = {
+  Platform: [
+    { label: 'Assets Dashboard', href: '#dashboard' },
+    { label: 'ROI Calculator', href: '#roi-calculator' },
+    { label: 'Verification Portal', href: '#vendor-portal' },
+    { label: 'Sector Intel', href: '#intel' },
+  ],
   Advisory: [
-    { label: 'Environmental Assessment', href: '#services' },
-    { label: 'Regenerative Design', href: '#services' },
-    { label: 'Spatial Analysis', href: '#services' },
-    { label: 'Finance Structuring', href: '#finance' },
+    { label: 'Origination & Design', href: '#services' },
+    { label: 'Capital Stack Optimization', href: '#finance' },
+    { label: 'Liability Management', href: '#approach' },
+    { label: 'Case Studies', href: '#case-studies' },
   ],
   Company: [
     { label: 'About ESW', href: '#about' },
     { label: 'Methodology', href: '#approach' },
-    { label: 'Case Studies', href: '#case-studies' },
-    { label: 'Sector Intel', href: '#intel' },
-  ],
-  Legal: [
+    { label: 'Global Presence', href: '#global' },
     { label: 'Privacy Policy', href: '#privacy' },
     { label: 'Contact', href: '#contact' },
   ],
@@ -21,18 +24,21 @@ const footerLinks = {
 
 function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-cultured">
+    <footer className="border-t-2 border-navy bg-white">
       <div className="max-w-7xl mx-auto px-6">
         {/* Main footer */}
         <div className="py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="font-serif font-bold text-xl text-charcoal tracking-tight">ESW</span>
+            <div className="flex items-baseline gap-2 mb-4">
+              <span className="font-serif font-bold text-2xl text-navy tracking-tight">ESW</span>
             </div>
-            <p className="text-sm text-slate leading-relaxed mb-6">
-              The global authority on ecosystem services. Science-backed,
-              design-led, financially viable.
+            <p className="text-sm text-slate leading-relaxed mb-2">
+              The Operating System for Nature.
+            </p>
+            <p className="text-xs text-slate leading-relaxed mb-6">
+              Digital Prime Contractor for nature-based infrastructure finance.
+              AI-driven analysis. Human-stamped verification. Bankable outcomes.
             </p>
             {/* Social links */}
             <div className="flex items-center gap-4">
@@ -40,7 +46,7 @@ function Footer() {
                 href="https://www.linkedin.com/company/ecosystemservicesworld"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate hover:text-dark transition-colors"
+                className="text-slate hover:text-navy transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -49,11 +55,11 @@ function Footer() {
               </a>
               <a
                 href="mailto:info@ecosystemservices.world"
-                className="text-slate hover:text-dark transition-colors"
+                className="text-slate hover:text-navy transition-colors"
                 aria-label="Email"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="2" y="4" width="20" height="16" />
                   <path d="M22 4l-10 8L2 4" />
                 </svg>
               </a>
@@ -63,7 +69,7 @@ function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-xs tracking-wider uppercase text-slate mb-4">
+              <h4 className="text-label uppercase text-slate tracking-widest mb-4">
                 {title}
               </h4>
               <ul className="space-y-3">
@@ -71,7 +77,7 @@ function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-sm text-slate hover:text-dark transition-colors"
+                      className="text-sm text-slate hover:text-navy transition-colors"
                     >
                       {link.label}
                     </a>
@@ -83,12 +89,12 @@ function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-200 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-sovereign-silver py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate">
             &copy; {new Date().getFullYear()} Ecosystem Services World. All rights reserved.
           </p>
-          <p className="text-xs text-gray-400">
-            Built for science. Designed for capital markets.
+          <p className="text-xs text-slate font-mono">
+            Regenerative Capital.
           </p>
         </div>
       </div>

@@ -1,47 +1,81 @@
 import React from 'react'
 
+const liveMetrics = [
+  { label: 'Nature Assets Under Management', value: '85,200', unit: 'Hectares' },
+  { label: 'Capital Stack Optimized', value: '$200M', unit: 'USD' },
+  { label: 'Active Jurisdictions', value: '12', unit: 'Countries' },
+  { label: 'Carbon Sequestered', value: '142,000', unit: 'tCO2e' },
+]
+
 function Hero() {
   return (
-    <section className="min-h-screen flex items-center">
-      <div className="max-w-7xl mx-auto px-6 py-32">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-gray-300 bg-gray-50 text-slate text-xs tracking-wider uppercase mb-8">
-            Global Ecosystem Services Consultancy
+    <section className="min-h-screen flex flex-col justify-center pt-28">
+      <div className="max-w-7xl mx-auto px-6 w-full">
+        {/* Dateline */}
+        <div className="flex items-center gap-4 mb-10">
+          <div className="h-px flex-1 bg-sovereign-silver" />
+          <span className="text-label uppercase text-slate">
+            {new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          </span>
+          <div className="h-px flex-1 bg-sovereign-silver" />
+        </div>
+
+        {/* Headline Block */}
+        <div className="max-w-4xl">
+          <div className="sovereign-rule pt-6 mb-8">
+            <span className="text-label uppercase text-slate tracking-widest">The Operating System for Nature</span>
           </div>
 
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-charcoal leading-tight mb-6">
-            Turning environmental liabilities into
-            <span className="text-dark"> ecological assets</span>
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-navy leading-[1.1] mb-8">
+            Lower Your Cost of<br />Capital With Nature.
           </h1>
 
-          <p className="text-lg text-slate leading-relaxed mb-10 max-w-2xl mx-auto">
-            We advise developers, financial institutions, and governments on
-            the environmental dimensions of large-scale projects — integrating
-            ecological science, regenerative design, and sustainable finance
-            into a single, rigorous practice.
+          <p className="text-lg text-slate leading-relaxed mb-6 max-w-2xl">
+            ESW is the global platform that transforms environmental liabilities into
+            bankable financial assets. We engineer Nature-Based Solutions for Capital Stack
+            Optimization — unlocking concessional loans, green bonds, and non-dilutive grants.
+          </p>
+          <p className="text-base text-slate leading-relaxed mb-10 max-w-2xl">
+            Every asset gets a Nature Balance Sheet. AI does the analysis.
+            Licensed experts provide the stamp. You get the capital advantage.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="#services"
-              className="inline-flex items-center justify-center px-8 py-3 bg-dark text-white font-medium rounded-sm hover:bg-charcoal transition-colors"
+              href="#dashboard"
+              className="inline-flex items-center justify-center px-8 py-3.5 bg-navy text-white font-medium text-sm tracking-wider uppercase hover:bg-navy-800 transition-colors"
             >
-              Our Services
+              View Platform
             </a>
             <a
-              href="#approach"
-              className="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-slate rounded-sm hover:border-dark hover:text-dark transition-colors"
+              href="#roi-calculator"
+              className="inline-flex items-center justify-center px-8 py-3.5 border border-navy text-navy font-medium text-sm tracking-wider uppercase hover:bg-navy hover:text-white transition-colors"
             >
-              Our Methodology
+              Calculate ROI
             </a>
+          </div>
+        </div>
+
+        {/* Metrics Strip */}
+        <div className="mt-20 pt-8 border-t-2 border-navy">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {liveMetrics.map((metric) => (
+              <div key={metric.label}>
+                <div className="text-label uppercase text-slate mb-2">{metric.label}</div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-metric font-mono font-bold text-navy tabular-nums">{metric.value}</span>
+                  <span className="text-sm text-slate">{metric.unit}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400 animate-scroll-bounce">
-        <span className="text-xs tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-gray-300 to-transparent" />
+      <div className="mt-auto pb-8 flex flex-col items-center gap-2 text-slate animate-scroll-bounce">
+        <span className="text-label uppercase tracking-widest">Scroll</span>
+        <div className="w-px h-8 bg-sovereign-silver" />
       </div>
     </section>
   )

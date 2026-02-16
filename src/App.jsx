@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import ClientDashboard from './components/ClientDashboard'
 import About from './components/About'
 import ImpactMetrics from './components/ImpactMetrics'
 import Services from './components/Services'
@@ -11,6 +12,8 @@ import GlobalPresence from './components/GlobalPresence'
 import CaseStudies from './components/CaseStudies'
 import Testimonials from './components/Testimonials'
 import Intel from './components/Intel'
+import ROICalculator from './components/ROICalculator'
+import VendorPortal from './components/VendorPortal'
 import Contact from './components/Contact'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import Footer from './components/Footer'
@@ -29,6 +32,7 @@ function App() {
     <div className="bg-white text-charcoal min-h-screen">
       <Navbar scrolled={scrolled} />
       <Hero />
+      <ClientDashboard />
       <About />
       <ImpactMetrics />
       <Services />
@@ -39,6 +43,8 @@ function App() {
       <CaseStudies />
       <Testimonials />
       <Intel />
+      <ROICalculator />
+      <VendorPortal />
       <Contact />
       <PrivacyPolicy />
       <Footer />
