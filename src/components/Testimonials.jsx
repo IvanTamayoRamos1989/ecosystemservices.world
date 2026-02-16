@@ -30,7 +30,7 @@ function Testimonials() {
   const [active, setActive] = useState(0)
 
   return (
-    <section className="py-24 md:py-32 bg-white/[0.01]">
+    <section className="py-24 md:py-32 bg-cultured">
       <div
         ref={ref}
         className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${
@@ -38,10 +38,10 @@ function Testimonials() {
         }`}
       >
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-accent text-sm tracking-wider uppercase">
+          <span className="text-dark text-sm tracking-wider uppercase">
             Client Perspectives
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3">
+          <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3">
             Trusted by institutional decision-makers
           </h2>
         </div>
@@ -50,23 +50,23 @@ function Testimonials() {
           {/* Quote */}
           <div className="relative mb-10">
             <svg
-              className="absolute -top-4 -left-4 w-12 h-12 text-accent/10"
+              className="absolute -top-4 -left-4 w-12 h-12 text-dark/10"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z" />
             </svg>
-            <blockquote className="text-lg md:text-xl text-gray-300 leading-relaxed pl-8 border-l-2 border-accent/30">
+            <blockquote className="text-lg md:text-xl text-charcoal leading-relaxed pl-8 border-l-2 border-dark font-serif italic">
               {testimonials[active].quote}
             </blockquote>
           </div>
 
           {/* Attribution */}
           <div className="pl-8 mb-10">
-            <div className="text-white font-semibold">
+            <div className="text-charcoal font-semibold">
               {testimonials[active].author}
             </div>
-            <div className="text-sm text-gray-500">{testimonials[active].org}</div>
+            <div className="text-sm text-slate">{testimonials[active].org}</div>
           </div>
 
           {/* Navigation dots */}
@@ -75,10 +75,10 @@ function Testimonials() {
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className={`transition-all duration-300 rounded-full ${
+                className={`transition-all duration-300 ${
                   i === active
-                    ? 'w-8 h-2 bg-accent'
-                    : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                    ? 'w-8 h-1 bg-dark rounded-sm'
+                    : 'w-2 h-1 bg-gray-300 hover:bg-gray-400 rounded-sm'
                 }`}
                 aria-label={`View testimonial ${i + 1}`}
               />

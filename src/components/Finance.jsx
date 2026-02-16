@@ -24,22 +24,22 @@ function Finance() {
   const [ref, visible] = useReveal()
 
   return (
-    <section id="finance" className="py-24 md:py-32 bg-white/[0.01]">
+    <section id="finance" className="py-24 md:py-32 bg-cultured">
       <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left: description */}
           <div>
             <span className="text-accent text-sm tracking-wider uppercase">Sustainable Finance</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-6">
               Finance as a catalyst for regeneration
             </h2>
-            <p className="text-gray-400 leading-relaxed mb-4">
+            <p className="text-slate leading-relaxed mb-4">
               Capital mobilization is the mechanism that converts regenerative
               strategy into executed outcomes. We design and structure financial
               instruments that align investment flows with verified ecological
               performance.
             </p>
-            <p className="text-gray-400 leading-relaxed">
+            <p className="text-slate leading-relaxed">
               Our financial advisory practice operates at the intersection of
               environmental science and capital markets — structuring instruments
               under EU Taxonomy, ICMA principles, and internationally recognized
@@ -53,15 +53,15 @@ function Finance() {
             {instruments.map((item, i) => (
               <div
                 key={item.title}
-                className="p-6 rounded-lg border border-white/5 bg-white/[0.02] hover:border-accent/20 transition-all duration-300"
+                className="p-6 rounded-sm border border-gray-200 bg-white hover:border-accent transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full border border-accent/30 flex items-center justify-center text-accent text-xs font-mono mt-0.5">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center text-accent text-xs font-mono mt-0.5">
                     {String(i + 1).padStart(2, '0')}
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">{item.title}</h3>
-                    <p className="text-sm text-gray-400 leading-relaxed">{item.description}</p>
+                    <p className="text-sm text-slate leading-relaxed">{item.description}</p>
                   </div>
                 </div>
               </div>

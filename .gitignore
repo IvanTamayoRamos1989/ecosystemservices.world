@@ -4,3 +4,4 @@ dist/
 .env.*
 *.pem
 ee-key.json
+__pycache__/

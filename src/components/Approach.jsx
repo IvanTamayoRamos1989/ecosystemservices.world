@@ -47,11 +47,11 @@ function Approach() {
     <section id="approach" className="py-24 md:py-32">
       <div ref={ref} className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="max-w-2xl mb-16">
-          <span className="text-accent text-sm tracking-wider uppercase">Methodology</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
+          <span className="text-dark text-sm tracking-wider uppercase">Methodology</span>
+          <h2 className="text-3xl md:text-4xl font-bold font-serif mt-3 mb-4">
             A structured, evidence-based methodology
           </h2>
-          <p className="text-gray-400">
+          <p className="text-slate">
             Every engagement follows the same rigorous framework — integrating
             scientific assessment, financial modelling, and legal structuring to
             deliver measurable outcomes for clients and ecosystems.
@@ -60,24 +60,24 @@ function Approach() {
 
         <div className="relative">
           {/* Vertical line connecting steps */}
-          <div className="absolute left-[19px] md:left-[23px] top-0 bottom-0 w-px bg-gradient-to-b from-accent/50 via-accent/20 to-transparent hidden sm:block" />
+          <div className="absolute left-[19px] md:left-[23px] top-0 bottom-0 w-px bg-gray-200 hidden sm:block" />
 
           <div className="space-y-8">
             {steps.map((step, i) => (
               <div key={step.number} className="flex gap-6 sm:gap-8 group">
                 {/* Step number */}
                 <div className="relative flex-shrink-0">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-accent/30 bg-dark flex items-center justify-center text-accent text-sm font-mono group-hover:border-accent group-hover:bg-accent/10 transition-all duration-300">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-300 bg-white flex items-center justify-center text-dark text-sm font-mono group-hover:border-dark group-hover:bg-gray-50 transition-all duration-300">
                     {step.number}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="pb-8">
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-accent transition-colors duration-300">
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-dark transition-colors duration-300">
                     {step.title}
                   </h3>
-                  <p className="text-gray-400 leading-relaxed max-w-xl">
+                  <p className="text-slate leading-relaxed max-w-xl">
                     {step.description}
                   </p>
                 </div>
