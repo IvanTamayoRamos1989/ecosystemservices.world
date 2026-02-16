@@ -33,18 +33,18 @@ function App() {
     <div className="bg-white text-charcoal min-h-screen">
       <Navbar scrolled={scrolled} />
       <Hero />
-      <ImageBreak imageKey="highway" caption="Infrastructure at Scale" />
+      <ImageBreak imageKey="forest" />
       <ClientDashboard />
       <About />
       <ImpactMetrics />
-      <ImageBreak imageKey="bridge" caption="Urban Systems" />
+      <ImageBreak imageKey="wetland" />
       <Services />
       <Frameworks />
       <Approach />
-      <ImageBreak imageKey="viaduct" caption="Structural Engineering" />
+      <ImageBreak imageKey="mangrove" />
       <Finance />
       <GlobalPresence />
-      <ImageBreak imageKey="industrial" caption="Industrial Ecology" />
+      <ImageBreak imageKey="solar" />
       <CaseStudies />
       <Testimonials />
       <Intel />

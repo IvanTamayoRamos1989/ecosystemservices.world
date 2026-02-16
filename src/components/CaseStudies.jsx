@@ -7,8 +7,8 @@ const studies = [
     title: 'Green Corridors & Strategic Mobility Hubs',
     region: 'Culiacán, Sinaloa, Mexico',
     scope: 'C40 CFF bankable project: street reclamation, automated parking hubs, native tree corridors, blended finance structuring (IDB + municipal green bond)',
-    image: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=800&q=80&auto=format',
-    imageAlt: 'Aerial view of urban highway interchange',
+    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80&auto=format',
+    imageAlt: 'Urban green corridor with native tree planting',
     metrics: [
       { label: 'Project volume', value: '$35–50M' },
       { label: 'Corridors', value: '15–25 km' },
@@ -22,8 +22,8 @@ const studies = [
     title: 'Solar Farm Biodiversity Integration',
     region: 'Southern Europe',
     scope: 'Agrivoltaic design, EIA, biodiversity credit structuring',
-    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80&auto=format',
-    imageAlt: 'Solar farm infrastructure aerial view',
+    image: 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80&auto=format',
+    imageAlt: 'Solar panels integrated with natural meadow landscape',
     metrics: [
       { label: 'Hectares assessed', value: '2,400' },
       { label: 'BNG uplift', value: '+34%' },
@@ -36,8 +36,8 @@ const studies = [
     title: 'Coastal Resilience Programme',
     region: 'West Africa',
     scope: 'Mangrove restoration, carbon credit feasibility, TNFD reporting',
-    image: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?w=800&q=80&auto=format',
-    imageAlt: 'Coastal infrastructure and bridge',
+    image: 'https://images.unsplash.com/photo-1559827291-bac3687ed5a0?w=800&q=80&auto=format',
+    imageAlt: 'Aerial view of mangrove coastline restoration',
     metrics: [
       { label: 'Coastline covered', value: '38 km' },
       { label: 'Carbon offset potential', value: '120k tCO2e/yr' },
@@ -50,8 +50,8 @@ const studies = [
     title: 'Urban Development Ecological Assessment',
     region: 'Central Europe',
     scope: 'Multi-jurisdictional EIA, mitigation hierarchy, EU Taxonomy alignment',
-    image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80&auto=format',
-    imageAlt: 'Urban skyline and development',
+    image: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=800&q=80&auto=format',
+    imageAlt: 'European forest ecosystem biodiversity assessment',
     metrics: [
       { label: 'Site area', value: '180 ha' },
       { label: 'Species assessed', value: '340+' },
@@ -96,7 +96,7 @@ function CaseStudies() {
                     src={study.image}
                     alt={study.imageAlt}
                     loading="lazy"
-                    className="w-full h-full object-cover grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover brightness-95 group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-navy/20 group-hover:bg-navy/10 transition-colors duration-300" />
                   <div className="absolute bottom-3 left-4">

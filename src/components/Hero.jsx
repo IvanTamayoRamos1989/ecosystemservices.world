@@ -13,9 +13,9 @@ function Hero() {
       {/* B&W Infrastructure Background */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1920&q=80&auto=format"
-          alt=""
-          className="w-full h-full object-cover grayscale contrast-125 brightness-50"
+          src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80&auto=format"
+          alt="Aerial view of lush forest canopy"
+          className="w-full h-full object-cover brightness-50"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-white via-white/95 to-white/85" />
       </div>
