@@ -4,10 +4,10 @@ import useReveal from '../hooks/useReveal'
 const testimonials = [
   {
     quote:
-      'ESW brought a level of ecological rigour that fundamentally changed how we approached our solar portfolio. Their biodiversity credit structuring unlocked a revenue stream we hadn\'t considered.',
-    author: 'Director of Sustainability',
-    org: 'European Renewable Energy Developer',
-    sector: 'Energy',
+      'ESW delivered the full package — from GEE baseline analysis to blended finance structuring across C40 CFF, CAF, and federal instruments. They understand how to make Nature-Based Solutions bankable for Latin American cities.',
+    author: 'Director of Urban Planning',
+    org: 'Municipal Government, Pacific Mexico',
+    sector: 'Urban NbS',
   },
   {
     quote:
@@ -18,10 +18,10 @@ const testimonials = [
   },
   {
     quote:
-      'Their understanding of the EU Taxonomy and CSRD requirements is exceptional. ESW helped us achieve full compliance while identifying genuine value in our ecological assets.',
-    author: 'Head of ESG',
-    org: 'Pan-European Real Estate Group',
-    sector: 'Real Estate',
+      'ESW structured our NbS proposal against NOM-004-SEDATU, Plan Avanza, and IDB Environmental and Social Policy Framework simultaneously. No other consultancy could operate across all three compliance layers.',
+    author: 'Director of Climate Finance',
+    org: 'Development Finance Institution, LATAM',
+    sector: 'Climate Finance',
   },
 ]
 
