@@ -1,30 +1,30 @@
 import React from 'react'
 
 const images = {
-  highway: {
-    src: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1600&q=80&auto=format',
-    alt: 'Aerial view of highway interchange infrastructure',
-    caption: 'Infrastructure at Scale',
+  forest: {
+    src: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1600&q=80&auto=format',
+    alt: 'Dense forest canopy with sunlight filtering through',
+    caption: 'Forest Ecosystems',
   },
-  bridge: {
-    src: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600&q=80&auto=format',
-    alt: 'Urban skyline with bridge infrastructure',
-    caption: 'Urban Systems',
+  wetland: {
+    src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80&auto=format',
+    alt: 'Golden wetland landscape at sunrise',
+    caption: 'Wetland Restoration',
   },
-  dam: {
-    src: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1600&q=80&auto=format',
-    alt: 'Large-scale water infrastructure',
-    caption: 'Water Infrastructure',
+  mangrove: {
+    src: 'https://images.unsplash.com/photo-1559827291-bac3687ed5a0?w=1600&q=80&auto=format',
+    alt: 'Aerial view of river delta and mangrove systems',
+    caption: 'Coastal Resilience',
   },
-  industrial: {
-    src: 'https://images.unsplash.com/photo-1513828583688-c52571e73e83?w=1600&q=80&auto=format',
-    alt: 'Aerial view of industrial infrastructure',
-    caption: 'Industrial Ecology',
+  solar: {
+    src: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=80&auto=format',
+    alt: 'Solar farm surrounded by natural landscape',
+    caption: 'Renewable Energy & Nature',
   },
-  viaduct: {
-    src: 'https://images.unsplash.com/photo-1621955964441-c173e01c135b?w=1600&q=80&auto=format',
-    alt: 'Elevated highway viaduct columns',
-    caption: 'Structural Engineering',
+  coral: {
+    src: 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=1600&q=80&auto=format',
+    alt: 'Healthy coral reef ecosystem underwater',
+    caption: 'Marine Ecosystems',
   },
 }
 
@@ -40,7 +40,7 @@ function ImageBreak({ imageKey, caption: captionOverride, height = 'h-64 md:h-80
         src={image.src}
         alt={image.alt}
         loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-90"
+        className="absolute inset-0 w-full h-full object-cover brightness-90"
       />
       <div className="absolute inset-0 bg-navy/30" />
       {displayCaption && (

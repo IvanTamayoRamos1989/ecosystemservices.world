@@ -31,7 +31,7 @@ function Footer() {
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-baseline gap-2 mb-4">
-              <span className="font-gothic text-3xl text-navy leading-none">ESW</span>
+              <span className="font-serif text-3xl font-bold text-navy leading-none tracking-wide">ESW</span>
             </div>
             <p className="text-sm text-slate leading-relaxed mb-2">
               The Operating System for Nature.

@@ -10,12 +10,12 @@ const navLinks = [
 ]
 
 const tickerData = [
-  { label: 'CARBON (VCU)', value: '$14.20', delta: '+0.35' },
-  { label: 'BNG UNITS', value: '£42,100', delta: '+1.2%' },
-  { label: 'EU ETS', value: '€68.40', delta: '-0.8%' },
-  { label: 'AUM HECTARES', value: '85,200', delta: '+3.1%' },
-  { label: 'GREEN BONDS', value: '$200M+', delta: '' },
-  { label: 'CSRD READINESS', value: '94%', delta: '+2pp' },
+  { label: 'CULIACÁN NBS', value: '$35–50M', delta: 'structuring' },
+  { label: 'TREES PIPELINE', value: '25,000', delta: 'native spp.' },
+  { label: 'UHI TARGET', value: '–3 to 5°C', delta: 'surface' },
+  { label: 'LAND LIBERATED', value: '95,200 m²', delta: '92 lots' },
+  { label: 'FLOOD ABSORB.', value: '+40–60%', delta: 'pluvial' },
+  { label: 'CO₂ CAPTURE', value: '550 t/yr', delta: 'projected' },
 ]
 
 function Navbar({ scrolled }) {
@@ -48,7 +48,7 @@ function Navbar({ scrolled }) {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 group">
             <div className="flex items-baseline gap-1">
-              <span className="font-gothic text-3xl text-navy leading-none">ESW</span>
+              <span className="font-serif text-3xl font-bold text-navy leading-none tracking-wide">ESW</span>
               <span className="hidden sm:inline text-label uppercase text-slate tracking-widest ml-3">Ecosystem Services World</span>
             </div>
           </a>

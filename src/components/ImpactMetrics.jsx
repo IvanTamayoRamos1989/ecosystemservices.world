@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import useReveal from '../hooks/useReveal'
 
 const metrics = [
-  { value: 50, suffix: '+', label: 'Projects Delivered', prefix: '' },
-  { value: 12, suffix: '', label: 'Countries of Operation', prefix: '' },
-  { value: 85, suffix: 'k', label: 'Hectares Assessed', prefix: '' },
-  { value: 200, suffix: 'M+', label: 'USD in Green Finance Structured', prefix: '$' },
+  { value: 25, suffix: 'K', label: 'Native Trees Planned (Culiacán)', prefix: '' },
+  { value: 95, suffix: 'K m²', label: 'Urban Land Liberated', prefix: '' },
+  { value: 50, suffix: 'M', label: 'USD Blended Finance Pipeline', prefix: '$' },
+  { value: 5, suffix: '°C', label: 'Target UHI Reduction', prefix: '–' },
 ]
 
 function useCounter(target, isVisible, duration = 2000) {

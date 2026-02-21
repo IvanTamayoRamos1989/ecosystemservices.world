@@ -5,17 +5,17 @@ import useReveal from '../hooks/useReveal'
 const PORTFOLIO_ASSETS = [
   {
     id: 'AST-001',
-    name: 'Green Corridors — Culiacán',
+    name: 'Corredores Verdes — Culiacán',
     jurisdiction: 'Mexico (Sinaloa)',
-    hectares: 12400,
-    biome: 'Tropical Dry Forest',
+    hectares: 95200,
+    biome: 'Urban NbS / Tropical Dry',
     status: 'Active',
-    carbonSequestered: 48200,
+    carbonSequestered: 550,
     biodiversityScore: 7.8,
-    creditsPipeline: '$4.2M',
-    complianceFrameworks: ['LGEEPA', 'Verra VCS'],
-    verificationStatus: 'Pending (1/2 stamps)',
-    lastUpdated: '2026-02-14',
+    creditsPipeline: '$35–50M',
+    complianceFrameworks: ['NOM-004-SEDATU', 'Plan Avanza', 'LGEEPA', 'IUCN NbS', 'IDB ESPF'],
+    verificationStatus: 'CFF Structuring Phase',
+    lastUpdated: '2026-02-21',
   },
   {
     id: 'AST-002',
@@ -63,10 +63,10 @@ const PORTFOLIO_ASSETS = [
 
 // ── Aggregate metrics ─────────────────────────────────────────────────
 const PORTFOLIO_SUMMARY = [
-  { label: 'Total Hectares Under Management', value: '40,000', delta: '+3,200 this quarter' },
-  { label: 'Carbon Sequestered (tCO2e)', value: '125,000', delta: '+18,400 YTD' },
-  { label: 'Credits Pipeline Value', value: '$14.5M', delta: '+$2.1M since Q4' },
-  { label: 'Avg. Biodiversity Score', value: '6.6', delta: '+0.4 from baseline' },
+  { label: 'Total Area Under Management', value: '40,000', delta: '+95,200 m² (Culiacán)' },
+  { label: 'Carbon Capture Pipeline (tCO₂/yr)', value: '125,550', delta: '+550 (Culiacán NbS)' },
+  { label: 'Capital Stack Value', value: '$50M+', delta: 'Culiacán: $35–50M structured' },
+  { label: 'Active Financier Relationships', value: '8', delta: 'C40 CFF · CAF · GCF · Banobras' },
 ]
 
 const STATUS_STYLES = {
@@ -157,7 +157,7 @@ function ClientDashboard() {
                 <th className="hidden md:table-cell">Jurisdiction</th>
                 <th className="hidden lg:table-cell">Biome</th>
                 <th className="text-right">Hectares</th>
-                <th className="text-right hidden md:table-cell">tCO2e</th>
+                <th className="text-right hidden md:table-cell">tCO₂e</th>
                 <th className="text-right hidden lg:table-cell">Credits Pipeline</th>
                 <th>Status</th>
               </tr>
