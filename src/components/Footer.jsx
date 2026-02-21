@@ -11,7 +11,6 @@ const footerLinks = {
     { label: 'Origination & Design', href: '#services' },
     { label: 'Capital Stack Optimization', href: '#finance' },
     { label: 'Liability Management', href: '#approach' },
-    { label: 'Case Studies', href: '#case-studies' },
   ],
   Company: [
     { label: 'About ESW', href: '#about' },

@@ -9,7 +9,6 @@ import Frameworks from './components/Frameworks'
 import Approach from './components/Approach'
 import Finance from './components/Finance'
 import GlobalPresence from './components/GlobalPresence'
-import CaseStudies from './components/CaseStudies'
 import Testimonials from './components/Testimonials'
 import Intel from './components/Intel'
 import ROICalculator from './components/ROICalculator'
@@ -45,7 +44,6 @@ function App() {
       <Finance />
       <GlobalPresence />
       <ImageBreak imageKey="solar" />
-      <CaseStudies />
       <Testimonials />
       <Intel />
       <ROICalculator />
