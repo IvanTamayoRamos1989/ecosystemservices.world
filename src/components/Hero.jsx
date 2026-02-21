@@ -1,10 +1,10 @@
 import React from 'react'
 
 const liveMetrics = [
-  { label: 'Flagship Project', value: '$35–50M', unit: 'Culiacán NbS' },
-  { label: 'Trees Pipeline', value: '25,000', unit: 'native species' },
-  { label: 'UHI Reduction Target', value: '–5°C', unit: 'surface temp.' },
-  { label: 'Flood Absorption', value: '+60%', unit: 'pluvial capacity' },
+  { label: 'Nature Assets Under Management', value: '85,200', unit: 'Hectares' },
+  { label: 'Capital Stack Optimized', value: '$200M', unit: 'USD' },
+  { label: 'Active Jurisdictions', value: '12', unit: 'Countries' },
+  { label: 'Carbon Sequestered', value: '142,000', unit: 'tCO2e' },
 ]
 
 function Hero() {
@@ -37,26 +37,25 @@ function Hero() {
           </div>
 
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-navy leading-[1.1] mb-8">
-            Turn Climate Liabilities<br />Into Bankable Assets.
+            Lower Your Cost of<br />Capital With Nature.
           </h1>
 
           <p className="text-lg text-slate leading-relaxed mb-6 max-w-2xl">
-            ESW structures Nature-Based Solutions for cities and infrastructure developers —
-            combining C40 CFF, CAF, GCF, and DFI financing to deliver bankable climate
-            adaptation projects. From arborisation to flood resilience to green bonds.
+            ESW is the global platform that transforms environmental liabilities into
+            bankable financial assets. We engineer Nature-Based Solutions for Capital Stack
+            Optimization — unlocking concessional loans, green bonds, and non-dilutive grants.
           </p>
           <p className="text-base text-slate leading-relaxed mb-10 max-w-2xl">
-            Currently structuring the $35–50M Corredores Verdes project for Culiacán, Sinaloa —
-            15,000–25,000 native trees, 9.5 hectares liberated, 4-component urban NbS system
-            aligned with Plan Avanza and NOM-004-SEDATU-2023.
+            Every asset gets a Nature Balance Sheet. AI does the analysis.
+            Licensed experts provide the stamp. You get the capital advantage.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="#case-studies"
+              href="#dashboard"
               className="inline-flex items-center justify-center px-8 py-3.5 bg-navy text-white font-medium text-sm tracking-wider uppercase hover:bg-navy-800 transition-colors"
             >
-              View Culiacán Project
+              View Platform
             </a>
             <a
               href="#roi-calculator"

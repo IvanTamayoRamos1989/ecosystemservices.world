@@ -15,10 +15,10 @@ const regions = [
     status: 'Active',
   },
   {
-    name: 'Mexico & Latin America',
-    description: 'Flagship: Corredores Verdes Culiacán ($35–50M). Urban NbS, climate adaptation, C40 CFF structuring, blended finance with CAF/GCF/Banobras. Deep NOM-004-SEDATU and Plan Avanza alignment.',
-    markets: ['Mexico (Sinaloa)', 'Brazil', 'Colombia', 'Central America'],
-    status: 'Flagship',
+    name: 'Latin America',
+    description: 'Tropical forest conservation, REDD+ project structuring, and biodiversity credit pipeline development.',
+    markets: ['Brazil', 'Colombia', 'Central America'],
+    status: 'Active',
   },
   {
     name: 'Middle East & North Africa',
@@ -79,8 +79,8 @@ function GlobalPresence() {
                   </h3>
                   <span
                     className={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-sm border ${
-                      region.status === 'Flagship'
-                        ? 'border-navy bg-navy text-white'
+                      region.status === 'Active'
+                        ? 'border-navy text-navy'
                         : 'border-navy text-navy'
                     }`}
                   >

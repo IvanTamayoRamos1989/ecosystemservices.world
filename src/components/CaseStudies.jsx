@@ -3,21 +3,18 @@ import useReveal from '../hooks/useReveal'
 
 const studies = [
   {
-    sector: 'Urban NbS + Climate Adaptation',
-    title: 'Corredores Verdes & Hubs de Movilidad Estratégica',
+    sector: 'Urban NbS + Mobility',
+    title: 'Green Corridors & Strategic Mobility Hubs',
     region: 'Culiacán, Sinaloa, Mexico',
-    scope: 'Systemic intervention across 4 components: massive native arborisation (15,000–25,000 trees), 8–12 automated parking hubs freeing 9.5 ha of urban land, green stormwater infrastructure (+40–60% absorption), and active mobility network — aligned with Plan Avanza, NOM-004-SEDATU-2023, and C40 CFF eligibility.',
+    scope: 'C40 CFF bankable project: street reclamation, automated parking hubs, native tree corridors, blended finance structuring (IDB + municipal green bond)',
     image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80&auto=format',
     imageAlt: 'Urban green corridor with native tree planting',
     metrics: [
-      { label: 'Total investment', value: '$35–50M' },
-      { label: 'Trees planted', value: '15–25K' },
-      { label: 'Land liberated', value: '9.5 ha' },
-      { label: 'UHI reduction', value: '–3 to 5°C' },
-      { label: 'Flood absorption', value: '+40–60%' },
-      { label: 'CO₂ captured', value: '330–550 t/yr' },
+      { label: 'Project volume', value: '$35–50M' },
+      { label: 'Corridors', value: '15–25 km' },
+      { label: 'Facility', value: 'C40 CFF' },
     ],
-    tags: ['C40 CFF', 'CAF', 'GCF', 'Banobras', 'NbS', 'Blended Finance', 'NOM-004-SEDATU'],
+    tags: ['NbS', 'Blended Finance', 'IUCN Standard', 'Adaptation'],
     featured: true,
   },
   {
@@ -138,125 +135,38 @@ function CaseStudies() {
                     {expanded === study.title ? '— Collapse details' : '+ View project details'}
                   </button>
                   {expanded === study.title && (
-                    <div className="mt-4 p-6 rounded-sm border border-gray-200 bg-cultured space-y-5">
-                      {/* Crisis Diagnostic */}
-                      <div>
-                        <h4 className="text-sm font-semibold text-navy mb-2">Diagnostic: Why Culiacán</h4>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
-                          {[
-                            { label: 'Peak temp.', value: '42.5°C' },
-                            { label: 'Forest loss', value: '–144 km²' },
-                            { label: 'Green space/hab', value: '2.19 m²' },
-                            { label: 'Vehicle fleet', value: '641,253' },
-                          ].map((item) => (
-                            <div key={item.label} className="text-center">
-                              <div className="text-navy font-semibold text-sm font-mono">{item.value}</div>
-                              <div className="text-[10px] text-slate uppercase tracking-wider mt-1">{item.label}</div>
-                            </div>
-                          ))}
-                        </div>
-                        <p className="text-xs text-slate">
-                          ONU-Habitat standard: 15 m²/hab. Culiacán deficit: 85%. 92 parking lots (95,200 m²) identified as transformation catalyst.
-                        </p>
-                      </div>
-
-                      {/* 4 Components */}
-                      <div>
-                        <h4 className="text-sm font-semibold text-navy mb-2">4-Component Intervention</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                          {[
-                            { comp: '1. Arborisation & Sidewalks', budget: '$12–18M', detail: '15–25K native trees, 4m+ sidewalks (NOM-004-SEDATU)' },
-                            { comp: '2. Smart Vertical Parking', budget: '$15–20M', detail: '8–12 structures, 2,400–4,000 spaces, ground-floor retail' },
-                            { comp: '3. Green Stormwater Infra', budget: '$4–6M', detail: 'Bioretention, permeable paving, +40–60% absorption' },
-                            { comp: '4. Active Mobility Network', budget: '$4–6M', detail: 'Protected bike lanes, pedestrian streets, BRT integration' },
-                          ].map((item) => (
-                            <div key={item.comp} className="p-3 border border-gray-200 bg-white">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="text-xs font-semibold text-navy">{item.comp}</span>
-                                <span className="text-xs font-mono text-navy">{item.budget}</span>
-                              </div>
-                              <p className="text-[10px] text-slate">{item.detail}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Blended Finance Structure */}
+                    <div className="mt-4 p-6 rounded-sm border border-gray-200 bg-cultured space-y-4">
                       <div>
                         <h4 className="text-sm font-semibold text-navy mb-2">Blended Finance Structure</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                           {[
-                            { layer: 'C40 CFF', amount: '$1–2M', type: 'Grant / TA' },
-                            { layer: 'CAF', amount: '$10–15M', type: 'Concessional' },
-                            { layer: 'GCF', amount: '$5–8M', type: 'Grant + Credit' },
-                            { layer: 'Banobras', amount: '$5–8M', type: 'Municipal Credit' },
-                            { layer: 'SEDATU/FONADIN', amount: '$3–5M', type: 'Federal Subsidy' },
-                            { layer: 'Gob. Sinaloa', amount: '$3–5M', type: 'Co-finance' },
-                            { layer: 'Municipio', amount: '$2–3M', type: 'Land + Permits' },
-                            { layer: 'Value Capture', amount: '$2–4M', type: 'Recurring' },
+                            { layer: 'C40 CFF TA', amount: '~$1M' },
+                            { layer: 'IDB Loan', amount: '$15–25M' },
+                            { layer: 'Green Bond', amount: '$10–15M' },
+                            { layer: 'Municipal', amount: '$2–5M' },
                           ].map((item) => (
                             <div key={item.layer} className="text-center">
-                              <div className="text-navy font-semibold text-sm font-mono">{item.amount}</div>
+                              <div className="text-navy font-semibold text-sm">{item.amount}</div>
                               <div className="text-[10px] text-slate uppercase tracking-wider mt-1">{item.layer}</div>
-                              <div className="text-[9px] text-slate/70">{item.type}</div>
                             </div>
                           ))}
                         </div>
                       </div>
-
-                      {/* Ecosystem Services */}
-                      <div>
-                        <h4 className="text-sm font-semibold text-navy mb-2">Ecosystem Services Portfolio</h4>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                          {[
-                            { service: 'Thermal regulation', value: '$2–4M/yr savings' },
-                            { service: 'Carbon capture', value: '330–550 tCO₂/yr' },
-                            { service: 'Flood control', value: '$5–10M damages avoided' },
-                            { service: 'Property uplift', value: '+30% value' },
-                          ].map((item) => (
-                            <div key={item.service} className="p-2 border border-gray-200 bg-white text-center">
-                              <div className="text-[10px] text-slate uppercase tracking-wider">{item.service}</div>
-                              <div className="text-xs font-semibold text-navy mt-1">{item.value}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Native Species */}
                       <div>
                         <h4 className="text-sm font-semibold text-navy mb-2">Native Species Palette</h4>
                         <p className="text-xs text-slate">
-                          <span className="text-charcoal font-medium">Tabebuia rosea</span> (Amapa) —
-                          <span className="text-charcoal font-medium"> Pithecellobium dulce</span> (Guamuchil) —
-                          <span className="text-charcoal font-medium"> Prosopis</span> spp. (Mezquite) —
-                          <span className="text-charcoal font-medium"> Enterolobium cyclocarpum</span> (Huanacaxtle, 20–25m canopy) —
-                          <span className="text-charcoal font-medium"> Ceiba pentandra</span> (Ceiba) —
-                          <span className="text-charcoal font-medium"> Delonix regia</span> (Tabachín) —
-                          <span className="text-charcoal font-medium"> Salix</span> spp. (Sauce, flood zones) —
-                          <span className="text-charcoal font-medium"> Parkinsonia aculeata</span> (Palo Verde).
-                          All &gt;42°C tolerant, drought-resistant, high canopy, selected per IUCN NbS Criterion 3.
+                          <span className="text-charcoal">Tabebuia rosea</span> (Amapa) —
+                          <span className="text-charcoal"> Guazuma ulmifolia</span> (Guásima) —
+                          <span className="text-charcoal"> Prosopis</span> spp. (Mezquite).
+                          Selected per IUCN NbS Criterion 3 for canopy shade, transpirational cooling, and non-aggressive root systems.
                         </p>
                       </div>
-
-                      {/* Regulatory Alignment */}
                       <div>
                         <h4 className="text-sm font-semibold text-navy mb-2">Regulatory Alignment</h4>
                         <p className="text-xs text-slate">
-                          NOM-004-SEDATU-2023 (obligatory June 2024) · Plan Avanza 2024 (Culiacán mobility master plan) ·
-                          Plan Conecta Sinaloa 2045 · ENAMOV 2023–2042 · PECCSIN (Sinaloa Climate Plan) ·
-                          Ley Estatal de Cambio Climático · IUCN Global Standard for NbS ·
-                          IDB ESPF (10 Performance Standards) · Principios de Bonos Verdes MX (ICMA-aligned) ·
-                          ODS 11, 13, 3 (Agenda 2030)
-                        </p>
-                      </div>
-
-                      {/* MRV */}
-                      <div>
-                        <h4 className="text-sm font-semibold text-navy mb-2">MRV System</h4>
-                        <p className="text-xs text-slate">
-                          Google Earth Engine (LST + NDVI quarterly) · i-Tree Eco (annual carbon) ·
-                          Flow sensors + pluviometry (per event) · Redspira PM2.5 (continuous) ·
-                          SESESP + Mapasín road safety (monthly) · Origin-destination surveys (annual)
+                          PECCSIN (Sinaloa State Climate Plan) · Ley Estatal de Cambio Climático ·
+                          NOM-060-SEMARNAT-1994 · IUCN Global Standard for NbS ·
+                          IDB ESPF (10 Performance Standards) · Principios de Bonos Verdes MX (ICMA-aligned)
                         </p>
                       </div>
                     </div>
@@ -264,7 +174,7 @@ function CaseStudies() {
                 </div>
               )}
 
-              <div className={`grid gap-3 mb-6 mt-auto ${study.featured ? 'grid-cols-3 md:grid-cols-6' : 'grid-cols-3'}`}>
+              <div className={`grid gap-3 mb-6 mt-auto ${study.featured ? 'grid-cols-3 md:grid-cols-3' : 'grid-cols-3'}`}>
                 {study.metrics.map((m) => (
                   <div key={m.label} className="text-center">
                     <div className="text-navy font-semibold text-sm">{m.value}</div>

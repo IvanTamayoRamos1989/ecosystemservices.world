@@ -132,8 +132,8 @@ function ROICalculator() {
             Nature Asset ROI Estimator
           </h2>
           <p className="text-sm text-slate mt-2 max-w-xl">
-            Input your project parameters. Receive an instant valuation based on ESW pricing models,
-            IDB NbS benchmarks, and blended finance structuring rates. Try: 10 ha / $40M / Mexico / Government for the Culiacán scenario.
+            Input your site parameters. Receive an instant valuation based on ESW pricing models,
+            IDB NbS benchmarks, and current credit market rates.
           </p>
         </div>
 
