@@ -1,10 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
+
+const API_URL = import.meta.env.VITE_ESW_API_URL || '/api'
 
 const SYSTEM_GREETING = {
   role: 'assistant',
   content: `Welcome to **ESW.AI** — the intelligent project structuring engine for nature-based infrastructure finance.
 
-I can help you develop comprehensive project proposals for ecosystem services, regenerative infrastructure, and sustainable finance.
+I connect you directly to ESW's multi-agent system — a team of specialist AI agents covering ecology, design, finance, legal, and spatial analysis.
 
 **What I can do:**
 - Analyse your project site and context
@@ -15,6 +17,7 @@ I can help you develop comprehensive project proposals for ecosystem services, r
 - Draft bankability assessments
 
 **To get started**, describe your project or upload relevant documents (site plans, EIA reports, financial summaries).`,
+  agent: { name: 'Project Controller', id: 'project-controller', focus: 'Orchestration' },
 }
 
 const SUGGESTED_PROMPTS = [
@@ -24,18 +27,50 @@ const SUGGESTED_PROMPTS = [
   'What are the carbon credit certification options for a mangrove restoration project?',
 ]
 
+// Agent display names and abbreviations
+const AGENT_LABELS = {
+  'project-controller': { abbr: 'PM', color: 'bg-navy' },
+  'eco-scientist': { abbr: 'ECO', color: 'bg-emerald-700' },
+  'regen-architect': { abbr: 'NbS', color: 'bg-teal-700' },
+  'gis-analyst': { abbr: 'GIS', color: 'bg-blue-700' },
+  'green-financier': { abbr: 'FIN', color: 'bg-amber-700' },
+  'legal-compliance': { abbr: 'LAW', color: 'bg-rose-800' },
+  'brand-voice': { abbr: 'MKT', color: 'bg-violet-700' },
+  'growth-hacker': { abbr: 'BIZ', color: 'bg-orange-700' },
+  'agent-architect': { abbr: 'SYS', color: 'bg-slate-700' },
+  'talent-scout': { abbr: 'HR', color: 'bg-cyan-700' },
+  'procurement-manager': { abbr: 'PRO', color: 'bg-indigo-700' },
+}
+
+function generateSessionId() {
+  return 'esw-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8)
+}
+
 function ESWChat({ onClose }) {
   const [messages, setMessages] = useState([SYSTEM_GREETING])
   const [input, setInput] = useState('')
   const [files, setFiles] = useState([])
   const [isTyping, setIsTyping] = useState(false)
+  const [activeAgent, setActiveAgent] = useState(null)
+  const [streamingContent, setStreamingContent] = useState('')
+  const [sessionId] = useState(() => generateSessionId())
+  const [apiConnected, setApiConnected] = useState(null) // null = unknown, true/false
   const messagesEndRef = useRef(null)
   const fileInputRef = useRef(null)
   const textareaRef = useRef(null)
+  const abortControllerRef = useRef(null)
+
+  // Check API health on mount
+  useEffect(() => {
+    fetch(`${API_URL}/health`)
+      .then(res => res.ok ? res.json() : Promise.reject())
+      .then(() => setApiConnected(true))
+      .catch(() => setApiConnected(false))
+  }, [])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages, isTyping])
+  }, [messages, isTyping, streamingContent])
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -60,7 +95,7 @@ function ESWChat({ onClose }) {
     return (bytes / 1048576).toFixed(1) + ' MB'
   }
 
-  const handleSend = async (text) => {
+  const handleSend = useCallback(async (text) => {
     const messageText = text || input.trim()
     if (!messageText && files.length === 0) return
 
@@ -74,13 +109,121 @@ function ESWChat({ onClose }) {
     setInput('')
     setFiles([])
     setIsTyping(true)
+    setStreamingContent('')
+    setActiveAgent(null)
 
-    // Simulate AI response (replace with actual API call)
-    setTimeout(() => {
-      const response = generateResponse(messageText, userMessage.files)
-      setMessages((prev) => [...prev, { role: 'assistant', content: response }])
+    // If API is not connected, fall back to local responses
+    if (apiConnected === false) {
+      handleLocalResponse(messageText, userMessage.files)
+      return
+    }
+
+    // Cancel any in-flight request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+    abortControllerRef.current = new AbortController()
+
+    try {
+      const response = await fetch(`${API_URL}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId,
+          message: messageText,
+          files: userMessage.files,
+        }),
+        signal: abortControllerRef.current.signal,
+      })
+
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}`)
+      }
+
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ''
+      let fullContent = ''
+      let agentInfo = null
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        buffer += decoder.decode(value, { stream: true })
+
+        // Process SSE events in buffer
+        const lines = buffer.split('\n')
+        buffer = lines.pop() || '' // Keep incomplete line in buffer
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue
+          const data = line.slice(6)
+
+          if (data === '[DONE]') continue
+
+          try {
+            const chunk = JSON.parse(data)
+
+            switch (chunk.type) {
+              case 'meta':
+                agentInfo = chunk.agent
+                setActiveAgent(agentInfo)
+                break
+
+              case 'text':
+                fullContent += chunk.content
+                setStreamingContent(fullContent)
+                break
+
+              case 'handoffs':
+                // Handoffs are informational — the system will route automatically
+                break
+
+              case 'error':
+                throw new Error(chunk.content)
+            }
+          } catch (parseErr) {
+            if (parseErr.message && !parseErr.message.includes('JSON')) {
+              throw parseErr
+            }
+          }
+        }
+      }
+
+      // Finalize: move streaming content into messages
+      if (fullContent) {
+        setMessages((prev) => [
+          ...prev,
+          { role: 'assistant', content: fullContent, agent: agentInfo },
+        ])
+      }
+
+      setStreamingContent('')
       setIsTyping(false)
-    }, 1500 + Math.random() * 1500)
+      setActiveAgent(null)
+      setApiConnected(true)
+    } catch (err) {
+      if (err.name === 'AbortError') return
+
+      console.error('ESW.AI API error:', err)
+
+      // Fall back to local response on API failure
+      setStreamingContent('')
+      setApiConnected(false)
+      handleLocalResponse(messageText, userMessage.files)
+    }
+  }, [input, files, sessionId, apiConnected])
+
+  const handleLocalResponse = (messageText, attachedFiles) => {
+    setTimeout(() => {
+      const response = generateLocalResponse(messageText, attachedFiles)
+      setMessages((prev) => [
+        ...prev,
+        { role: 'assistant', content: response, agent: { name: 'ESW.AI', id: 'system', focus: 'General' } },
+      ])
+      setIsTyping(false)
+    }, 800 + Math.random() * 800)
   }
 
   const handleKeyDown = (e) => {
@@ -90,9 +233,23 @@ function ESWChat({ onClose }) {
     }
   }
 
-  const handleSuggestedPrompt = (prompt) => {
-    handleSend(prompt)
-  }
+  const handleNewChat = useCallback(() => {
+    // Cancel any in-flight request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+    setMessages([SYSTEM_GREETING])
+    setFiles([])
+    setInput('')
+    setStreamingContent('')
+    setIsTyping(false)
+    setActiveAgent(null)
+
+    // Clear server-side session
+    if (apiConnected) {
+      fetch(`${API_URL}/session/${sessionId}`, { method: 'DELETE' }).catch(() => {})
+    }
+  }, [sessionId, apiConnected])
 
   const showSuggestions = messages.length === 1
 
@@ -117,21 +274,17 @@ function ESWChat({ onClose }) {
               </div>
               <div>
                 <h1 className="font-serif text-xl font-bold text-navy leading-none">ESW.AI</h1>
-                <span className="text-[10px] uppercase tracking-widest text-slate">Project Intelligence Engine</span>
+                <span className="text-[10px] uppercase tracking-widest text-slate">Multi-Agent Intelligence Engine</span>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2 text-xs text-slate">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              Online
+              <div className={`w-1.5 h-1.5 rounded-full ${apiConnected === true ? 'bg-emerald-500' : apiConnected === false ? 'bg-amber-500' : 'bg-sovereign-steel'}`} />
+              {apiConnected === true ? 'Connected' : apiConnected === false ? 'Local Mode' : 'Connecting...'}
             </div>
             <button
-              onClick={() => {
-                setMessages([SYSTEM_GREETING])
-                setFiles([])
-                setInput('')
-              }}
+              onClick={handleNewChat}
               className="text-xs text-slate hover:text-navy transition-colors px-3 py-1.5 border border-sovereign-silver hover:border-navy"
               title="New conversation"
             >
@@ -148,11 +301,23 @@ function ESWChat({ onClose }) {
             <div key={i} className={`mb-6 ${msg.role === 'user' ? 'flex justify-end' : ''}`}>
               {msg.role === 'assistant' ? (
                 <div className="flex gap-4 max-w-full">
-                  <div className="w-7 h-7 bg-navy flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-white font-serif font-bold text-[10px]">AI</span>
-                  </div>
-                  <div className="prose-sm text-charcoal leading-relaxed min-w-0">
-                    <MessageContent content={msg.content} />
+                  <AgentBadge agent={msg.agent} />
+                  <div className="min-w-0">
+                    {msg.agent && msg.agent.name && (
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="text-[10px] font-semibold uppercase tracking-widest text-navy">
+                          {msg.agent.name}
+                        </span>
+                        {msg.agent.focus && (
+                          <span className="text-[10px] uppercase tracking-wider text-sovereign-steel">
+                            — {msg.agent.focus}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    <div className="prose-sm text-charcoal leading-relaxed">
+                      <MessageContent content={msg.content} />
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -178,15 +343,35 @@ function ESWChat({ onClose }) {
             </div>
           ))}
 
-          {isTyping && (
+          {/* Streaming message */}
+          {(isTyping || streamingContent) && (
             <div className="mb-6 flex gap-4">
-              <div className="w-7 h-7 bg-navy flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-white font-serif font-bold text-[10px]">AI</span>
-              </div>
-              <div className="flex items-center gap-1.5 py-3">
-                <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '0ms' }} />
-                <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '150ms' }} />
-                <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '300ms' }} />
+              <AgentBadge agent={activeAgent} />
+              <div className="min-w-0">
+                {activeAgent && (
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="text-[10px] font-semibold uppercase tracking-widest text-navy">
+                      {activeAgent.name}
+                    </span>
+                    {activeAgent.focus && (
+                      <span className="text-[10px] uppercase tracking-wider text-sovereign-steel">
+                        — {activeAgent.focus}
+                      </span>
+                    )}
+                  </div>
+                )}
+                {streamingContent ? (
+                  <div className="prose-sm text-charcoal leading-relaxed">
+                    <MessageContent content={streamingContent} />
+                    <span className="inline-block w-1.5 h-4 bg-navy/60 animate-pulse ml-0.5 align-text-bottom" />
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1.5 py-3">
+                    <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '0ms' }} />
+                    <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '150ms' }} />
+                    <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '300ms' }} />
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -199,7 +384,7 @@ function ESWChat({ onClose }) {
                 {SUGGESTED_PROMPTS.map((prompt, i) => (
                   <button
                     key={i}
-                    onClick={() => handleSuggestedPrompt(prompt)}
+                    onClick={() => handleSend(prompt)}
                     className="text-left px-4 py-3 border border-sovereign-silver text-sm text-slate hover:border-navy hover:text-navy transition-all duration-200 leading-relaxed"
                   >
                     {prompt}
@@ -269,14 +454,15 @@ function ESWChat({ onClose }) {
                 onKeyDown={handleKeyDown}
                 placeholder="Describe your project, ask a question, or upload documents..."
                 rows={1}
-                className="w-full px-4 py-3 border border-sovereign-silver bg-white text-charcoal text-sm placeholder-sovereign-steel focus:border-navy focus:outline-none transition-colors resize-none leading-relaxed"
+                disabled={isTyping}
+                className="w-full px-4 py-3 border border-sovereign-silver bg-white text-charcoal text-sm placeholder-sovereign-steel focus:border-navy focus:outline-none transition-colors resize-none leading-relaxed disabled:opacity-50"
               />
             </div>
 
             {/* Send Button */}
             <button
               onClick={() => handleSend()}
-              disabled={!input.trim() && files.length === 0}
+              disabled={(!input.trim() && files.length === 0) || isTyping}
               className="flex-shrink-0 p-2.5 bg-navy text-white hover:bg-navy-800 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -287,10 +473,23 @@ function ESWChat({ onClose }) {
 
           <div className="mt-3 flex items-center justify-between text-[10px] text-sovereign-steel">
             <span>Accepts PDF, DOCX, CSV, GeoJSON, KML, imagery. Shift+Enter for new line.</span>
-            <span className="font-mono">ESW.AI v1.0</span>
+            <span className="font-mono">ESW.AI v2.0 — Multi-Agent</span>
           </div>
         </div>
       </footer>
+    </div>
+  )
+}
+
+// ── Agent Badge ──────────────────────────────────────────────────────
+function AgentBadge({ agent }) {
+  const label = agent?.id ? AGENT_LABELS[agent.id] : null
+  const abbr = label?.abbr || 'AI'
+  const color = label?.color || 'bg-navy'
+
+  return (
+    <div className={`w-7 h-7 ${color} flex items-center justify-center flex-shrink-0 mt-1`} title={agent?.name || 'ESW.AI'}>
+      <span className="text-white font-mono font-bold text-[8px] leading-none">{abbr}</span>
     </div>
   )
 }
@@ -300,6 +499,7 @@ function MessageContent({ content }) {
   const lines = content.split('\n')
   const elements = []
   let listItems = []
+  let numberedItems = []
 
   const flushList = () => {
     if (listItems.length > 0) {
@@ -312,13 +512,31 @@ function MessageContent({ content }) {
       )
       listItems = []
     }
+    if (numberedItems.length > 0) {
+      elements.push(
+        <ol key={`olist-${elements.length}`} className="list-decimal list-inside space-y-1 my-2 text-sm">
+          {numberedItems.map((item, i) => (
+            <li key={i}>{renderInline(item)}</li>
+          ))}
+        </ol>
+      )
+      numberedItems = []
+    }
   }
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
 
     if (line.startsWith('- ') || line.startsWith('* ')) {
+      if (numberedItems.length > 0) flushList()
       listItems.push(line.slice(2))
+      continue
+    }
+
+    const numberedMatch = line.match(/^\d+\.\s+(.+)/)
+    if (numberedMatch) {
+      if (listItems.length > 0) flushList()
+      numberedItems.push(numberedMatch[1])
       continue
     }
 
@@ -326,6 +544,21 @@ function MessageContent({ content }) {
 
     if (line === '') {
       continue
+    }
+
+    // Table detection
+    if (line.includes('|') && line.trim().startsWith('|')) {
+      const tableLines = [line]
+      let j = i + 1
+      while (j < lines.length && lines[j].includes('|') && lines[j].trim().startsWith('|')) {
+        tableLines.push(lines[j])
+        j++
+      }
+      if (tableLines.length >= 2) {
+        elements.push(<MarkdownTable key={i} lines={tableLines} />)
+        i = j - 1
+        continue
+      }
     }
 
     if (line.startsWith('### ')) {
@@ -346,6 +579,28 @@ function MessageContent({ content }) {
           {renderInline(line.slice(2))}
         </h2>
       )
+    } else if (line.startsWith('```')) {
+      // Code block
+      const codeLines = []
+      let j = i + 1
+      while (j < lines.length && !lines[j].startsWith('```')) {
+        codeLines.push(lines[j])
+        j++
+      }
+      elements.push(
+        <pre key={i} className="bg-sovereign-ash border border-sovereign-silver p-3 my-2 text-xs font-mono overflow-x-auto">
+          <code>{codeLines.join('\n')}</code>
+        </pre>
+      )
+      i = j
+    } else if (line.startsWith('> ')) {
+      elements.push(
+        <blockquote key={i} className="border-l-2 border-navy pl-3 my-2 text-sm text-slate italic">
+          {renderInline(line.slice(2))}
+        </blockquote>
+      )
+    } else if (line.startsWith('---') || line.startsWith('***')) {
+      elements.push(<hr key={i} className="my-4 border-sovereign-silver" />)
     } else {
       elements.push(
         <p key={i} className="text-sm leading-relaxed mb-2">
@@ -359,9 +614,49 @@ function MessageContent({ content }) {
   return <>{elements}</>
 }
 
+// ── Markdown Table Renderer ──────────────────────────────────────────
+function MarkdownTable({ lines }) {
+  const parseRow = (line) =>
+    line.split('|').map(cell => cell.trim()).filter(cell => cell.length > 0)
+
+  const header = parseRow(lines[0])
+  // Skip separator line (line with dashes)
+  const isSeparator = (line) => /^\|[\s\-:|]+\|$/.test(line.trim()) || parseRow(line).every(c => /^[-:]+$/.test(c))
+  const bodyLines = lines.slice(1).filter(l => !isSeparator(l))
+  const rows = bodyLines.map(parseRow)
+
+  return (
+    <div className="overflow-x-auto my-3">
+      <table className="w-full text-xs border border-sovereign-silver">
+        <thead>
+          <tr className="bg-sovereign-ash">
+            {header.map((cell, i) => (
+              <th key={i} className="px-3 py-2 text-left font-semibold text-navy border-b border-sovereign-silver">
+                {renderInline(cell)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i} className={i % 2 === 1 ? 'bg-sovereign-ash/50' : ''}>
+              {row.map((cell, j) => (
+                <td key={j} className="px-3 py-2 text-charcoal border-b border-sovereign-silver">
+                  {renderInline(cell)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
 function renderInline(text) {
   const parts = []
-  const regex = /\*\*(.+?)\*\*/g
+  // Match bold, inline code, and italic
+  const regex = /(\*\*(.+?)\*\*|`(.+?)`|_(.+?)_)/g
   let lastIndex = 0
   let match
 
@@ -369,11 +664,30 @@ function renderInline(text) {
     if (match.index > lastIndex) {
       parts.push(text.slice(lastIndex, match.index))
     }
-    parts.push(
-      <strong key={match.index} className="text-navy font-semibold">
-        {match[1]}
-      </strong>
-    )
+
+    if (match[2]) {
+      // Bold
+      parts.push(
+        <strong key={match.index} className="text-navy font-semibold">
+          {match[2]}
+        </strong>
+      )
+    } else if (match[3]) {
+      // Inline code
+      parts.push(
+        <code key={match.index} className="bg-sovereign-ash px-1 py-0.5 text-xs font-mono">
+          {match[3]}
+        </code>
+      )
+    } else if (match[4]) {
+      // Italic
+      parts.push(
+        <em key={match.index} className="italic">
+          {match[4]}
+        </em>
+      )
+    }
+
     lastIndex = regex.lastIndex
   }
 
@@ -384,136 +698,85 @@ function renderInline(text) {
   return parts.length > 0 ? parts : text
 }
 
-// ── Simulated response generator (placeholder for API) ──────────────
-function generateResponse(userMessage, attachedFiles) {
+// ── Local fallback response generator ────────────────────────────────
+// Used when the API server is not available. Provides basic responses
+// so the UI remains functional.
+function generateLocalResponse(userMessage, attachedFiles) {
   const lower = userMessage.toLowerCase()
 
   if (attachedFiles && attachedFiles.length > 0) {
     const fileNames = attachedFiles.map((f) => f.name).join(', ')
     return `Thank you for uploading **${fileNames}**.
 
-I've received your documents and will analyse them in the context of your project. In a production environment, ESW.AI would:
+I've received your documents. To analyse them with our full multi-agent system, the ESW.AI API server needs to be running.
 
-- **Extract** key data points (site area, species lists, financial parameters, regulatory context)
-- **Cross-reference** against our Ontology of global environmental regulations and standards
-- **Generate** a structured project proposal with NbS recommendations, financial modelling, and compliance mapping
+**To activate the full system:**
+1. Set your \`ANTHROPIC_API_KEY\` environment variable
+2. Run \`npm run api\` to start the ESW.AI backend
+3. The system will route your documents through our specialist agents
 
-**To proceed**, please tell me more about:
+**In the meantime**, please describe:
 1. Your project location and jurisdiction
 2. The primary objective (carbon credits, biodiversity net gain, regulatory compliance, green bond structuring)
-3. Your timeline and budget parameters
-
-This will allow me to generate a comprehensive, actionable project proposal.`
+3. Your timeline and budget parameters`
   }
 
   if (lower.includes('carbon') || lower.includes('credit')) {
-    return `## Carbon Credit Structuring Advisory
+    return `## Carbon Credit Structuring
 
-Based on your request, here's a framework for carbon credit development:
+This query would be routed to the **Green Financier** agent for detailed carbon credit analysis.
 
-### Certification Standards
-- **Verra VCS** — Largest voluntary market standard. Suited for forestry (ARR, REDD+), wetlands, mangroves
-- **Gold Standard** — Premium pricing, strong co-benefits requirements. Preferred by EU buyers
-- **Plan Vivo** — Community-focused. Strong for smallholder agroforestry and landscape restoration
+### Available Certification Standards
+- **Verra VCS** — Largest voluntary market. Forestry (ARR, REDD+), wetlands, mangroves
+- **Gold Standard** — Premium pricing, strong co-benefits. Preferred by EU buyers
+- **Plan Vivo** — Community-focused. Smallholder agroforestry and landscape restoration
 
-### Key Steps
-- Baseline establishment (remote sensing + field surveys)
-- Methodology selection and PDD development
-- Validation by accredited VVB
-- Monitoring, reporting, and verification (MRV) system design
-- Credit issuance and market access
-
-### Financial Estimates
-- Development cost: $50K–$250K depending on methodology and scale
-- Time to first issuance: 18–36 months
-- Market pricing: $8–$35/tCO₂e (varies by standard, vintage, co-benefits)
-
-**Upload your site documentation** or describe the project location and scale for a tailored assessment.`
+**Connect the API** (\`npm run api\`) to receive a full credit feasibility assessment with methodology recommendations, pricing estimates, and timeline projections from our Green Financier.`
   }
 
   if (lower.includes('finance') || lower.includes('capital') || lower.includes('fund') || lower.includes('bond')) {
     return `## Blended Finance Structuring
 
-ESW structures multi-source capital stacks for nature-based infrastructure. Here's the typical architecture:
+This query would be routed to the **Green Financier** agent.
 
-### Capital Stack Layers
-- **Concessional Layer** — DFI lending (CAF, AfDB, ADB, EIB) at below-market rates
-- **Grant Layer** — Climate funds (GCF, GEF, Adaptation Fund), bilateral donors, C40 CFF
-- **Commercial Layer** — Green bonds, sustainability-linked loans, project finance
-- **Revenue Layer** — Carbon credits, biodiversity credits, ecosystem service payments, land value capture
+### Capital Stack Architecture
+- **Concessional Layer** — DFI lending (CAF, AfDB, ADB, EIB)
+- **Grant Layer** — Climate funds (GCF, GEF, Adaptation Fund), C40 CFF
+- **Commercial Layer** — Green bonds, sustainability-linked loans
+- **Revenue Layer** — Carbon credits, biodiversity credits, ecosystem service payments
 
-### ESW Deliverables
-- Bankability assessment with IRR/NPV modelling
-- Investor-ready project documentation
-- Regulatory alignment mapping (jurisdiction-specific)
-- MRV framework design for credit and bond verification
-
-### Success Metrics
-- Average 35% cost-of-capital reduction through concessional instrument integration
-- 4:1 economic return ratio (IDB NbS benchmark)
-- 6–12 months faster to financial close vs. traditional advisory
-
-**Tell me about your project specifics** — location, scale, and target outcomes — for a tailored capital stack recommendation.`
+**Connect the API** (\`npm run api\`) for full financial modelling with IRR/NPV analysis, bankability assessment, and investor profiling.`
   }
 
   if (lower.includes('tnfd') || lower.includes('csrd') || lower.includes('compliance') || lower.includes('disclosure')) {
-    return `## Regulatory Compliance & Disclosure
+    return `## Regulatory Compliance
 
-ESW structures compliance across the major sustainability reporting frameworks:
+This query would be routed to the **Legal Compliance** agent.
 
-### Active Frameworks
-- **CSRD / ESRS** — EU mandatory sustainability reporting. Double materiality assessment, biodiversity metrics (E4), climate adaptation (E1)
-- **TNFD** — Nature-related financial disclosures. LEAP approach: Locate, Evaluate, Assess, Prepare
-- **ISSB / IFRS S1-S2** — Global baseline for sustainability disclosures. Nature standard in development
-- **EU Taxonomy** — Activity classification for sustainable investment. Do No Significant Harm (DNSH) criteria
+### Frameworks We Cover
+- **CSRD / ESRS** — EU mandatory sustainability reporting
+- **TNFD** — Nature-related financial disclosures (LEAP approach)
+- **ISSB / IFRS S1-S2** — Global baseline for sustainability disclosures
+- **EU Taxonomy** — Sustainable investment classification
 
-### ESW Approach
-- Materiality assessment (financial + impact)
-- Data gap analysis and collection strategy
-- Metric design aligned to ESRS E1–E5 and TNFD recommended disclosures
-- Audit-ready reporting packages
-
-### Jurisdiction Mapping
-We adapt disclosure strategies to local regulatory environments — EU, UK, Singapore, Japan, Brazil, and others implementing ISSB-aligned standards.
-
-**Describe your reporting obligations** and I'll map the specific requirements and timeline for your jurisdiction.`
+**Connect the API** (\`npm run api\`) for jurisdiction-specific regulatory analysis, compliance mapping, and disclosure requirements.`
   }
 
-  if (lower.includes('solar') || lower.includes('renewable') || lower.includes('agrivoltaic')) {
-    return `## Renewable Energy Ecology & Agrivoltaics
+  return `Thank you for your inquiry. ESW.AI routes queries to specialist agents:
 
-ESW integrates ecological value into renewable energy projects:
+### Available Agents
+- **Eco-Scientist** — Biodiversity baselines, EIA, species risk assessment
+- **Regen-Architect** — Nature-based Solutions design, mitigation hierarchy
+- **GIS Analyst** — Spatial analysis, constraint mapping, satellite data
+- **Green Financier** — Carbon/biodiversity credits, blended finance, ROI modelling
+- **Legal Compliance** — Multi-jurisdictional law, permitting, contracts
 
-### Services for Solar & Wind Developers
-- **Environmental Impact Assessment** — Multi-jurisdictional EIA covering biodiversity, landscape, and cumulative effects
-- **Biodiversity Net Gain** — Habitat baseline, impact assessment, and BNG unit calculation
-- **Agrivoltaic Design** — Dual land-use optimisation (energy + ecology/agriculture)
-- **Credit Structuring** — Biodiversity credits from enhanced habitat beneath and around solar arrays
+### To Activate Full System
+1. Set your \`ANTHROPIC_API_KEY\` environment variable
+2. Run \`npm run api\` to start the backend
+3. The chatbot will automatically connect and route your queries
 
-### Typical Outcomes
-- 20–40% BNG uplift through targeted habitat creation
-- Pollinator corridor integration
-- Carbon sequestration from on-site soil restoration
-- Compliance with EU Taxonomy Regulation (Climate Change Mitigation + DNSH biodiversity)
-
-**Share your project details** — location, capacity, and timeline — for a tailored ecological integration strategy.`
-  }
-
-  return `Thank you for your inquiry. Based on your description, ESW.AI can develop a comprehensive project proposal covering:
-
-### Preliminary Assessment
-- **Site Analysis** — Biome classification, ecological baseline requirements, and spatial constraints
-- **Regulatory Scan** — Applicable environmental law, disclosure obligations, and permitting pathway
-- **Financial Scoping** — Eligible instruments, credit potential, and preliminary ROI estimates
-
-### Next Steps
-To generate a detailed proposal, I would need:
-1. **Location & Scale** — Country, region, site area (hectares)
-2. **Project Type** — Restoration, conservation, infrastructure ecology, urban NbS
-3. **Objective** — Carbon credits, biodiversity net gain, regulatory compliance, green financing
-4. **Documents** — Any existing site surveys, EIA reports, financial models, or project briefs
-
-**Upload your project documents** or provide these details, and I'll generate a structured proposal with actionable recommendations.`
+**Describe your project** with location, scale, and objectives for a comprehensive assessment.`
 }
 
 export default ESWChat
