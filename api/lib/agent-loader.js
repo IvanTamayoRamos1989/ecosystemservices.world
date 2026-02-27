@@ -5,10 +5,24 @@ import { fileURLToPath } from 'url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-// Resolve agents directory — try relative path first, fall back to process.cwd()
-const AGENTS_DIR = existsSync(join(__dirname, '..', '..', 'agents'))
-  ? join(__dirname, '..', '..', 'agents')
-  : join(process.cwd(), 'agents')
+// Resolve agents directory — try multiple paths for compatibility with
+// local dev, Vercel serverless, and different bundler layouts
+function resolveAgentsDir() {
+  const candidates = [
+    join(__dirname, '..', '..', 'agents'),   // local dev: api/lib/ → project root
+    join(__dirname, '..', 'agents'),          // some bundlers flatten to api/
+    join(process.cwd(), 'agents'),            // Vercel: process.cwd() is /var/task
+  ]
+  for (const dir of candidates) {
+    if (existsSync(dir) && existsSync(join(dir, 'system.md'))) {
+      return dir
+    }
+  }
+  // Last resort — return the most likely path
+  return candidates[0]
+}
+
+const AGENTS_DIR = resolveAgentsDir()
 
 let agentCache = null
 let workflowCache = null

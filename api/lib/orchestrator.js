@@ -2,7 +2,14 @@ import Anthropic from '@anthropic-ai/sdk'
 import { loadAgents, getAgent, getAgentRegistry } from './agent-loader.js'
 import { routeQuery, detectHandoff } from './router.js'
 
-const client = new Anthropic()
+// Lazy-init: avoid crashing the serverless function if ANTHROPIC_API_KEY is missing
+let _client = null
+function getClient() {
+  if (!_client) {
+    _client = new Anthropic()
+  }
+  return _client
+}
 
 // In-memory session store (replace with Redis/DB for production)
 const sessions = new Map()
@@ -146,7 +153,7 @@ export async function* processMessage(sessionId, userMessage, files = []) {
   const conversationMessages = session.messages.slice(-20)
 
   // Call Claude API with streaming
-  const stream = client.messages.stream({
+  const stream = getClient().messages.stream({
     model: 'claude-sonnet-4-20250514',
     max_tokens: 4096,
     system: systemPrompt,
