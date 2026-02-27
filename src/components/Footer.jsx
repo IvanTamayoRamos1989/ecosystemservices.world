@@ -1,22 +1,19 @@
 import React from 'react'
 
 const footerLinks = {
-  Platform: [
-    { label: 'Assets Dashboard', href: '#dashboard' },
-    { label: 'ROI Calculator', href: '#roi-calculator' },
-    { label: 'Verification Portal', href: '#vendor-portal' },
+  'ESW.AI': [
+    { label: 'Launch ESW.AI', href: '#', action: 'open-esw-ai' },
+    { label: 'Project Proposals', href: '#', action: 'open-esw-ai' },
     { label: 'Sector Intel', href: '#intel' },
   ],
   Advisory: [
-    { label: 'Origination & Design', href: '#services' },
-    { label: 'Capital Stack Optimization', href: '#finance' },
-    { label: 'Liability Management', href: '#approach' },
-    { label: 'Case Studies', href: '#case-studies' },
+    { label: 'Services', href: '#services' },
+    { label: 'Finance Structuring', href: '#finance' },
+    { label: 'Methodology', href: '#approach' },
+    { label: 'Global Presence', href: '#global' },
   ],
   Company: [
     { label: 'About ESW', href: '#about' },
-    { label: 'Methodology', href: '#approach' },
-    { label: 'Global Presence', href: '#global' },
     { label: 'Privacy Policy', href: '#privacy' },
     { label: 'Contact', href: '#contact' },
   ],
@@ -75,12 +72,21 @@ function Footer() {
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-sm text-slate hover:text-navy transition-colors"
-                    >
-                      {link.label}
-                    </a>
+                    {link.action ? (
+                      <button
+                        onClick={() => window.dispatchEvent(new CustomEvent(link.action))}
+                        className="text-sm text-slate hover:text-navy transition-colors"
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="text-sm text-slate hover:text-navy transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -94,7 +100,7 @@ function Footer() {
             &copy; {new Date().getFullYear()} Ecosystem Services World. All rights reserved.
           </p>
           <p className="text-xs text-slate font-mono">
-            Regenerative Capital.
+            ESW.AI — Regenerative Capital.
           </p>
         </div>
       </div>

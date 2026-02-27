@@ -71,7 +71,7 @@ function About() {
         <div className="mb-8">
           <span className="text-label uppercase text-slate tracking-widest">Digital Prime Contractor</span>
           <p className="text-sm text-slate mt-2 mb-8 max-w-xl">
-            We combine an AI-driven Ontology of global environmental data with a network
+            ESW.AI combines an intelligent Ontology of global environmental data with a network
             of licensed human experts — Engineers, Biologists, Auditors — to deliver:
           </p>
         </div>

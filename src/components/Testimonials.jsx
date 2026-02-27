@@ -4,23 +4,23 @@ import useReveal from '../hooks/useReveal'
 const testimonials = [
   {
     quote:
-      'ESW delivered the full package — from GEE baseline analysis to blended finance structuring across C40 CFF, CAF, and federal instruments. They understand how to make Nature-Based Solutions bankable for Latin American cities.',
+      'ESW delivered the full package — from satellite-based baseline analysis to blended finance structuring with multiple international instruments. They understand how to make Nature-Based Solutions bankable at scale.',
     author: 'Director of Urban Planning',
-    org: 'Municipal Government, Pacific Mexico',
+    org: 'Municipal Government, Latin America',
     sector: 'Urban NbS',
   },
   {
     quote:
       'The integrated approach — science, finance, and legal in one engagement — eliminated the coordination overhead we\'d faced with multiple consultancies. The TNFD reporting was audit-ready on first delivery.',
     author: 'Chief Financial Officer',
-    org: 'Infrastructure Fund, West Africa',
+    org: 'Infrastructure Fund, Sub-Saharan Africa',
     sector: 'Infrastructure',
   },
   {
     quote:
-      'ESW structured our NbS proposal against NOM-004-SEDATU, Plan Avanza, and IDB Environmental and Social Policy Framework simultaneously. No other consultancy could operate across all three compliance layers.',
+      'ESW structured our carbon credit programme from baseline through to Verra validation. Their multi-jurisdictional expertise and ability to operate across regulatory and crediting frameworks is unmatched.',
     author: 'Director of Climate Finance',
-    org: 'Development Finance Institution, LATAM',
+    org: 'Development Finance Institution',
     sector: 'Climate Finance',
   },
 ]

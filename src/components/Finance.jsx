@@ -3,34 +3,34 @@ import useReveal from '../hooks/useReveal'
 
 const instruments = [
   {
-    title: 'C40 Cities Finance Facility (CFF)',
-    description: 'Technical assistance grants for bankable project structuring. ESW prepares feasibility studies, MRV frameworks, and financial models to CFF eligibility standards. Culiacán: ~$1–2M TA grant.',
+    title: 'Climate Finance Facilities',
+    description: 'Technical assistance grants for bankable project structuring. ESW prepares feasibility studies, MRV frameworks, and financial models to C40 CFF, GEF, and bilateral climate fund eligibility standards.',
     tag: 'Grant / TA',
   },
   {
-    title: 'CAF — Concessional Infrastructure',
-    description: 'Long-term concessional debt from CAF – Banco de Desarrollo de América Latina for green urban infrastructure. Culiacán target: $10–15M for arborisation corridors and vertical parking hubs.',
+    title: 'Development Finance Institutions',
+    description: 'Long-term concessional debt from multilateral development banks (CAF, AfDB, ADB, IDB, EIB) for green infrastructure. We structure proposals to DFI investment criteria and environmental safeguards.',
     tag: 'Concessional',
   },
   {
     title: 'Green Climate Fund (GCF)',
-    description: 'Adaptation-focused grants and credit for NbS. ESW structures proposals against GCF investment criteria — climate rationale, paradigm shift potential, co-benefits. Target: $5–8M.',
+    description: 'Adaptation-focused grants and credit for NbS. ESW structures proposals against GCF investment criteria — climate rationale, paradigm shift potential, and measurable co-benefits.',
     tag: 'Grant + Credit',
   },
   {
-    title: 'Banobras & SEDATU / FONADIN',
-    description: 'Mexican federal financing for municipal infrastructure and mobility. Aligned with ENAMOV 2023–2042 and NOM-004-SEDATU-2023. Target: $8–13M in public co-financing.',
-    tag: 'Federal MX',
+    title: 'Carbon & Biodiversity Credits',
+    description: 'Revenue from verified carbon credits (Verra VCS, Gold Standard, Plan Vivo) and emerging biodiversity credit markets. Full MRV design, baseline-to-issuance advisory.',
+    tag: 'Credits',
   },
   {
-    title: 'Municipal Green Bonds',
-    description: 'Use-of-proceeds bond structuring aligned with ICMA Green Bond Principles and Principios de Bonos Verdes MX. Tied to verified MRV outcomes — LST, NDVI, carbon, flood metrics.',
+    title: 'Green & Sustainability-Linked Bonds',
+    description: 'Use-of-proceeds bond structuring aligned with ICMA Green Bond Principles and EU Green Bond Standard. Tied to verified ecological outcomes — carbon, biodiversity, water.',
     tag: 'Debt',
   },
   {
-    title: 'Value Capture & Revenue',
-    description: 'Parking meter revenue, land value capture from 95,200 m² liberated urban land, ground-floor commercial rents in vertical hubs, property tax uplift from greened corridors. $2–4M recurring.',
-    tag: 'Revenue',
+    title: 'Blended Finance & Value Capture',
+    description: 'Layered capital stacks combining concessional, commercial, and public sources. Land value capture, ecosystem service payments, and property uplift from greened infrastructure.',
+    tag: 'Blended',
   },
 ]
 
@@ -48,19 +48,19 @@ function Finance() {
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy">
-                $35–50M blended finance, structured for Culiacán.
+                Sustainable finance instruments, structured for bankability.
               </h2>
             </div>
             <div>
               <p className="text-slate leading-relaxed mb-4">
-                The Corredores Verdes capital stack combines 8 funding sources —
-                international climate finance (C40 CFF, CAF, GCF), federal Mexican instruments
-                (Banobras, SEDATU/FONADIN), state/municipal co-financing, and local value capture
-                mechanisms. Each layer is structured for bankability and institutional due diligence.
+                ESW structures multi-source capital stacks combining international climate
+                finance, development bank concessional lending, carbon and biodiversity credit
+                revenues, green bonds, and local value capture mechanisms — each layer
+                optimized for institutional due diligence and financial close.
               </p>
               <p className="text-slate leading-relaxed">
-                Distribution: Arborisation & sidewalks (30–35%), vertical parking (35–40%),
-                green stormwater (10–12%), active mobility (10–12%), design/MRV (5–6%).
+                We match projects with the right instruments across geographies — from
+                GCF grants in emerging markets to EU Green Bonds in CSRD-regulated environments.
               </p>
             </div>
           </div>
@@ -85,7 +85,7 @@ function Finance() {
 
         {/* Bottom Note */}
         <div className="mt-8 pt-4 border-t border-sovereign-silver flex items-center justify-between text-xs text-slate">
-          <span>Aligned with NOM-004-SEDATU-2023 · Plan Avanza 2024 · ENAMOV 2023–2042 · ICMA GBP · IDB ESPF.</span>
+          <span>Aligned with ICMA GBP · EU Green Bond Standard · IDB ESPF · GCF Investment Criteria · Verra VCS · Gold Standard.</span>
           <span className="font-mono">ESW Capital Advisory</span>
         </div>
       </div>

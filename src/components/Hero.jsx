@@ -1,10 +1,10 @@
 import React from 'react'
 
 const liveMetrics = [
-  { label: 'Flagship Project', value: '$35–50M', unit: 'Culiacán NbS' },
-  { label: 'Trees Pipeline', value: '25,000', unit: 'native species' },
-  { label: 'UHI Reduction Target', value: '–5°C', unit: 'surface temp.' },
-  { label: 'Flood Absorption', value: '+60%', unit: 'pluvial capacity' },
+  { label: 'Assets Under Management', value: '40K ha', unit: 'across 5 continents' },
+  { label: 'Carbon Pipeline', value: '125K', unit: 'tCO₂e verified' },
+  { label: 'Capital Structured', value: '$200M+', unit: 'blended finance' },
+  { label: 'Jurisdictions', value: '30+', unit: 'regulatory frameworks' },
 ]
 
 function Hero() {
@@ -37,32 +37,34 @@ function Hero() {
           </div>
 
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-navy leading-[1.1] mb-8">
-            Turn Climate Liabilities<br />Into Bankable Assets.
+            Turn Environmental Liabilities<br />Into Bankable Assets.
           </h1>
 
           <p className="text-lg text-slate leading-relaxed mb-6 max-w-2xl">
-            ESW structures Nature-Based Solutions for cities and infrastructure developers —
-            combining C40 CFF, CAF, GCF, and DFI financing to deliver bankable climate
-            adaptation projects. From arborisation to flood resilience to green bonds.
+            ESW structures Nature-Based Solutions for governments, developers, and infrastructure
+            investors — combining science, sustainable finance, and regulatory expertise to deliver
+            bankable ecological assets across any jurisdiction.
           </p>
           <p className="text-base text-slate leading-relaxed mb-10 max-w-2xl">
-            Currently structuring the $35–50M Corredores Verdes project for Culiacán, Sinaloa —
-            15,000–25,000 native trees, 9.5 hectares liberated, 4-component urban NbS system
-            aligned with Plan Avanza and NOM-004-SEDATU-2023.
+            From environmental baselines to credit issuance, from green bonds to TNFD compliance —
+            we manage the full lifecycle of nature-based infrastructure finance.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href="#case-studies"
-              className="inline-flex items-center justify-center px-8 py-3.5 bg-navy text-white font-medium text-sm tracking-wider uppercase hover:bg-navy-800 transition-colors"
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-esw-ai'))}
+              className="inline-flex items-center justify-center px-8 py-3.5 bg-navy text-white font-medium text-sm tracking-wider uppercase hover:bg-navy-800 transition-colors gap-2"
             >
-              View Culiacán Project
-            </a>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+              Launch ESW.AI
+            </button>
             <a
-              href="#roi-calculator"
+              href="#services"
               className="inline-flex items-center justify-center px-8 py-3.5 border border-navy text-navy font-medium text-sm tracking-wider uppercase hover:bg-navy hover:text-white transition-colors"
             >
-              Calculate ROI
+              Explore Services
             </a>
           </div>
         </div>
