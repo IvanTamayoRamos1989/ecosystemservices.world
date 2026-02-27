@@ -4,7 +4,6 @@ import { processMessage, clearSession, getSessionInfo } from './lib/orchestrator
 import { getAgentRegistry, loadAgents } from './lib/agent-loader.js'
 
 const app = express()
-const PORT = process.env.ESW_API_PORT || 3001
 
 app.use(cors())
 app.use(express.json({ limit: '10mb' }))
@@ -72,27 +71,34 @@ app.get('/api/session/:sessionId', (req, res) => {
   res.json(info)
 })
 
-// ── Start ────────────────────────────────────────────────────────────
-async function start() {
-  // Pre-load agents on startup
-  await loadAgents()
-  const registry = await getAgentRegistry()
+// ── Export for Vercel ────────────────────────────────────────────────
+export default app
 
-  app.listen(PORT, () => {
-    console.log(`\n  ESW.AI API Server`)
-    console.log(`  ─────────────────────────────`)
-    console.log(`  Port:    ${PORT}`)
-    console.log(`  Agents:  ${registry.length} loaded`)
-    console.log(`  Status:  Ready\n`)
-    console.log(`  Agents online:`)
-    for (const agent of registry) {
-      console.log(`    • ${agent.name} — ${agent.focus}`)
-    }
-    console.log()
+// ── Local Dev Server ─────────────────────────────────────────────────
+// Only start listening when running locally (not on Vercel)
+if (!process.env.VERCEL) {
+  const PORT = process.env.ESW_API_PORT || 3001
+
+  async function start() {
+    await loadAgents()
+    const registry = await getAgentRegistry()
+
+    app.listen(PORT, () => {
+      console.log(`\n  ESW.AI API Server`)
+      console.log(`  ─────────────────────────────`)
+      console.log(`  Port:    ${PORT}`)
+      console.log(`  Agents:  ${registry.length} loaded`)
+      console.log(`  Status:  Ready\n`)
+      console.log(`  Agents online:`)
+      for (const agent of registry) {
+        console.log(`    • ${agent.name} — ${agent.focus}`)
+      }
+      console.log()
+    })
+  }
+
+  start().catch(err => {
+    console.error('Failed to start ESW.AI API:', err)
+    process.exit(1)
   })
 }
-
-start().catch(err => {
-  console.error('Failed to start ESW.AI API:', err)
-  process.exit(1)
-})

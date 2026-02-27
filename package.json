@@ -6,7 +6,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "api": "node api/server.js",
+    "api": "node api/index.js",
     "dev:full": "concurrently \"npm run api\" \"npm run dev\""
   },
   "dependencies": {
