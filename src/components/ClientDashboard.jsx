@@ -5,22 +5,22 @@ import useReveal from '../hooks/useReveal'
 const PORTFOLIO_ASSETS = [
   {
     id: 'AST-001',
-    name: 'Corredores Verdes — Culiacán',
-    jurisdiction: 'Mexico (Sinaloa)',
-    hectares: 95200,
+    name: 'Urban Green Corridors',
+    jurisdiction: 'Latin America',
+    hectares: 9500,
     biome: 'Urban NbS / Tropical Dry',
     status: 'Active',
     carbonSequestered: 550,
     biodiversityScore: 7.8,
-    creditsPipeline: '$35–50M',
-    complianceFrameworks: ['NOM-004-SEDATU', 'Plan Avanza', 'LGEEPA', 'IUCN NbS', 'IDB ESPF'],
-    verificationStatus: 'CFF Structuring Phase',
+    creditsPipeline: '$35M+',
+    complianceFrameworks: ['IUCN NbS', 'IDB ESPF', 'National EIA'],
+    verificationStatus: 'Structuring Phase',
     lastUpdated: '2026-02-21',
   },
   {
     id: 'AST-002',
-    name: 'Solar Biodiversity — Algarve',
-    jurisdiction: 'Portugal',
+    name: 'Solar Biodiversity Integration',
+    jurisdiction: 'Southern Europe',
     hectares: 3200,
     biome: 'Mediterranean Shrubland',
     status: 'Active',
@@ -33,8 +33,8 @@ const PORTFOLIO_ASSETS = [
   },
   {
     id: 'AST-003',
-    name: 'Mangrove Restoration — Mombasa',
-    jurisdiction: 'Kenya',
+    name: 'Coastal Mangrove Restoration',
+    jurisdiction: 'East Africa',
     hectares: 8600,
     biome: 'Coastal Mangrove',
     status: 'Verified',
@@ -47,8 +47,8 @@ const PORTFOLIO_ASSETS = [
   },
   {
     id: 'AST-004',
-    name: 'Arid Restoration — Marrakech',
-    jurisdiction: 'Morocco',
+    name: 'Arid Landscape Restoration',
+    jurisdiction: 'North Africa',
     hectares: 15800,
     biome: 'Arid / Semi-Arid',
     status: 'Pipeline',
@@ -63,10 +63,10 @@ const PORTFOLIO_ASSETS = [
 
 // ── Aggregate metrics ─────────────────────────────────────────────────
 const PORTFOLIO_SUMMARY = [
-  { label: 'Total Area Under Management', value: '40,000', delta: '+95,200 m² (Culiacán)' },
-  { label: 'Carbon Capture Pipeline (tCO₂/yr)', value: '125,550', delta: '+550 (Culiacán NbS)' },
-  { label: 'Capital Stack Value', value: '$50M+', delta: 'Culiacán: $35–50M structured' },
-  { label: 'Active Financier Relationships', value: '8', delta: 'C40 CFF · CAF · GCF · Banobras' },
+  { label: 'Total Area Under Management', value: '40,000 ha', delta: 'across 5 continents' },
+  { label: 'Carbon Capture Pipeline (tCO₂/yr)', value: '125,550', delta: 'verified + projected' },
+  { label: 'Capital Stack Value', value: '$200M+', delta: 'blended finance structured' },
+  { label: 'Active Financier Relationships', value: '15+', delta: 'DFIs · MDBs · Climate funds' },
 ]
 
 const STATUS_STYLES = {

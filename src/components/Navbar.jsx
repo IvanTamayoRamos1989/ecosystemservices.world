@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 const navLinks = [
-  { label: 'Platform', href: '#dashboard' },
+  { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Methodology', href: '#approach' },
   { label: 'Finance', href: '#finance' },
@@ -10,12 +10,12 @@ const navLinks = [
 ]
 
 const tickerData = [
-  { label: 'CULIACÁN NBS', value: '$35–50M', delta: 'structuring' },
-  { label: 'TREES PIPELINE', value: '25,000', delta: 'native spp.' },
-  { label: 'UHI TARGET', value: '–3 to 5°C', delta: 'surface' },
-  { label: 'LAND LIBERATED', value: '95,200 m²', delta: '92 lots' },
-  { label: 'FLOOD ABSORB.', value: '+40–60%', delta: 'pluvial' },
-  { label: 'CO₂ CAPTURE', value: '550 t/yr', delta: 'projected' },
+  { label: 'NATURE ASSETS', value: '$200M+', delta: 'pipeline' },
+  { label: 'JURISDICTIONS', value: '30+', delta: 'active' },
+  { label: 'CARBON CREDITS', value: '125K tCO₂e', delta: 'verified' },
+  { label: 'BIODIVERSITY', value: '40K ha', delta: 'under mgmt' },
+  { label: 'GREEN BONDS', value: '$50M+', delta: 'structured' },
+  { label: 'NbS PROJECTS', value: '12', delta: 'active' },
 ]
 
 function Navbar({ scrolled }) {
@@ -66,17 +66,17 @@ function Navbar({ scrolled }) {
             ))}
             <div className="w-px h-5 bg-sovereign-silver" />
             <a
-              href="#roi-calculator"
-              className="text-label uppercase text-navy font-semibold hover:underline transition-all duration-200"
-            >
-              ROI Calculator
-            </a>
-            <a
               href="#contact"
-              className="text-label uppercase px-5 py-2 bg-navy text-white hover:bg-navy-800 transition-all duration-200"
+              className="text-label uppercase text-navy font-semibold hover:underline transition-all duration-200"
             >
               Contact
             </a>
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-esw-ai'))}
+              className="text-label uppercase px-5 py-2 bg-navy text-white hover:bg-navy-800 transition-all duration-200"
+            >
+              ESW.AI
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -110,19 +110,18 @@ function Navbar({ scrolled }) {
             </a>
           ))}
           <a
-            href="#roi-calculator"
+            href="#contact"
             onClick={() => setMenuOpen(false)}
             className="block py-3 text-label uppercase text-navy font-semibold"
           >
-            ROI Calculator
-          </a>
-          <a
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-            className="block mt-4 text-label uppercase text-center px-5 py-3 bg-navy text-white"
-          >
             Contact
           </a>
+          <button
+            onClick={() => { setMenuOpen(false); window.dispatchEvent(new CustomEvent('open-esw-ai')) }}
+            className="block w-full mt-4 text-label uppercase text-center px-5 py-3 bg-navy text-white"
+          >
+            ESW.AI
+          </button>
         </div>
       )}
     </nav>
