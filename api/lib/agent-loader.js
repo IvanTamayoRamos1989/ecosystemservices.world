@@ -1,7 +1,14 @@
 import { readFile, readdir } from 'fs/promises'
-import { join } from 'path'
+import { existsSync } from 'fs'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-const AGENTS_DIR = join(import.meta.dirname, '..', '..', 'agents')
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+// Resolve agents directory — try relative path first, fall back to process.cwd()
+const AGENTS_DIR = existsSync(join(__dirname, '..', '..', 'agents'))
+  ? join(__dirname, '..', '..', 'agents')
+  : join(process.cwd(), 'agents')
 
 let agentCache = null
 let workflowCache = null
