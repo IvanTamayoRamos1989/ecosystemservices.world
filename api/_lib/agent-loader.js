@@ -1,48 +1,24 @@
-import { readFile, readdir } from 'fs/promises'
-import { existsSync } from 'fs'
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-// Resolve agents directory — try multiple paths for compatibility with
-// local dev, Vercel serverless, and different bundler layouts
-function resolveAgentsDir() {
-  const candidates = [
-    join(__dirname, '..', '..', 'agents'),   // local dev: api/lib/ → project root
-    join(__dirname, '..', 'agents'),          // some bundlers flatten to api/
-    join(process.cwd(), 'agents'),            // Vercel: process.cwd() is /var/task
-  ]
-  for (const dir of candidates) {
-    if (existsSync(dir) && existsSync(join(dir, 'system.md'))) {
-      return dir
-    }
-  }
-  // Last resort — return the most likely path
-  return candidates[0]
-}
-
-const AGENTS_DIR = resolveAgentsDir()
+/**
+ * ESW Agent Loader
+ *
+ * Loads agent definitions from the build-time generated agents-data.js module.
+ * No filesystem access — all data is embedded at build time by scripts/bundle-agents.js.
+ */
+import { SYSTEM_PROMPT, AGENT_FILES, WORKFLOW_FILES } from './agents-data.js'
 
 let agentCache = null
 let workflowCache = null
 
 /**
- * Load all agent definitions from the agents/ directory.
+ * Load all agent definitions.
  * Returns a Map of agentId → { id, name, layer, focus, prompt }
  */
 export async function loadAgents() {
   if (agentCache) return agentCache
 
-  const systemPrompt = await readFile(join(AGENTS_DIR, 'system.md'), 'utf-8')
-  const files = await readdir(AGENTS_DIR)
-  const agentFiles = files.filter(f => f.endsWith('.md') && f !== 'system.md' && f !== 'README.md')
-
   const agents = new Map()
 
-  for (const file of agentFiles) {
-    const content = await readFile(join(AGENTS_DIR, file), 'utf-8')
-    const id = file.replace('.md', '')
+  for (const { id, content } of AGENT_FILES) {
     const name = extractName(content)
     const layer = extractLayer(content)
     const focus = extractFocus(content)
@@ -52,8 +28,7 @@ export async function loadAgents() {
       name,
       layer,
       focus,
-      // Full prompt = shared system context + agent-specific prompt
-      prompt: systemPrompt + '\n\n---\n\n' + content,
+      prompt: SYSTEM_PROMPT + '\n\n---\n\n' + content,
     })
   }
 
@@ -62,20 +37,14 @@ export async function loadAgents() {
 }
 
 /**
- * Load all workflow definitions from agents/workflows/
+ * Load all workflow definitions from bundled data.
  */
 export async function loadWorkflows() {
   if (workflowCache) return workflowCache
 
-  const workflowDir = join(AGENTS_DIR, 'workflows')
-  const files = await readdir(workflowDir)
-  const workflowFiles = files.filter(f => f.endsWith('.md'))
-
   const workflows = new Map()
 
-  for (const file of workflowFiles) {
-    const content = await readFile(join(workflowDir, file), 'utf-8')
-    const id = file.replace('.md', '')
+  for (const { id, content } of WORKFLOW_FILES) {
     workflows.set(id, { id, content })
   }
 
@@ -95,7 +64,7 @@ export async function getAgent(agentId) {
  * Get the system-level prompt (shared context for all agents).
  */
 export async function getSystemPrompt() {
-  return readFile(join(AGENTS_DIR, 'system.md'), 'utf-8')
+  return SYSTEM_PROMPT
 }
 
 /**
@@ -122,12 +91,10 @@ function extractLayer(content) {
 }
 
 function extractFocus(content) {
-  // Try "Focus: The ..." pattern first
   const match = content.match(/Focus:\s*(.+)/m)
   if (match) return match[1].trim().replace(/\.$/, '')
 
-  // Fall back to extracting from the subtitle line: "> Layer N — Dept. The Something."
-  const subtitleMatch = content.match(/>\s*Layer\s+\d+\s*[—–-]\s*.+?\.\s*(.+?)\.?\s*$/m)
+  const subtitleMatch = content.match(/>\s*Layer\s+\d+\s*[—–-]\s*(.+?)\.\s*$/m)
   if (subtitleMatch) return subtitleMatch[1].trim()
 
   return 'General'

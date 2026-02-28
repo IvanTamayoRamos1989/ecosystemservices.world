@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build",
+    "build": "node scripts/bundle-agents.js && vite build",
+    "build:agents": "node scripts/bundle-agents.js",
     "preview": "vite preview",
     "api": "node api/index.js",
     "dev:full": "concurrently \"npm run api\" \"npm run dev\""
