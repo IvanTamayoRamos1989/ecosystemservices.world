@@ -1,4 +1,4 @@
-import { cors } from '../lib/cors.js'
+import { cors } from '../_lib/cors.js'
 
 export default async function handler(req, res) {
   if (cors(req, res)) return
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'sessionId is required' })
   }
 
-  const { clearSession, getSessionInfo } = await import('../lib/orchestrator.js')
+  const { clearSession, getSessionInfo } = await import('../_lib/orchestrator.js')
 
   if (req.method === 'DELETE') {
     clearSession(sessionId)

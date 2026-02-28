@@ -1,4 +1,4 @@
-import { cors, parseBody } from './lib/cors.js'
+import { cors, parseBody } from './_lib/cors.js'
 
 export default async function handler(req, res) {
   if (cors(req, res)) return
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   res.setHeader('X-Accel-Buffering', 'no')
 
   try {
-    const { processMessage } = await import('./lib/orchestrator.js')
+    const { processMessage } = await import('./_lib/orchestrator.js')
 
     for await (const chunk of processMessage(sessionId, message, files)) {
       const data = JSON.stringify(chunk)
