@@ -1,7 +1,28 @@
 import { readFile, readdir } from 'fs/promises'
-import { join } from 'path'
+import { existsSync } from 'fs'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-const AGENTS_DIR = join(import.meta.dirname, '..', '..', 'agents')
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+// Resolve agents directory — try multiple paths for compatibility with
+// local dev, Vercel serverless, and different bundler layouts
+function resolveAgentsDir() {
+  const candidates = [
+    join(__dirname, '..', '..', 'agents'),   // local dev: api/lib/ → project root
+    join(__dirname, '..', 'agents'),          // some bundlers flatten to api/
+    join(process.cwd(), 'agents'),            // Vercel: process.cwd() is /var/task
+  ]
+  for (const dir of candidates) {
+    if (existsSync(dir) && existsSync(join(dir, 'system.md'))) {
+      return dir
+    }
+  }
+  // Last resort — return the most likely path
+  return candidates[0]
+}
+
+const AGENTS_DIR = resolveAgentsDir()
 
 let agentCache = null
 let workflowCache = null
