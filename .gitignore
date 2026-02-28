@@ -5,3 +5,4 @@ dist/
 *.pem
 ee-key.json
 __pycache__/
+api/_lib/agents-data.js
