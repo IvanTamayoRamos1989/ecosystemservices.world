@@ -1,4 +1,4 @@
-import { cors } from './lib/cors.js'
+import { cors } from './_lib/cors.js'
 
 export default async function handler(req, res) {
   if (cors(req, res)) return
@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   let agentCount = 0
 
   try {
-    const { getAgentRegistry } = await import('./lib/agent-loader.js')
+    const { getAgentRegistry } = await import('./_lib/agent-loader.js')
     const registry = await getAgentRegistry()
     agentCount = registry.length
   } catch (e) {

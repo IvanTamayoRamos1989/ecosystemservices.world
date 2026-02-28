@@ -44,7 +44,7 @@ if (!process.env.VERCEL) {
   const PORT = process.env.ESW_API_PORT || 3001
 
   async function start() {
-    const { loadAgents, getAgentRegistry } = await import('./lib/agent-loader.js')
+    const { loadAgents, getAgentRegistry } = await import('./_lib/agent-loader.js')
     await loadAgents()
     const registry = await getAgentRegistry()
 
