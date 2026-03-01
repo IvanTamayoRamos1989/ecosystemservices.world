@@ -56,32 +56,38 @@ function ESWChat({ onClose }) {
   const [searchStatus, setSearchStatus] = useState(null)
   const [sessionId] = useState(() => generateSessionId())
   const [apiConnected, setApiConnected] = useState(null) // null = unknown, true/false
+  const [connectionError, setConnectionError] = useState(null)
   const messagesEndRef = useRef(null)
   const fileInputRef = useRef(null)
   const textareaRef = useRef(null)
   const abortControllerRef = useRef(null)
 
-  // Check API health on mount — retry up to 5 times with backoff
-  // so we connect even if the API server starts after the frontend
-  useEffect(() => {
-    let cancelled = false
-    const check = async (attempt = 0) => {
+  // Check API health — retry up to 5 times with backoff
+  const checkHealth = useCallback(async () => {
+    setApiConnected(null)
+    setConnectionError(null)
+    let lastErr = null
+    for (let attempt = 0; attempt < 6; attempt++) {
+      if (attempt > 0) await new Promise(r => setTimeout(r, 1000 * attempt))
       try {
         const res = await fetch(`${API_URL}/health`)
-        if (!res.ok) throw new Error(res.status)
-        if (!cancelled) setApiConnected(true)
-      } catch {
-        if (cancelled) return
-        if (attempt < 5) {
-          setTimeout(() => check(attempt + 1), 1000 * (attempt + 1))
-        } else {
-          setApiConnected(false)
-        }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json()
+        console.log('[ESW.AI] API connected:', data)
+        setApiConnected(true)
+        setConnectionError(null)
+        return
+      } catch (err) {
+        lastErr = err
+        console.warn(`[ESW.AI] Health check attempt ${attempt + 1}/6 failed:`, err.message)
       }
     }
-    check()
-    return () => { cancelled = true }
+    console.error('[ESW.AI] API unreachable after 6 attempts:', lastErr?.message)
+    setApiConnected(false)
+    setConnectionError(lastErr?.message || 'Cannot reach API')
   }, [])
+
+  useEffect(() => { checkHealth() }, [checkHealth])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -295,10 +301,14 @@ function ESWChat({ onClose }) {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 text-xs text-slate">
-              <div className={`w-1.5 h-1.5 rounded-full ${apiConnected === true ? 'bg-emerald-500' : apiConnected === false ? 'bg-amber-500' : 'bg-sovereign-steel'}`} />
-              {apiConnected === true ? 'Connected' : apiConnected === false ? 'Local Mode' : 'Connecting...'}
-            </div>
+            <button
+              onClick={apiConnected !== true ? checkHealth : undefined}
+              className="hidden sm:flex items-center gap-2 text-xs text-slate hover:text-navy transition-colors"
+              title={connectionError ? `Error: ${connectionError} — click to retry` : apiConnected === false ? 'Click to retry connection' : ''}
+            >
+              <div className={`w-1.5 h-1.5 rounded-full ${apiConnected === true ? 'bg-emerald-500' : apiConnected === false ? 'bg-amber-500' : 'bg-sovereign-steel'} ${apiConnected === null ? 'animate-pulse' : ''}`} />
+              {apiConnected === true ? 'Connected' : apiConnected === false ? 'Local Mode — click to retry' : 'Connecting...'}
+            </button>
             <button
               onClick={handleNewChat}
               className="text-xs text-slate hover:text-navy transition-colors px-3 py-1.5 border border-sovereign-silver hover:border-navy"
