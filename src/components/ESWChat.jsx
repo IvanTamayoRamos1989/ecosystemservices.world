@@ -53,6 +53,7 @@ function ESWChat({ onClose }) {
   const [isTyping, setIsTyping] = useState(false)
   const [activeAgent, setActiveAgent] = useState(null)
   const [streamingContent, setStreamingContent] = useState('')
+  const [searchStatus, setSearchStatus] = useState(null)
   const [sessionId] = useState(() => generateSessionId())
   const [apiConnected, setApiConnected] = useState(null) // null = unknown, true/false
   const messagesEndRef = useRef(null)
@@ -176,6 +177,10 @@ function ESWChat({ onClose }) {
                 setStreamingContent(fullContent)
                 break
 
+              case 'status':
+                setSearchStatus(chunk.content)
+                break
+
               case 'handoffs':
                 // Handoffs are informational — the system will route automatically
                 break
@@ -200,6 +205,7 @@ function ESWChat({ onClose }) {
       }
 
       setStreamingContent('')
+      setSearchStatus(null)
       setIsTyping(false)
       setActiveAgent(null)
       setApiConnected(true)
@@ -360,18 +366,27 @@ function ESWChat({ onClose }) {
                     )}
                   </div>
                 )}
+                {searchStatus && !streamingContent && (
+                  <div className="flex items-center gap-2 py-2 mb-2 text-xs text-slate">
+                    <svg className="animate-spin w-3.5 h-3.5 text-navy" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    <span>{searchStatus}</span>
+                  </div>
+                )}
                 {streamingContent ? (
                   <div className="prose-sm text-charcoal leading-relaxed">
                     <MessageContent content={streamingContent} />
                     <span className="inline-block w-1.5 h-4 bg-navy/60 animate-pulse ml-0.5 align-text-bottom" />
                   </div>
-                ) : (
+                ) : !searchStatus ? (
                   <div className="flex items-center gap-1.5 py-3">
                     <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '0ms' }} />
                     <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '150ms' }} />
                     <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '300ms' }} />
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
           )}
