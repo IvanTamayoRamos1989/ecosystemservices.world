@@ -61,12 +61,26 @@ function ESWChat({ onClose }) {
   const textareaRef = useRef(null)
   const abortControllerRef = useRef(null)
 
-  // Check API health on mount
+  // Check API health on mount — retry up to 5 times with backoff
+  // so we connect even if the API server starts after the frontend
   useEffect(() => {
-    fetch(`${API_URL}/health`)
-      .then(res => res.ok ? res.json() : Promise.reject())
-      .then(() => setApiConnected(true))
-      .catch(() => setApiConnected(false))
+    let cancelled = false
+    const check = async (attempt = 0) => {
+      try {
+        const res = await fetch(`${API_URL}/health`)
+        if (!res.ok) throw new Error(res.status)
+        if (!cancelled) setApiConnected(true)
+      } catch {
+        if (cancelled) return
+        if (attempt < 5) {
+          setTimeout(() => check(attempt + 1), 1000 * (attempt + 1))
+        } else {
+          setApiConnected(false)
+        }
+      }
+    }
+    check()
+    return () => { cancelled = true }
   }, [])
 
   useEffect(() => {
@@ -113,18 +127,14 @@ function ESWChat({ onClose }) {
     setStreamingContent('')
     setActiveAgent(null)
 
-    // If API is not connected, fall back to local responses
-    if (apiConnected === false) {
-      handleLocalResponse(messageText, userMessage.files)
-      return
-    }
-
     // Cancel any in-flight request
     if (abortControllerRef.current) {
       abortControllerRef.current.abort()
     }
     abortControllerRef.current = new AbortController()
 
+    // Always attempt the API — even if the health check failed earlier.
+    // A successful response flips status to "Connected".
     try {
       const response = await fetch(`${API_URL}/chat`, {
         method: 'POST',
