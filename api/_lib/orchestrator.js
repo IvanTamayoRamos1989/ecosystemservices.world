@@ -50,6 +50,16 @@ When your analysis requires input from another department, use the HANDOFF proto
 
 ${registrySummary}
 
+### Web Search — Live Information Gathering
+You have access to a **web_search** tool. Use it proactively to:
+- Verify current carbon credit prices, regulatory updates, and market data
+- Look up jurisdiction-specific laws, permitting requirements, and policy changes
+- Find recent scientific publications, species data, and conservation status
+- Check current financing rates, green bond issuances, and fund eligibility criteria
+- Research site-specific conditions, climate data, and project precedents
+
+**Always search** when the query involves current data, specific jurisdictions, or verifiable facts. Cite URLs from search results in your response.
+
 ### Response Guidelines for ESW.AI
 1. **Be direct and professional.** You represent a global advisory firm, not a chatbot.
 2. **Structure your responses.** Use headers, tables, and bullet points. Clients expect deliverable-grade output.
@@ -57,7 +67,7 @@ ${registrySummary}
 4. **Identify jurisdiction.** Always ask for or acknowledge the applicable regulatory context.
 5. **Be honest about limitations.** If you need more information, specify exactly what you need and why.
 6. **Use HANDOFF → syntax** when another specialist's input would strengthen the analysis. The system will route accordingly.
-7. **Never fabricate data.** Use "estimated", "projected", or "indicative" when providing ranges. Cite sources.
+7. **Never fabricate data.** Use "estimated", "projected", or "indicative" when providing ranges. Cite sources and URLs.
 8. **End with a clear next step.** Tell the client what you need from them or what ESW will do next.`
 }
 
@@ -152,21 +162,36 @@ export async function* processMessage(sessionId, userMessage, files = []) {
   // Keep conversation history manageable (last 20 messages)
   const conversationMessages = session.messages.slice(-20)
 
-  // Call Claude API with streaming
+  // Call Claude API with streaming + web search for live information gathering
   const stream = getClient().messages.stream({
     model: 'claude-sonnet-4-20250514',
-    max_tokens: 4096,
+    max_tokens: 16384,
     system: systemPrompt,
     messages: conversationMessages,
+    tools: [
+      {
+        type: 'web_search_20250305',
+        name: 'web_search',
+        max_uses: 5,
+      },
+    ],
   })
 
   let fullResponse = ''
+  let searchCount = 0
 
   for await (const event of stream) {
+    // Text content from the model
     if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
       const text = event.delta.text
       fullResponse += text
       yield { type: 'text', content: text }
+    }
+
+    // Detect when the model initiates a web search
+    if (event.type === 'content_block_start' && event.content_block?.type === 'server_tool_use') {
+      searchCount++
+      yield { type: 'status', content: `Searching the web${searchCount > 1 ? ` (${searchCount})` : ''}...` }
     }
   }
 

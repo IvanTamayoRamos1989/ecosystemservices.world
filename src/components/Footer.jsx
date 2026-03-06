@@ -4,7 +4,6 @@ const footerLinks = {
   'ESW.AI': [
     { label: 'Launch ESW.AI', href: '#', action: 'open-esw-ai' },
     { label: 'Project Proposals', href: '#', action: 'open-esw-ai' },
-    { label: 'Sector Intel', href: '#intel' },
   ],
   Advisory: [
     { label: 'Services', href: '#services' },
@@ -14,7 +13,6 @@ const footerLinks = {
   ],
   Company: [
     { label: 'About ESW', href: '#about' },
-    { label: 'Privacy Policy', href: '#privacy' },
     { label: 'Contact', href: '#contact' },
   ],
 }

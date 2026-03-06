@@ -8,13 +8,9 @@ import Frameworks from './components/Frameworks'
 import Approach from './components/Approach'
 import Finance from './components/Finance'
 import GlobalPresence from './components/GlobalPresence'
-import Testimonials from './components/Testimonials'
-import Intel from './components/Intel'
 import Contact from './components/Contact'
-import PrivacyPolicy from './components/PrivacyPolicy'
 import Footer from './components/Footer'
 import ImageBreak from './components/ImageBreak'
-import CookieConsent from './components/CookieConsent'
 import ESWChat from './components/ESWChat'
 
 function App() {
@@ -51,13 +47,8 @@ function App() {
       <ImageBreak imageKey="mangrove" />
       <Finance />
       <GlobalPresence />
-      <ImageBreak imageKey="solar" />
-      <Testimonials />
-      <Intel />
       <Contact />
-      <PrivacyPolicy />
       <Footer />
-      <CookieConsent />
     </div>
   )
 }

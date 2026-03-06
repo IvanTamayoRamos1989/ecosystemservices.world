@@ -3,13 +3,22 @@
  * in an Express app so `npm run api` works outside Vercel.
  */
 
-import 'dotenv/config'
+import dotenv from 'dotenv'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+dotenv.config({ path: join(__dirname, '.env') })
+
 import express from 'express'
+import cors from 'cors'
 import handler from './index.js'
 
 const app = express()
 const PORT = process.env.PORT || 3001
 
+// CORS — allow Vite dev server (port 5173) to reach the API
+app.use(cors())
 app.use(express.json())
 
 // Adapt Express req/res to match what the handler expects

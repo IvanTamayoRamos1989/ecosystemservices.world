@@ -6,7 +6,6 @@ const navLinks = [
   { label: 'Methodology', href: '#approach' },
   { label: 'Finance', href: '#finance' },
   { label: 'Global', href: '#global' },
-  { label: 'Intel', href: '#intel' },
 ]
 
 const tickerData = [

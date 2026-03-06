@@ -53,20 +53,41 @@ function ESWChat({ onClose }) {
   const [isTyping, setIsTyping] = useState(false)
   const [activeAgent, setActiveAgent] = useState(null)
   const [streamingContent, setStreamingContent] = useState('')
+  const [searchStatus, setSearchStatus] = useState(null)
   const [sessionId] = useState(() => generateSessionId())
   const [apiConnected, setApiConnected] = useState(null) // null = unknown, true/false
+  const [connectionError, setConnectionError] = useState(null)
   const messagesEndRef = useRef(null)
   const fileInputRef = useRef(null)
   const textareaRef = useRef(null)
   const abortControllerRef = useRef(null)
 
-  // Check API health on mount
-  useEffect(() => {
-    fetch(`${API_URL}/health`)
-      .then(res => res.ok ? res.json() : Promise.reject())
-      .then(() => setApiConnected(true))
-      .catch(() => setApiConnected(false))
+  // Check API health — retry up to 5 times with backoff
+  const checkHealth = useCallback(async () => {
+    setApiConnected(null)
+    setConnectionError(null)
+    let lastErr = null
+    for (let attempt = 0; attempt < 6; attempt++) {
+      if (attempt > 0) await new Promise(r => setTimeout(r, 1000 * attempt))
+      try {
+        const res = await fetch(`${API_URL}/health`)
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json()
+        console.log('[ESW.AI] API connected:', data)
+        setApiConnected(true)
+        setConnectionError(null)
+        return
+      } catch (err) {
+        lastErr = err
+        console.warn(`[ESW.AI] Health check attempt ${attempt + 1}/6 failed:`, err.message)
+      }
+    }
+    console.error('[ESW.AI] API unreachable after 6 attempts:', lastErr?.message)
+    setApiConnected(false)
+    setConnectionError(lastErr?.message || 'Cannot reach API')
   }, [])
+
+  useEffect(() => { checkHealth() }, [checkHealth])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -112,18 +133,14 @@ function ESWChat({ onClose }) {
     setStreamingContent('')
     setActiveAgent(null)
 
-    // If API is not connected, fall back to local responses
-    if (apiConnected === false) {
-      handleLocalResponse(messageText, userMessage.files)
-      return
-    }
-
     // Cancel any in-flight request
     if (abortControllerRef.current) {
       abortControllerRef.current.abort()
     }
     abortControllerRef.current = new AbortController()
 
+    // Always attempt the API — even if the health check failed earlier.
+    // A successful response flips status to "Connected".
     try {
       const response = await fetch(`${API_URL}/chat`, {
         method: 'POST',
@@ -176,6 +193,10 @@ function ESWChat({ onClose }) {
                 setStreamingContent(fullContent)
                 break
 
+              case 'status':
+                setSearchStatus(chunk.content)
+                break
+
               case 'handoffs':
                 // Handoffs are informational — the system will route automatically
                 break
@@ -200,6 +221,7 @@ function ESWChat({ onClose }) {
       }
 
       setStreamingContent('')
+      setSearchStatus(null)
       setIsTyping(false)
       setActiveAgent(null)
       setApiConnected(true)
@@ -279,10 +301,14 @@ function ESWChat({ onClose }) {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 text-xs text-slate">
-              <div className={`w-1.5 h-1.5 rounded-full ${apiConnected === true ? 'bg-emerald-500' : apiConnected === false ? 'bg-amber-500' : 'bg-sovereign-steel'}`} />
-              {apiConnected === true ? 'Connected' : apiConnected === false ? 'Local Mode' : 'Connecting...'}
-            </div>
+            <button
+              onClick={apiConnected !== true ? checkHealth : undefined}
+              className="hidden sm:flex items-center gap-2 text-xs text-slate hover:text-navy transition-colors"
+              title={connectionError ? `Error: ${connectionError} — click to retry` : apiConnected === false ? 'Click to retry connection' : ''}
+            >
+              <div className={`w-1.5 h-1.5 rounded-full ${apiConnected === true ? 'bg-emerald-500' : apiConnected === false ? 'bg-amber-500' : 'bg-sovereign-steel'} ${apiConnected === null ? 'animate-pulse' : ''}`} />
+              {apiConnected === true ? 'Connected' : apiConnected === false ? 'Local Mode — click to retry' : 'Connecting...'}
+            </button>
             <button
               onClick={handleNewChat}
               className="text-xs text-slate hover:text-navy transition-colors px-3 py-1.5 border border-sovereign-silver hover:border-navy"
@@ -360,18 +386,27 @@ function ESWChat({ onClose }) {
                     )}
                   </div>
                 )}
+                {searchStatus && !streamingContent && (
+                  <div className="flex items-center gap-2 py-2 mb-2 text-xs text-slate">
+                    <svg className="animate-spin w-3.5 h-3.5 text-navy" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    <span>{searchStatus}</span>
+                  </div>
+                )}
                 {streamingContent ? (
                   <div className="prose-sm text-charcoal leading-relaxed">
                     <MessageContent content={streamingContent} />
                     <span className="inline-block w-1.5 h-4 bg-navy/60 animate-pulse ml-0.5 align-text-bottom" />
                   </div>
-                ) : (
+                ) : !searchStatus ? (
                   <div className="flex items-center gap-1.5 py-3">
                     <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '0ms' }} />
                     <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '150ms' }} />
                     <div className="w-2 h-2 rounded-full bg-navy/40 animate-pulse" style={{ animationDelay: '300ms' }} />
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
           )}
