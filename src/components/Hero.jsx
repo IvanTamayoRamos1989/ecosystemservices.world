@@ -1,11 +1,5 @@
 import React from 'react'
 
-const liveMetrics = [
-  { label: 'Assets Under Management', value: '40K ha', unit: 'across 5 continents' },
-  { label: 'Carbon Pipeline', value: '125K', unit: 'tCO₂e verified' },
-  { label: 'Capital Structured', value: '$200M+', unit: 'blended finance' },
-  { label: 'Jurisdictions', value: '30+', unit: 'regulatory frameworks' },
-]
 
 function Hero() {
   return (
@@ -69,20 +63,6 @@ function Hero() {
           </div>
         </div>
 
-        {/* Metrics Strip */}
-        <div className="mt-20 pt-8 border-t-2 border-navy">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {liveMetrics.map((metric) => (
-              <div key={metric.label}>
-                <div className="text-label uppercase text-slate mb-2">{metric.label}</div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-metric font-mono font-bold text-navy tabular-nums">{metric.value}</span>
-                  <span className="text-sm text-slate">{metric.unit}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Scroll indicator */}

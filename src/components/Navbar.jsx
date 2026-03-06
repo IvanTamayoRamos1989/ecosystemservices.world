@@ -5,7 +5,6 @@ const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Methodology', href: '#approach' },
   { label: 'Finance', href: '#finance' },
-  { label: 'Global', href: '#global' },
 ]
 
 const tickerData = [

@@ -9,7 +9,7 @@ const footerLinks = {
     { label: 'Services', href: '#services' },
     { label: 'Finance Structuring', href: '#finance' },
     { label: 'Methodology', href: '#approach' },
-    { label: 'Global Presence', href: '#global' },
+
   ],
   Company: [
     { label: 'About ESW', href: '#about' },
