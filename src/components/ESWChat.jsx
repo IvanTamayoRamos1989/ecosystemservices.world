@@ -307,7 +307,7 @@ function ESWChat({ onClose }) {
               title={connectionError ? `Error: ${connectionError} — click to retry` : apiConnected === false ? 'Click to retry connection' : ''}
             >
               <div className={`w-1.5 h-1.5 rounded-full ${apiConnected === true ? 'bg-emerald-500' : apiConnected === false ? 'bg-amber-500' : 'bg-sovereign-steel'} ${apiConnected === null ? 'animate-pulse' : ''}`} />
-              {apiConnected === true ? 'Connected' : apiConnected === false ? 'Local Mode — click to retry' : 'Connecting...'}
+              {apiConnected === true ? 'Connected' : apiConnected === false ? 'Demo Mode — click to retry' : 'Connecting...'}
             </button>
             <button
               onClick={handleNewChat}
@@ -734,8 +734,8 @@ function renderInline(text) {
 }
 
 // ── Local fallback response generator ────────────────────────────────
-// Used when the API server is not available. Provides basic responses
-// so the UI remains functional.
+// Used when the API server is not available. Provides informative
+// responses about ESW capabilities so the UI remains useful.
 function generateLocalResponse(userMessage, attachedFiles) {
   const lower = userMessage.toLowerCase()
 
@@ -743,36 +743,41 @@ function generateLocalResponse(userMessage, attachedFiles) {
     const fileNames = attachedFiles.map((f) => f.name).join(', ')
     return `Thank you for uploading **${fileNames}**.
 
-I've received your documents. To analyse them with our full multi-agent system, the ESW.AI API server needs to be running.
+Our multi-agent system is currently initialising. In the meantime, please provide:
 
-**To activate the full system:**
-1. Set your \`ANTHROPIC_API_KEY\` environment variable
-2. Run \`npm run api\` to start the ESW.AI backend
-3. The system will route your documents through our specialist agents
+1. **Project location** and jurisdiction
+2. **Primary objective** — carbon credits, biodiversity net gain, regulatory compliance, or green bond structuring
+3. **Timeline and budget** parameters
 
-**In the meantime**, please describe:
-1. Your project location and jurisdiction
-2. The primary objective (carbon credits, biodiversity net gain, regulatory compliance, green bond structuring)
-3. Your timeline and budget parameters`
+Once the system is fully online, our specialist agents will analyse your documents and deliver a structured assessment.
+
+To discuss your project directly, contact us at **info@ecosystemservices.world**.`
   }
 
   if (lower.includes('carbon') || lower.includes('credit')) {
     return `## Carbon Credit Structuring
 
-This query would be routed to the **Green Financier** agent for detailed carbon credit analysis.
+ESW structures carbon credit programmes across all major voluntary and compliance markets.
 
-### Available Certification Standards
+### Certification Standards We Work With
 - **Verra VCS** — Largest voluntary market. Forestry (ARR, REDD+), wetlands, mangroves
 - **Gold Standard** — Premium pricing, strong co-benefits. Preferred by EU buyers
 - **Plan Vivo** — Community-focused. Smallholder agroforestry and landscape restoration
+- **EU ETS / Compliance** — Regulated market integration
 
-**Connect the API** (\`npm run api\`) to receive a full credit feasibility assessment with methodology recommendations, pricing estimates, and timeline projections from our Green Financier.`
+### What We Deliver
+- Methodology selection and feasibility assessment
+- Baseline surveys and additionality analysis
+- MRV system design and implementation
+- Credit issuance support and buyer matching
+
+**Contact us** at **info@ecosystemservices.world** for a project-specific credit feasibility assessment.`
   }
 
   if (lower.includes('finance') || lower.includes('capital') || lower.includes('fund') || lower.includes('bond')) {
     return `## Blended Finance Structuring
 
-This query would be routed to the **Green Financier** agent.
+ESW designs bankable capital stacks for nature-based infrastructure projects.
 
 ### Capital Stack Architecture
 - **Concessional Layer** — DFI lending (CAF, AfDB, ADB, EIB)
@@ -780,38 +785,68 @@ This query would be routed to the **Green Financier** agent.
 - **Commercial Layer** — Green bonds, sustainability-linked loans
 - **Revenue Layer** — Carbon credits, biodiversity credits, ecosystem service payments
 
-**Connect the API** (\`npm run api\`) for full financial modelling with IRR/NPV analysis, bankability assessment, and investor profiling.`
+### What We Deliver
+- IRR/NPV financial modelling
+- Bankability assessments for institutional investors
+- Green bond framework development
+- Blended finance structuring across public and private capital
+
+**Contact us** at **info@ecosystemservices.world** for a detailed financial structuring proposal.`
   }
 
-  if (lower.includes('tnfd') || lower.includes('csrd') || lower.includes('compliance') || lower.includes('disclosure')) {
+  if (lower.includes('tnfd') || lower.includes('csrd') || lower.includes('compliance') || lower.includes('disclosure') || lower.includes('regulation')) {
     return `## Regulatory Compliance
 
-This query would be routed to the **Legal Compliance** agent.
+ESW provides end-to-end compliance support across international sustainability frameworks.
 
 ### Frameworks We Cover
 - **CSRD / ESRS** — EU mandatory sustainability reporting
 - **TNFD** — Nature-related financial disclosures (LEAP approach)
 - **ISSB / IFRS S1-S2** — Global baseline for sustainability disclosures
 - **EU Taxonomy** — Sustainable investment classification
+- **Nature Restoration Law** — EU restoration targets and reporting
 
-**Connect the API** (\`npm run api\`) for jurisdiction-specific regulatory analysis, compliance mapping, and disclosure requirements.`
+### What We Deliver
+- Gap analysis against applicable frameworks
+- Disclosure-ready reporting packages
+- Materiality assessments (double materiality for CSRD)
+- Ongoing monitoring and compliance tracking
+
+**Contact us** at **info@ecosystemservices.world** for jurisdiction-specific regulatory analysis.`
   }
 
-  return `Thank you for your inquiry. ESW.AI routes queries to specialist agents:
+  if (lower.includes('biodiversity') || lower.includes('bng') || lower.includes('species') || lower.includes('ecology') || lower.includes('eia')) {
+    return `## Biodiversity & Ecological Assessment
 
-### Available Agents
-- **Eco-Scientist** — Biodiversity baselines, EIA, species risk assessment
-- **Regen-Architect** — Nature-based Solutions design, mitigation hierarchy
-- **GIS Analyst** — Spatial analysis, constraint mapping, satellite data
-- **Green Financier** — Carbon/biodiversity credits, blended finance, ROI modelling
-- **Legal Compliance** — Multi-jurisdictional law, permitting, contracts
+ESW delivers science-backed ecological assessments across all biomes and jurisdictions.
 
-### To Activate Full System
-1. Set your \`ANTHROPIC_API_KEY\` environment variable
-2. Run \`npm run api\` to start the backend
-3. The chatbot will automatically connect and route your queries
+### Services
+- **Biodiversity Net Gain (BNG)** — Metric calculation, habitat creation, 30-year management plans
+- **Environmental Impact Assessment (EIA)** — Multi-jurisdictional, from screening to mitigation
+- **Species & Habitat Surveys** — Phase 1/2 ecology, protected species, red list assessments
+- **TNFD Nature Risk Assessment** — LEAP framework implementation
 
-**Describe your project** with location, scale, and objectives for a comprehensive assessment.`
+### Biome Expertise
+Mediterranean, tropical, boreal, arid, coastal, wetland, urban
+
+**Contact us** at **info@ecosystemservices.world** for a tailored ecological assessment.`
+  }
+
+  return `## ESW — Ecosystem Services World
+
+ESW is the global authority on ecosystem services for large-scale projects. We turn environmental liabilities into bankable ecological assets.
+
+### Our Specialist Areas
+- **Ecological Assessment** — Biodiversity baselines, EIA, species surveys, TNFD reporting
+- **Nature-Based Solutions** — Restoration design, mitigation hierarchy, landscape architecture
+- **Spatial Analysis** — GIS mapping, constraint analysis, satellite data interpretation
+- **Sustainable Finance** — Carbon/biodiversity credits, green bonds, blended finance, ROI modelling
+- **Legal & Compliance** — Multi-jurisdictional environmental law, CSRD, EU Taxonomy, permitting
+
+### How It Works
+Describe your project — location, scale, and objectives — and our multi-agent system will route your query to the right specialists for a comprehensive assessment.
+
+**Contact us** at **info@ecosystemservices.world** to discuss your project directly.`
 }
 
 export default ESWChat
