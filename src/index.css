@@ -97,3 +97,17 @@ html {
 .animate-ticker {
   animation: tickerScroll 60s linear infinite;
 }
+
+/* Leaflet overrides for I-24 corridor map */
+.leaflet-container {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0;
+  box-shadow: 0 2px 8px rgba(10, 22, 40, 0.12);
+}
+
+.leaflet-popup-tip {
+  box-shadow: none;
+}

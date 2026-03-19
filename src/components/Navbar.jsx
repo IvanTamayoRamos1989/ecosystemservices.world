@@ -6,6 +6,7 @@ const navLinks = [
   { label: 'Methodology', href: '#approach' },
   { label: 'Finance', href: '#finance' },
   { label: 'Global', href: '#global' },
+  { label: 'I-24 Study', href: '#i24-study' },
 ]
 
 const tickerData = [

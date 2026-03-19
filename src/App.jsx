@@ -12,6 +12,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ImageBreak from './components/ImageBreak'
 import ESWChat from './components/ESWChat'
+import I24CorridorStudy from './components/I24CorridorStudy'
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
@@ -47,6 +48,7 @@ function App() {
       <ImageBreak imageKey="mangrove" />
       <Finance />
       <GlobalPresence />
+      <I24CorridorStudy />
       <Contact />
       <Footer />
     </div>
