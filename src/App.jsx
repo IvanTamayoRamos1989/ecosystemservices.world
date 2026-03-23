@@ -12,10 +12,12 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ImageBreak from './components/ImageBreak'
 import ESWChat from './components/ESWChat'
+import DecarbonizationTool from './components/decarb/DecarbonizationTool'
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
+  const [decarbOpen, setDecarbOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -28,6 +30,16 @@ function App() {
     window.addEventListener('open-esw-ai', handleOpenChat)
     return () => window.removeEventListener('open-esw-ai', handleOpenChat)
   }, [])
+
+  useEffect(() => {
+    const handleOpenDecarb = () => setDecarbOpen(true)
+    window.addEventListener('open-decarb-tool', handleOpenDecarb)
+    return () => window.removeEventListener('open-decarb-tool', handleOpenDecarb)
+  }, [])
+
+  if (decarbOpen) {
+    return <DecarbonizationTool onClose={() => setDecarbOpen(false)} />
+  }
 
   if (chatOpen) {
     return <ESWChat onClose={() => setChatOpen(false)} />

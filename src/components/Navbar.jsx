@@ -71,6 +71,12 @@ function Navbar({ scrolled }) {
               Contact
             </a>
             <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-decarb-tool'))}
+              className="text-label uppercase px-5 py-2 border border-navy text-navy hover:bg-navy-50 transition-all duration-200"
+            >
+              Decarb Tool
+            </button>
+            <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-esw-ai'))}
               className="text-label uppercase px-5 py-2 bg-navy text-white hover:bg-navy-800 transition-all duration-200"
             >
@@ -116,8 +122,14 @@ function Navbar({ scrolled }) {
             Contact
           </a>
           <button
+            onClick={() => { setMenuOpen(false); window.dispatchEvent(new CustomEvent('open-decarb-tool')) }}
+            className="block w-full mt-4 text-label uppercase text-center px-5 py-3 border border-navy text-navy"
+          >
+            Decarb Tool
+          </button>
+          <button
             onClick={() => { setMenuOpen(false); window.dispatchEvent(new CustomEvent('open-esw-ai')) }}
-            className="block w-full mt-4 text-label uppercase text-center px-5 py-3 bg-navy text-white"
+            className="block w-full mt-2 text-label uppercase text-center px-5 py-3 bg-navy text-white"
           >
             ESW.AI
           </button>
