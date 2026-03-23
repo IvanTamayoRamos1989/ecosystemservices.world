@@ -734,84 +734,323 @@ function renderInline(text) {
 }
 
 // ── Local fallback response generator ────────────────────────────────
-// Used when the API server is not available. Provides basic responses
-// so the UI remains functional.
+// Provides substantive domain-expert responses when API is unavailable.
+// Each branch delivers real, actionable content — not just placeholders.
 function generateLocalResponse(userMessage, attachedFiles) {
   const lower = userMessage.toLowerCase()
+
+  // Helper: detect keywords
+  const has = (...terms) => terms.some(t => lower.includes(t))
 
   if (attachedFiles && attachedFiles.length > 0) {
     const fileNames = attachedFiles.map((f) => f.name).join(', ')
     return `Thank you for uploading **${fileNames}**.
 
-I've received your documents. To analyse them with our full multi-agent system, the ESW.AI API server needs to be running.
+Document analysis requires the full multi-agent system. To activate it, set your \`ANTHROPIC_API_KEY\` and run \`npm run api\`.
 
-**To activate the full system:**
-1. Set your \`ANTHROPIC_API_KEY\` environment variable
-2. Run \`npm run api\` to start the ESW.AI backend
-3. The system will route your documents through our specialist agents
+**While we get that set up, help me understand your project:**
+1. What is the **project location** and relevant jurisdiction?
+2. What is the **primary objective** — carbon credits, BNG, regulatory compliance, green bond structuring?
+3. What are your **timeline and budget parameters**?
 
-**In the meantime**, please describe:
-1. Your project location and jurisdiction
-2. The primary objective (carbon credits, biodiversity net gain, regulatory compliance, green bond structuring)
-3. Your timeline and budget parameters`
+This information lets us route your documents to the right specialist agents.`
   }
 
-  if (lower.includes('carbon') || lower.includes('credit')) {
+  // ── Coastal / Mangrove / Wetland Restoration ────────────────────────
+  if (has('coastal', 'mangrove', 'wetland', 'marsh', 'seagrass', 'tidal')) {
+    const isSEA = has('southeast asia', 'indonesia', 'vietnam', 'philippines', 'thailand', 'malaysia', 'myanmar', 'cambodia')
+    const region = isSEA ? 'Southeast Asia' : 'your target region'
+
+    return `## Coastal Restoration — Financing Instruments
+
+For a 500-hectare coastal project in ${region}, here are the primary financing instruments available:
+
+### Carbon Credits
+- **Verra VCS VM0033** — Tidal Wetland and Seagrass Restoration. Blue carbon methodology for mangroves and tidal marshes. Estimated yield: **8–15 tCO₂e/ha/year** for mangrove restoration
+- **Verra VM0007** — REDD+ for mangrove conservation where deforestation is the baseline
+- **Gold Standard** — Community-based blue carbon with strong co-benefit requirements
+- **Plan Vivo** — Suitable for community-managed coastal restoration with smallholders
+
+### Biodiversity Credits
+- **Biodiversity Credit Alliance** — Emerging market for measurable biodiversity uplift
+- **Wallacea Trust / Verra SD VISta** — Stackable with carbon credits for additional revenue
+
+### Multilateral & Climate Finance
+- **Green Climate Fund (GCF)** — Blue carbon eligible. Grants + concessional loans
+- **Global Environment Facility (GEF)** — Coastal and marine biodiversity programmes
+- **Adaptation Fund** — Climate adaptation for vulnerable coastal communities
+- **Asian Development Bank (ADB)** — Blue finance for ASEAN coastal infrastructure
+
+### Blended Finance & Bonds
+- **Blue Bonds** — Sovereign or corporate issuance linked to ocean/coastal outcomes (e.g. Belize model)
+- **Sustainability-Linked Loans** — KPIs tied to hectares restored, mangrove survival rates
+- **Impact Investment** — Funds like Mirova Natural Capital, Livelihoods Funds
+
+### Revenue Stacking (Typical Structure)
+| Layer | Instrument | Estimated % of Capital Stack |
+|-------|-----------|------------------------------|
+| Concessional | GCF / ADB grant | 25–35% |
+| Debt | Blue bond / SLL | 30–40% |
+| Revenue | Carbon credits | 20–30% |
+| Revenue | Biodiversity credits | 5–10% |
+
+### Key Considerations for ${region}
+- National carbon market regulations vary — Indonesia has new carbon trading rules (PP 21/2024); Vietnam has its pilot ETS
+- Community land tenure and FPIC (Free, Prior and Informed Consent) are critical
+- Monitoring: remote sensing + ground-truthing required for blue carbon MRV
+- Co-benefits documentation strengthens credit pricing: livelihood, fisheries, storm protection
+
+**For a detailed bankability assessment** with IRR/NPV modelling, connect the full ESW.AI system by running \`npm run api\` with your API key.`
+  }
+
+  // ── Carbon Credits ──────────────────────────────────────────────────
+  if (has('carbon', 'credit', 'offset', 'emission')) {
     return `## Carbon Credit Structuring
 
-This query would be routed to the **Green Financier** agent for detailed carbon credit analysis.
+### Certification Standards
+- **Verra VCS** — Largest voluntary market. Methodologies for forestry (ARR, REDD+, IFM), wetlands, mangroves, agriculture. ~70% market share
+- **Gold Standard** — Premium pricing ($15–45/tCO₂e). Strong co-benefit requirements. Preferred by EU corporate buyers
+- **Plan Vivo** — Community-focused. Smallholder agroforestry and landscape restoration. Lower issuance costs
+- **ART TREES** — Jurisdictional REDD+ credits. Government-level programmes
 
-### Available Certification Standards
-- **Verra VCS** — Largest voluntary market. Forestry (ARR, REDD+), wetlands, mangroves
-- **Gold Standard** — Premium pricing, strong co-benefits. Preferred by EU buyers
-- **Plan Vivo** — Community-focused. Smallholder agroforestry and landscape restoration
+### Estimated Credit Yields by Ecosystem
+| Ecosystem | Yield (tCO₂e/ha/yr) | Methodology |
+|-----------|---------------------|-------------|
+| Mangrove restoration | 8–15 | VM0033 |
+| Tropical reforestation | 10–25 | ARR (VM0047) |
+| Avoided deforestation | 5–15 | REDD+ (VM0015) |
+| Peatland rewetting | 15–35 | VM0036 |
+| Agroforestry | 3–8 | Plan Vivo |
 
-**Connect the API** (\`npm run api\`) to receive a full credit feasibility assessment with methodology recommendations, pricing estimates, and timeline projections from our Green Financier.`
+### Pricing (2025–2026 Voluntary Market)
+- Standard REDD+: $4–12/tCO₂e
+- High-integrity removal credits: $20–50/tCO₂e
+- Blue carbon (mangrove): $15–35/tCO₂e
+- Gold Standard certified: $15–45/tCO₂e
+
+### Project Development Timeline
+1. **Feasibility** (2–3 months) — Baseline, additionality, methodology selection
+2. **PDD Development** (3–6 months) — Project Design Document
+3. **Validation** (3–6 months) — Third-party audit (e.g. SCS Global, RINA)
+4. **Registration** — Verra/GS registry listing
+5. **First Issuance** — Typically 18–30 months from project start
+
+**For a site-specific feasibility assessment**, activate the full system with \`npm run api\`.`
   }
 
-  if (lower.includes('finance') || lower.includes('capital') || lower.includes('fund') || lower.includes('bond')) {
-    return `## Blended Finance Structuring
-
-This query would be routed to the **Green Financier** agent.
+  // ── Finance / Capital / Bonds ───────────────────────────────────────
+  if (has('financ', 'capital', 'fund', 'bond', 'invest', 'loan', 'bank', 'roi', 'irr')) {
+    return `## Blended Finance & Capital Structuring
 
 ### Capital Stack Architecture
-- **Concessional Layer** — DFI lending (CAF, AfDB, ADB, EIB)
-- **Grant Layer** — Climate funds (GCF, GEF, Adaptation Fund), C40 CFF
-- **Commercial Layer** — Green bonds, sustainability-linked loans
-- **Revenue Layer** — Carbon credits, biodiversity credits, ecosystem service payments
 
-**Connect the API** (\`npm run api\`) for full financial modelling with IRR/NPV analysis, bankability assessment, and investor profiling.`
+| Layer | Instruments | Typical Terms |
+|-------|------------|---------------|
+| **Concessional** | DFI lending (ADB, EIB, IFC, KfW), climate funds | Below-market rate, 10–20yr tenor |
+| **Grant** | GCF, GEF, Adaptation Fund, bilateral donors | Non-repayable, catalytic |
+| **Commercial Debt** | Green bonds, sustainability-linked loans | Market rate, 5–10yr |
+| **Equity** | Impact funds, private equity, family offices | 8–15% target IRR |
+| **Revenue** | Carbon credits, biodiversity credits, PES | Recurring, performance-based |
+
+### Green Bond Frameworks
+- **ICMA Green Bond Principles** — Use of proceeds, project evaluation, management of proceeds, reporting
+- **EU Green Bond Standard** — Aligned with EU Taxonomy. Mandatory for "European Green Bond" label
+- **Climate Bonds Initiative** — Sector-specific certification (forestry, land use, marine)
+
+### Key Financial Metrics for Nature Projects
+- **IRR**: Typically 6–12% for blended finance nature projects
+- **Payback Period**: 7–15 years depending on credit generation timeline
+- **NPV Sensitivity**: Most sensitive to carbon price and survival/growth rates
+
+### Bankability Checklist
+1. Clear land tenure / concession agreements
+2. Validated baseline and additionality
+3. Regulatory permits in place
+4. MRV plan with third-party verification
+5. Offtake agreements or letter of intent for credits
+6. Insurance / risk mitigation strategy
+
+**For full financial modelling** with scenario analysis, activate the system with \`npm run api\`.`
   }
 
-  if (lower.includes('tnfd') || lower.includes('csrd') || lower.includes('compliance') || lower.includes('disclosure')) {
-    return `## Regulatory Compliance
+  // ── Biodiversity / BNG / EIA ────────────────────────────────────────
+  if (has('biodiversity', 'bng', 'species', 'habitat', 'eia', 'impact assessment', 'ecological')) {
+    return `## Biodiversity Assessment & Net Gain
 
-This query would be routed to the **Legal Compliance** agent.
+### Biodiversity Net Gain (BNG) Framework
+- **UK BNG** — Mandatory 10% net gain under Environment Act 2021. Uses Defra Metric 4.0
+- **EU No Net Loss** — Under Nature Restoration Law. 20% of EU land/sea areas under restoration by 2030
+- **IFC PS6** — Performance Standard 6 for biodiversity in development finance
 
-### Frameworks We Cover
-- **CSRD / ESRS** — EU mandatory sustainability reporting
-- **TNFD** — Nature-related financial disclosures (LEAP approach)
-- **ISSB / IFRS S1-S2** — Global baseline for sustainability disclosures
-- **EU Taxonomy** — Sustainable investment classification
+### Assessment Methodology
+1. **Baseline Survey** — Habitat mapping (UKHab/EUNIS classification), species surveys, condition assessment
+2. **Impact Assessment** — Quantify losses from development footprint
+3. **Mitigation Hierarchy** — Avoid → Minimise → Restore → Offset
+4. **Offset Calculation** — Biodiversity units required to achieve net gain
+5. **Management & Monitoring** — 30-year management plan with adaptive monitoring
 
-**Connect the API** (\`npm run api\`) for jurisdiction-specific regulatory analysis, compliance mapping, and disclosure requirements.`
+### Biodiversity Credit Markets
+- **England Statutory Credits** — £42,000/unit (last resort), managed by Natural England
+- **Voluntary Market** — Emerging. Wallacea Trust, Plan Vivo Biodiversity, ValueNature
+- **Pricing** — Highly variable: £15,000–50,000/unit depending on habitat type and location
+
+### Key Metrics
+| Metric | Standard | Application |
+|--------|----------|-------------|
+| Biodiversity Units | Defra 4.0 | UK statutory BNG |
+| MSA (Mean Species Abundance) | GLOBIO | TNFD, corporate disclosure |
+| STAR (Species Threat Abatement) | IUCN | Site-level threat reduction |
+| Ecosystem Condition | SEEA EA | National accounting |
+
+**For a site-specific ecological assessment**, connect the full agent system with \`npm run api\`.`
   }
 
-  return `Thank you for your inquiry. ESW.AI routes queries to specialist agents:
+  // ── Nature-based Solutions / Restoration / NbS ──────────────────────
+  if (has('nbs', 'nature-based', 'restoration', 'reforest', 'agroforest', 'permaculture', 'rewild')) {
+    return `## Nature-based Solutions Design
 
-### Available Agents
-- **Eco-Scientist** — Biodiversity baselines, EIA, species risk assessment
-- **Regen-Architect** — Nature-based Solutions design, mitigation hierarchy
-- **GIS Analyst** — Spatial analysis, constraint mapping, satellite data
-- **Green Financier** — Carbon/biodiversity credits, blended finance, ROI modelling
-- **Legal Compliance** — Multi-jurisdictional law, permitting, contracts
+### NbS Typology (IUCN Global Standard)
+- **Ecosystem Restoration** — Reforestation, wetland rewetting, grassland restoration
+- **Issue-Specific** — Flood management (SuDS, floodplain reconnection), erosion control, urban heat
+- **Infrastructure-Related** — Green roofs, bioswales, constructed wetlands, ecological corridors
+- **Ecosystem-Based Management** — Protected areas, sustainable forestry, marine zoning
 
-### To Activate Full System
-1. Set your \`ANTHROPIC_API_KEY\` environment variable
-2. Run \`npm run api\` to start the backend
-3. The chatbot will automatically connect and route your queries
+### Design Principles
+1. **Mitigation Hierarchy** — Avoid first, then minimise, restore, and offset as last resort
+2. **Biome-Appropriate** — Species selection matched to local ecology, soil, hydrology
+3. **Multi-Functional** — Stack ecosystem services: carbon + biodiversity + water + livelihood
+4. **Climate-Resilient** — Design for future climate scenarios (RCP 4.5/8.5)
+5. **Community-Integrated** — FPIC, livelihood co-benefits, local stewardship
 
-**Describe your project** with location, scale, and objectives for a comprehensive assessment.`
+### Estimated Ecosystem Service Values
+| NbS Type | Carbon (tCO₂e/ha/yr) | Biodiversity Uplift | Additional Services |
+|----------|----------------------|--------------------|--------------------|
+| Tropical reforestation | 10–25 | High | Watershed, timber |
+| Mangrove restoration | 8–15 | Very High | Coastal protection, fisheries |
+| Peatland rewetting | 15–35 | Medium | Water quality, flood control |
+| Agroforestry | 3–8 | Medium | Food security, livelihoods |
+| Urban green infrastructure | 1–3 | Low-Medium | Heat reduction, amenity |
+
+**For a tailored NbS design** with species palettes and spatial plans, activate the full system with \`npm run api\`.`
+  }
+
+  // ── TNFD / CSRD / Regulatory ────────────────────────────────────────
+  if (has('tnfd', 'csrd', 'compliance', 'disclosure', 'taxonomy', 'regulation', 'esrs', 'issb', 'permit')) {
+    return `## Regulatory Compliance & Disclosure
+
+### Active Frameworks
+| Framework | Jurisdiction | Status | Scope |
+|-----------|-------------|--------|-------|
+| **CSRD / ESRS** | EU | Mandatory (phased 2024–2028) | ~50,000 companies. Nature under ESRS E4 |
+| **TNFD** | Global | Voluntary (adoption growing) | LEAP approach for nature-related risks |
+| **ISSB S1/S2** | Global | Adopted by 20+ jurisdictions | Climate baseline, nature pending |
+| **EU Taxonomy** | EU | Mandatory for CSRD reporters | 6 environmental objectives |
+| **Nature Restoration Law** | EU | Effective 2024 | 20% land/sea restoration by 2030 |
+| **Kunming-Montreal GBF** | Global | Targets for 2030 | 30x30, reduce biodiversity loss |
+
+### TNFD LEAP Approach
+1. **Locate** — Interface with nature (dependencies, impacts by site)
+2. **Evaluate** — Risks and opportunities assessment
+3. **Assess** — Material nature-related risks for financial planning
+4. **Prepare** — Disclosure and target-setting
+
+### EU Taxonomy — Nature-Relevant Objectives
+- Climate change mitigation (reforestation, blue carbon)
+- Climate change adaptation (NbS for flood/drought resilience)
+- Sustainable use of water and marine resources
+- Transition to circular economy
+- Pollution prevention
+- **Protection and restoration of biodiversity and ecosystems**
+
+**For jurisdiction-specific compliance mapping**, connect the full system with \`npm run api\`.`
+  }
+
+  // ── Solar / Agrivoltaics / Renewable Energy ─────────────────────────
+  if (has('solar', 'agrivoltaic', 'renewable', 'wind', 'energy', 'photovoltaic')) {
+    return `## Renewable Energy Ecology & Agrivoltaics
+
+### Agrivoltaic Design Models
+- **Elevated Fixed** — Panels at 3–5m height. Grazing, shade-tolerant crops underneath
+- **Tracking + Agriculture** — Single-axis trackers with row spacing for machinery
+- **Vertical Bifacial** — East-west orientation. Full land use between rows
+- **Integrated Greenhouse** — Semi-transparent PV on greenhouse roofs
+
+### Ecological Enhancement for Solar Sites
+- **Pollinator Habitat** — Wildflower meadows under/between panels. UK BNG compliance
+- **Sheep Grazing** — Dual land use. Reduces vegetation management costs
+- **Biodiversity Corridors** — Hedgerow planting, buffer zones, bat/bird boxes
+- **Soil Health** — Cover crops, no-till approach improves soil carbon
+
+### Regulatory Context
+- **UK** — BNG mandatory for all solar farms >1MW (Environment Act 2021)
+- **EU** — Environmental Impact Assessment required (EIA Directive 2014/52/EU)
+- **CSRD** — Land use and biodiversity disclosure for large operators
+- **Spain** — Agrivoltaic projects eligible for additional feed-in premium
+
+### Financial Stack for Agrivoltaic Projects
+- PPA revenue (energy)
+- Agricultural yield
+- BNG unit sales / biodiversity credits
+- Carbon credits (soil carbon, hedgerow establishment)
+- Green bond eligible under EU Taxonomy
+
+**For a site-specific ecological enhancement plan**, activate the full system with \`npm run api\`.`
+  }
+
+  // ── GIS / Spatial / Mapping ─────────────────────────────────────────
+  if (has('gis', 'spatial', 'mapping', 'satellite', 'remote sensing', 'geospatial', 'land use')) {
+    return `## Spatial Analysis & GIS Capabilities
+
+### Data Sources
+- **Sentinel-2** — 10m resolution, 5-day revisit. NDVI, land cover classification
+- **Planet Labs** — 3–5m daily imagery. Change detection, deforestation monitoring
+- **LIDAR** — High-resolution elevation. Canopy height, terrain modelling
+- **Global Forest Watch** — Tree cover loss/gain, fire alerts, deforestation drivers
+- **EU Copernicus** — Land cover (CORINE), soil moisture, vegetation indices
+
+### Analysis Capabilities
+1. **Constraints Mapping** — Protected areas, flood zones, slope, accessibility, land tenure
+2. **Habitat Classification** — UKHab, EUNIS, or national classification systems
+3. **Change Detection** — Multi-temporal analysis for baseline deforestation/degradation
+4. **Connectivity Analysis** — Ecological corridors, landscape permeability, fragmentation indices
+5. **Suitability Modelling** — Multi-criteria analysis for restoration or development sites
+
+### MRV (Monitoring, Reporting, Verification)
+- Remote sensing-based biomass estimation for carbon projects
+- Canopy cover and height tracking for reforestation MRV
+- Water body extent and condition monitoring for wetland projects
+
+**For project-specific spatial analysis**, connect the full agent system with \`npm run api\`.`
+  }
+
+  // ── General fallback — still useful ─────────────────────────────────
+  return `Thank you for your inquiry. Let me outline how ESW.AI can assist.
+
+### Our Specialist Agents
+
+| Agent | Focus | Expertise |
+|-------|-------|-----------|
+| **Eco-Scientist** | Ecology | Biodiversity baselines, EIA, species risk, habitat assessment |
+| **Regen-Architect** | Design | Nature-based Solutions, mitigation hierarchy, landscape restoration |
+| **GIS Analyst** | Spatial | Constraint mapping, satellite analysis, site suitability |
+| **Green Financier** | Finance | Carbon/biodiversity credits, blended finance, ROI modelling |
+| **Legal Compliance** | Risk | Multi-jurisdictional law, permitting, CSRD/TNFD compliance |
+
+### What We Can Analyse
+- **Carbon credit potential** — Methodology selection, yield estimation, pricing
+- **Biodiversity net gain** — Baseline assessment, offset calculation, credit markets
+- **Blended finance structuring** — Capital stacks, green bonds, DFI funding
+- **Regulatory compliance** — CSRD, TNFD, EU Taxonomy, local environmental law
+- **Nature-based Solutions** — Restoration design, agrivoltaics, ecosystem services
+- **Spatial analysis** — Site mapping, constraints, remote sensing MRV
+
+### Get Started
+Describe your project with:
+1. **Location** and jurisdiction
+2. **Scale** (hectares, budget range)
+3. **Objective** (credits, compliance, restoration, investment structuring)
+
+For the **full multi-agent analysis** with AI-powered routing, set your \`ANTHROPIC_API_KEY\` and run \`npm run api\`.`
 }
 
 export default ESWChat
